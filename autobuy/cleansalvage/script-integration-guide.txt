@@ -1,0 +1,12 @@
+Template is compatible with our scripts:
+https://codecanyon.net/item/real-estate-agency-portal/6539169
+https://codecanyon.net/item/classifieds-multipurpose-portal-infinity-market/16572285
+https://codecanyon.net/item/city-guide-directory-portal/15315828
+
+Download archive: http://geniuscript.com/worlddealer/wscript-integration.zip
+
+Guide:
+Install script
+extract archive into templates folder
+Change template in Admin->Settings->Templates to worlddealer
+
