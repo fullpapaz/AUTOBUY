@@ -621,100 +621,62 @@
       <div class="widget widget-recentproperties">
        <div class="widget-content properties-grid">
         <div class="row">
-          {% for item in search %}
-         <div class="col-md-3 col-sm-6">
-          <div class="thumbnail thumbnail-property features">
-           <div class="property-image">
-             {% for i in item.image.all %}
-            {% if forloop.first %}
-            <img alt="car" src="{% get_media_prefix %}{{i.image}}"/>
-            {% endif %}
-            {% endfor %}
-            <div class="image-count">
-             <i class="icon-image">
-             </i>
+         {% for item in search %}
+        <div class="col-md-3 col-sm-6">
+         <div class="thumbnail thumbnail-property features">
+          <div class="property-image">
+           <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
+           <div class="image-count">
+            <i class="icon-image">
+            </i>
+            <span>
+             2
+            </span>
+           </div>
+           <div class="budget budget-used">
+            <div class="budget-mask">
              <span>
-              {{item.image.all.count}}
+              Used
              </span>
             </div>
-            <div class="budget budget-used">
-             <div class="budget-mask">
-              <span>
-               {{item.use_state}}
-              </span>
-             </div>
-            </div>
-            <a class="property-image-hover" href="listing.html">
-             <span class="property-im-m property-im-m-lt">
-             </span>
-             <span class="property-im-m property-im-m-lb">
-             </span>
-             <span class="property-im-m property-im-m-rt">
-             </span>
-             <span class="property-im-m property-im-m-rb">
-             </span>
+           </div>
+           <a class="property-image-hover" href="listing.html">
+            <span class="property-im-m property-im-m-lt">
+            </span>
+            <span class="property-im-m property-im-m-lb">
+            </span>
+            <span class="property-im-m property-im-m-rt">
+            </span>
+            <span class="property-im-m property-im-m-rb">
+            </span>
+           </a>
+          </div>
+          <div class="caption">
+           <div class="anchor">
+            <a class="" href="#">
+             <i class="fa fa-bookmark">
+             </i>
             </a>
            </div>
-           <script>
-        /* When the user clicks on the button,
-        toggle between hiding and showing the dropdown content */
-        function {{item.slug}}bookmark () {
-          var value=document.getElementById("btitle").value;
-          var value_2=document.getElementById("bcategory").value;
-          var value_3=document.getElementById("bpower").value;
-          var value_4=document.getElementById("bspeed").value;
-          var value_5=document.getElementById("bmodel").value;
-          var value_6=document.getElementById("bmodel_year").value;
-          var value_7=document.getElementById("btransmission").value;
-          var value_8=document.getElementById("bfuel_type").value;
-          var value_9=document.getElementById("bimage").value;
-          var value_10=document.getElementById("bcondition").value;
-          var value_11=document.getElementById("buse_state").value;
-          var value_12=document.getElementById("bprice").value;
-
-          var paid="three";
-          var queryString = "?third_check=" +paid  + "&title=" + value + "&category=" + value_2 + "&power=" + value_3 + "&speed=" + value_4 + "&model=" + value_5 + "&model_year=" + value_6 + "&transmission=" + value_7 + "&fuel_type=" + value_8 + "&image=" + value_9 + "&condition=" + value_10 + "&use_state=" + value_11 + "&price=" + value_12;
-          window.location.href="search" + queryString;
-        }
-        </script>
-           <div class="caption">
-             <input type="hidden" id="btitle" value="{{item.title}}"/>
-             <input type="hidden" id="bcategory" value="{{item.category}}"/>
-             <input type="hidden" id="bpower" value="{{item.power}}"/>
-             <input type="hidden" id="bspeed" value="{{item.speed}}"/>
-             <input type="hidden" id="bmodel" value="{{item.model}}"/>
-             <input type="hidden" id="bmodel_year" value="{{item.model_year}}"/>
-             <input type="hidden" id="btransmission" value="{{item.transmission}}"/>
-             <input type="hidden" id="bfuel_type" value="{{item.fuel_type}}"/>
-             <input type="hidden" id="bimage" value="{{item.image.url}}"/>
-             <input type="hidden" id="bcondition" value="{{item.condition}}"/>
-             <input type="hidden" id="buse_state" value="{{item.use_state}}"/>
-             <input type="hidden" id="bprice" value="{{item.price}}"/>
-            <div class="anchor">
-              <a class="" onclick="{{item.slug}}bookmark()">
-               <i class="fa fa-bookmark">
-               </i>
-              </a>
-            </div>
-            <h3 class="property-title">
-             <a href="listing.html">
-              {{item.title}}
-             </a>
-            </h3>
-            <p class="property-description">
-             {{item.model_year}}. g. {{item.speed}} km, {{item.power}}kW/90KS
-            </p>
-            <span class="property-field">
-             {{item.speed}} km
-            </span>
-            <div class="property-ratings">
-             <i class="icon-star-ratings-1">
-             </i>
-            </div>
+           <h3 class="property-title">
+            <a href="listing.html">
+             Fast car 1,6 TDI DSG
+            </a>
+           </h3>
+           <p class="property-description">
+            2014. g. 39.138 km, 66kW/90KS
+           </p>
+           <span class="property-field">
+            114.630 km
+           </span>
+           <div class="property-ratings">
+            <i class="icon-star-ratings-1">
+            </i>
            </div>
           </div>
          </div>
-         {% endfor %}
+        </div>
+        {% endfor %}
         </div>
         <nav aria-label="Page navigation" class="text-center">
          <ul class="pagination">

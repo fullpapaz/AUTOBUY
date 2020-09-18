@@ -38,589 +38,577 @@
   <link href="{% static 'assets/libraries/nouislider/nouislider.css' %}" rel="stylesheet"/>
  </head>
  <body>
-  <header class="header container container-palette affix-menu">
-   <div class="top-bar color-primary">
-    <div class="&lt;!--container--&gt;">
-     <div class="top-bar-left">
-      <div class="top-bar-body">
-       <a class="logo" href="index.html">
-        <img alt="" src="{% static 'assets/img/placeholders/60x60.png' %}"/>
-       </a>
-       <h1 class="website-title">
-        <a data-hover="World Dealer" href="index.html">
-         World Dealer
+   <header class="header container container-palette affix-menu">
+    <div class="top-bar color-primary">
+     <div class="&lt;!--container--&gt;">
+      <div class="top-bar-left">
+       <div class="top-bar-body">
+        <a class="logo" href="index.html">
+         <img alt="" src="{% static 'assets/img/logo.png' %}"/>
         </a>
-       </h1>
-      </div>
-      <div class="skew-block">
-      </div>
-     </div>
-     <div class="top-bar-right search-form-middle-phone hidden">
-      <div class="skew-block">
-      </div>
-      <div class="search-form-mini closed">
-       <a class="search" href="#">
-        <i class="fa fa-search">
-        </i>
-       </a>
-       <input placeholder="Search" type="text"/>
-       <a class="close" href="#">
-        <i class="fa fa-remove">
-        </i>
-       </a>
-      </div>
-      <a class="search-btn search-form-mini-open" href="#">
-      </a>
-     </div>
-     <div class="sub-top-bar sub-top-bar-mobile visible-xs-block">
-      <div class="&lt;!--container--&gt;">
-       <div class="block block-black block-left-up">
-        <a class="btn-custom vert-line-l-r vert-line-orange link-effect-1" data-hover="Submint Listing" href="mylistings.html">
-         Submint Listing
-        </a>
-        <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Register" href="login.html">
-         Register
-        </a>
-        <button class="navbar-toggle" id="toggle-mainmenu" type="button">
-         <span class="sr-only">
-          Toggle navigation
-         </span>
-         <span class="icon-bar">
-         </span>
-         <span class="icon-bar">
-         </span>
-         <span class="icon-bar">
-         </span>
-        </button>
-        <div class="search-btn-box vert-line-l-r vert-line-orange">
-         <a class="search-btn" href="#">
+        <h1 class="website-title">
+         <a data-hover="Autobuy" href="index.html">
+          Autobuy
          </a>
-        </div>
-        <div class="lang-manu dropdown">
-         <button class="btn dropdown-toggle" data-toggle="dropdown" type="button">
-          <img alt="" src="{% static 'assets/img/flags/en.png' %}"/>
-          <span>
-           EN
-          </span>
-          <span class="caret">
-          </span>
-         </button>
-         <ul class="dropdown-menu">
-          <li>
-           <a class="dropdown-item" href="#">
-            <img alt="" src="{% static 'assets/img/flags/en.png' %}"/>
-            EN
-           </a>
-          </li>
-          <li>
-           <a class="dropdown-item" href="#">
-            <img alt="" src="{% static 'assets/img/flags/hr.png' %}"/>
-            HR
-           </a>
-          </li>
-          <li>
-           <a class="dropdown-item" href="listing_rtl.html">
-            <img alt="" src="{% static 'assets/img/flags/ae.png' %}"/>
-            AE
-           </a>
-          </li>
-         </ul>
-        </div>
-        <!-- /.lang menu -->
+        </h1>
+       </div>
+       <div class="skew-block">
        </div>
       </div>
-     </div>
-     <div class="search-form-mini-phone hidden-sm">
-      <div>
-       <a class="search" href="#">
-        <i class="fa fa-search">
-        </i>
-       </a>
-       <input placeholder="Search" type="text"/>
-       <a class="close" href="#">
-        <i class="fa fa-remove">
-        </i>
+      <div class="top-bar-right search-form-middle-phone hidden">
+       <div class="skew-block">
+       </div>
+       <div class="search-form-mini closed">
+        <a class="search" href="#">
+         <i class="fa fa-search">
+         </i>
+        </a>
+        <input placeholder="Search" type="text"/>
+        <a class="close" href="#">
+         <i class="fa fa-remove">
+         </i>
+        </a>
+       </div>
+       <a class="search-btn search-form-mini-open" href="#">
        </a>
       </div>
-     </div>
-     <div class="top-bar-center">
-      <nav class="navbar mainmenu">
-       <div class="container-fluid">
-        <ul class="nav navbar-nav">
-         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-           Slider
+      <div class="sub-top-bar sub-top-bar-mobile visible-xs-block">
+       <div class="&lt;!--container--&gt;">
+        <div class="block block-black block-left-up">
+         <a class="btn-custom vert-line-l-r vert-line-orange link-effect-1" data-hover="Submit Listing" href="mylistings.html">
+          Submit Listing
+         </a>
+         <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Register" href="login.html">
+          Register
+         </a>
+         <button class="navbar-toggle" id="toggle-mainmenu" type="button">
+          <span class="sr-only">
+           Toggle navigation
+          </span>
+          <span class="icon-bar">
+          </span>
+          <span class="icon-bar">
+          </span>
+          <span class="icon-bar">
+          </span>
+         </button>
+         <div class="search-btn-box vert-line-l-r vert-line-orange">
+          <a class="search-btn" href="#">
+          </a>
+         </div>
+         <div class="lang-manu dropdown">
+          <button class="btn dropdown-toggle" data-toggle="dropdown" type="button">
+           <img alt="" src="{% static 'assets/img/flags/en.png' %}"/>
+           <span>
+            EN
+           </span>
            <span class="caret">
            </span>
-          </a>
+          </button>
           <ul class="dropdown-menu">
            <li>
-            <a href="slider_standard.html">
-             Standard
+            <a class="dropdown-item" href="#">
+             <img alt="" src="{% static 'assets/img/flags/en.png' %}"/>
+             EN
             </a>
            </li>
            <li>
-            <a href="homepage_video.html">
-             Video
-            </a>
-           </li>
-           <li>
-            <a href="slider_full-screen.html">
-             Full Screen
+            <a class="dropdown-item" href="#">
+             <img alt="" src="{% static 'assets/img/flags/hr.png' %}"/>
+             HR
             </a>
            </li>
           </ul>
-         </li>
-         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-           Map
-           <span class="caret">
-           </span>
-          </a>
-          <ul class="dropdown-menu">
-           <li>
-            <a href="index_map.html">
-             Grid results
-            </a>
-           </li>
-           <li>
-            <a href="index_list.html">
-             List result
-            </a>
-           </li>
-           <li>
-            <a href="map_side.html">
-             Side version
-            </a>
-           </li>
-           <li>
-            <a href="map_geo.html">
-             Geo regions
-            </a>
-           </li>
-          </ul>
-         </li>
-         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-           Categories
-           <span class="caret">
-           </span>
-          </a>
-          <ul class="dropdown-menu">
-           <li>
-            <a href="homepage-realestates.html">
-             Real Estate
-            </a>
-           </li>
-           <li>
-            <a href="homepage-yacht-market.html">
-             Yacht Market
-            </a>
-           </li>
-           <li>
-            <a href="homepage-cars.html">
-             Car Dealer
-            </a>
-           </li>
-           <li>
-            <a href="homepage-jobs.html">
-             Job Finder
-            </a>
-           </li>
-           <li>
-            <a href="map_business.html">
-             Business Directory
-            </a>
-           </li>
-           <li>
-            <a href="homepage_classified.html">
-             Classified Portal
-            </a>
-           </li>
-           <li>
-            <a href="homepage-shop.html">
-             Basic shop
-            </a>
-           </li>
-          </ul>
-         </li>
-         <li class="nav-item dropdown dropdown-mega">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-           Featured
-          </a>
-          <div class="dropdown-menu dropdown-menu-property">
-           <div class="container">
-            <div class="widget-content properties-grid">
-             <div class="row">
-              <div class="col-md-3 col-sm-6">
-               <div class="thumbnail thumbnail-property features">
-                <div class="property-image">
-                 <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-                 <div class="image-count">
-                  <i class="icon-image">
-                  </i>
-                  <span>
-                   2
-                  </span>
-                 </div>
-                 <div class="budget budget-used">
-                  <div class="budget-mask">
+         </div>
+         <!-- /.lang menu -->
+        </div>
+       </div>
+      </div>
+      <div class="search-form-mini-phone hidden-sm">
+       <div>
+        <a class="search" href="#">
+         <i class="fa fa-search">
+         </i>
+        </a>
+        <input placeholder="Search" type="text"/>
+        <a class="close" href="#">
+         <i class="fa fa-remove">
+         </i>
+        </a>
+       </div>
+      </div>
+      <div class="top-bar-center">
+       <nav class="navbar mainmenu">
+        <div class="container-fluid">
+         <ul class="nav navbar-nav">
+          <li class="dropdown active">
+           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Slider
+            <span class="caret">
+            </span>
+           </a>
+           <ul class="dropdown-menu">
+            <li>
+             <a href="slider_standard.html">
+              Standard
+             </a>
+            </li>
+            <li class="active">
+             <a href="homepage_video.html">
+              Video
+             </a>
+            </li>
+            <li>
+             <a href="slider_full-screen.html">
+              Full Screen
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="dropdown">
+           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Map
+            <span class="caret">
+            </span>
+           </a>
+           <ul class="dropdown-menu">
+            <li>
+             <a href="index_map.html">
+              Grid results
+             </a>
+            </li>
+            <li>
+             <a href="index_list.html">
+              List result
+             </a>
+            </li>
+            <li>
+             <a href="map_side.html">
+              Side version
+             </a>
+            </li>
+            <li>
+             <a href="map_geo.html">
+              Geo regions
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="dropdown">
+           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Categories
+            <span class="caret">
+            </span>
+           </a>
+           <ul class="dropdown-menu">
+            <li>
+             <a href="homepage-realestates.html">
+              Real Estate
+             </a>
+            </li>
+            <li>
+             <a href="homepage-yacht-market.html">
+              Yacht Market
+             </a>
+            </li>
+            <li>
+             <a href="homepage-cars.html">
+              Car Dealer
+             </a>
+            </li>
+            <li>
+             <a href="homepage-jobs.html">
+              Job Finder
+             </a>
+            </li>
+            <li>
+             <a href="map_business.html">
+              Business Directory
+             </a>
+            </li>
+            <li>
+             <a href="homepage_classified.html">
+              Classified Portal
+             </a>
+            </li>
+            <li>
+             <a href="homepage-shop.html">
+              Basic shop
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="nav-item dropdown dropdown-mega">
+           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Featured
+           </a>
+           <div class="dropdown-menu dropdown-menu-property">
+            <div class="container">
+             <div class="widget-content properties-grid">
+              <div class="row">
+               <div class="col-md-3 col-sm-6">
+                <div class="thumbnail thumbnail-property features">
+                 <div class="property-image">
+                  <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
+                  <div class="image-count">
+                   <i class="icon-image">
+                   </i>
                    <span>
-                    Used
+                    2
                    </span>
                   </div>
-                 </div>
-                 <a class="property-image-hover" href="listing.html">
-                  <span class="property-im-m property-im-m-lt">
-                  </span>
-                  <span class="property-im-m property-im-m-lb">
-                  </span>
-                  <span class="property-im-m property-im-m-rt">
-                  </span>
-                  <span class="property-im-m property-im-m-rb">
-                  </span>
-                 </a>
-                </div>
-                <div class="caption">
-                 <h3 class="property-title">
-                  <a href="listing.html">
-                   Fast car 1,6 TDI DSG
+                  <div class="budget budget-used">
+                   <div class="budget-mask">
+                    <span>
+                     Used
+                    </span>
+                   </div>
+                  </div>
+                  <a class="property-image-hover" href="listing.html">
+                   <span class="property-im-m property-im-m-lt">
+                   </span>
+                   <span class="property-im-m property-im-m-lb">
+                   </span>
+                   <span class="property-im-m property-im-m-rt">
+                   </span>
+                   <span class="property-im-m property-im-m-rb">
+                   </span>
                   </a>
-                 </h3>
-                 <p class="property-description">
-                  2014. g. 39.138 km, 66kW/90KS
-                 </p>
-                 <span class="property-field">
-                  114.630 km
-                 </span>
-                 <div class="property-ratings">
-                  <i class="icon-star-ratings-1">
-                  </i>
+                 </div>
+                 <div class="caption">
+                  <h3 class="property-title">
+                   <a href="listing.html">
+                    Fast car 1,6 TDI DSG
+                   </a>
+                  </h3>
+                  <p class="property-description">
+                   2014. g. 39.138 km, 66kW/90KS
+                  </p>
+                  <span class="property-field">
+                   114.630 km
+                  </span>
+                  <div class="property-ratings">
+                   <i class="icon-star-ratings-1">
+                   </i>
+                  </div>
                  </div>
                 </div>
                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-               <div class="thumbnail thumbnail-property features">
-                <div class="property-image">
-                 <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-                 <div class="image-count">
-                  <i class="icon-image">
-                  </i>
-                  <span>
-                   2
-                  </span>
-                 </div>
-                 <div class="budget budget-used">
-                  <div class="budget-mask">
+               <div class="col-md-3 col-sm-6">
+                <div class="thumbnail thumbnail-property features">
+                 <div class="property-image">
+                  <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
+                  <div class="image-count">
+                   <i class="icon-image">
+                   </i>
                    <span>
-                    Used
+                    2
                    </span>
                   </div>
-                 </div>
-                 <a class="property-image-hover" href="listing.html">
-                  <span class="property-im-m property-im-m-lt">
-                  </span>
-                  <span class="property-im-m property-im-m-lb">
-                  </span>
-                  <span class="property-im-m property-im-m-rt">
-                  </span>
-                  <span class="property-im-m property-im-m-rb">
-                  </span>
-                 </a>
-                </div>
-                <div class="caption">
-                 <h3 class="property-title">
-                  <a href="listing.html">
-                   Blue car  1,6 TDI DSG
+                  <div class="budget budget-used">
+                   <div class="budget-mask">
+                    <span>
+                     Used
+                    </span>
+                   </div>
+                  </div>
+                  <a class="property-image-hover" href="listing.html">
+                   <span class="property-im-m property-im-m-lt">
+                   </span>
+                   <span class="property-im-m property-im-m-lb">
+                   </span>
+                   <span class="property-im-m property-im-m-rt">
+                   </span>
+                   <span class="property-im-m property-im-m-rb">
+                   </span>
                   </a>
-                 </h3>
-                 <p class="property-description">
-                  2012. g. 39.138 km, 70kW/80KS
-                 </p>
-                 <span class="property-field">
-                  204.630 km
-                 </span>
-                 <div class="property-ratings">
-                  <i class="icon-star-ratings-3">
-                  </i>
+                 </div>
+                 <div class="caption">
+                  <h3 class="property-title">
+                   <a href="listing.html">
+                    Blue car  1,6 TDI DSG
+                   </a>
+                  </h3>
+                  <p class="property-description">
+                   2012. g. 39.138 km, 70kW/80KS
+                  </p>
+                  <span class="property-field">
+                   204.630 km
+                  </span>
+                  <div class="property-ratings">
+                   <i class="icon-star-ratings-3">
+                   </i>
+                  </div>
                  </div>
                 </div>
                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-               <div class="thumbnail thumbnail-property features">
-                <div class="property-image">
-                 <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-                 <div class="image-count">
-                  <i class="icon-image">
-                  </i>
-                  <span>
-                   2
-                  </span>
-                 </div>
-                 <div class="budget budget-damage">
-                  <div class="budget-mask">
+               <div class="col-md-3 col-sm-6">
+                <div class="thumbnail thumbnail-property features">
+                 <div class="property-image">
+                  <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
+                  <div class="image-count">
+                   <i class="icon-image">
+                   </i>
                    <span>
-                    Damaged
+                    2
                    </span>
                   </div>
-                 </div>
-                 <a class="property-image-hover" href="listing.html">
-                  <span class="property-im-m property-im-m-lt">
-                  </span>
-                  <span class="property-im-m property-im-m-lb">
-                  </span>
-                  <span class="property-im-m property-im-m-rt">
-                  </span>
-                  <span class="property-im-m property-im-m-rb">
-                  </span>
-                 </a>
-                </div>
-                <div class="caption">
-                 <h3 class="property-title">
-                  <a href="listing.html">
-                   Blue car A1  3,5 TDI DSG
+                  <div class="budget budget-damage">
+                   <div class="budget-mask">
+                    <span>
+                     Damaged
+                    </span>
+                   </div>
+                  </div>
+                  <a class="property-image-hover" href="listing.html">
+                   <span class="property-im-m property-im-m-lt">
+                   </span>
+                   <span class="property-im-m property-im-m-lb">
+                   </span>
+                   <span class="property-im-m property-im-m-rt">
+                   </span>
+                   <span class="property-im-m property-im-m-rb">
+                   </span>
                   </a>
-                 </h3>
-                 <p class="property-description">
-                  2015.g. 19.13 km, 68kW/70KS
-                 </p>
-                 <span class="property-field">
-                  14.630 km
-                 </span>
-                 <div class="property-ratings">
-                  <i class="icon-star-ratings-2">
-                  </i>
+                 </div>
+                 <div class="caption">
+                  <h3 class="property-title">
+                   <a href="listing.html">
+                    Blue car A1  3,5 TDI DSG
+                   </a>
+                  </h3>
+                  <p class="property-description">
+                   2015.g. 19.13 km, 68kW/70KS
+                  </p>
+                  <span class="property-field">
+                   14.630 km
+                  </span>
+                  <div class="property-ratings">
+                   <i class="icon-star-ratings-2">
+                   </i>
+                  </div>
                  </div>
                 </div>
                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-               <div class="thumbnail thumbnail-property">
-                <div class="property-image">
-                 <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-                 <div class="image-count">
-                  <i class="icon-image">
-                  </i>
-                  <span>
-                   2
-                  </span>
-                 </div>
-                 <a class="property-image-hover" href="listing.html">
-                  <span class="property-im-m property-im-m-lt">
-                  </span>
-                  <span class="property-im-m property-im-m-lb">
-                  </span>
-                  <span class="property-im-m property-im-m-rt">
-                  </span>
-                  <span class="property-im-m property-im-m-rb">
-                  </span>
-                 </a>
-                </div>
-                <div class="caption">
-                 <h3 class="property-title">
-                  <a href="listing.html">
-                   Fast car A6 4,6 TDI DSG
+               <div class="col-md-3 col-sm-6">
+                <div class="thumbnail thumbnail-property">
+                 <div class="property-image">
+                  <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
+                  <div class="image-count">
+                   <i class="icon-image">
+                   </i>
+                   <span>
+                    2
+                   </span>
+                  </div>
+                  <a class="property-image-hover" href="listing.html">
+                   <span class="property-im-m property-im-m-lt">
+                   </span>
+                   <span class="property-im-m property-im-m-lb">
+                   </span>
+                   <span class="property-im-m property-im-m-rt">
+                   </span>
+                   <span class="property-im-m property-im-m-rb">
+                   </span>
                   </a>
-                 </h3>
-                 <p class="property-description">
-                  2015.g. 19.00 km, 68GmbH/70
-                 </p>
-                 <span class="property-field">
-                  24.000 km
-                 </span>
-                 <div class="property-ratings">
-                  <i class="icon-star-ratings-5">
-                  </i>
+                 </div>
+                 <div class="caption">
+                  <h3 class="property-title">
+                   <a href="listing.html">
+                    Fast car A6 4,6 TDI DSG
+                   </a>
+                  </h3>
+                  <p class="property-description">
+                   2015.g. 19.00 km, 68GmbH/70
+                  </p>
+                  <span class="property-field">
+                   24.000 km
+                  </span>
+                  <div class="property-ratings">
+                   <i class="icon-star-ratings-5">
+                   </i>
+                  </div>
                  </div>
                 </div>
                </div>
               </div>
              </div>
+             <!-- /. recent properties -->
             </div>
-            <!-- /. recent properties -->
            </div>
-          </div>
-         </li>
-         <li class="dropdown active">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-           Pages
-           <span class="caret">
-           </span>
+          </li>
+          <li class="dropdown">
+           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Pages
+            <span class="caret">
+            </span>
+           </a>
+           <ul class="dropdown-menu">
+            <li>
+             <a href="page_image-gallery.html">
+              Basic with Gallery
+             </a>
+            </li>
+            <li>
+             <a href="login.html">
+              Login
+             </a>
+            </li>
+            <li>
+             <a href="mylistings.html">
+              My Listings
+             </a>
+            </li>
+            <li>
+             <a href="listing.html">
+              Listing Preview
+             </a>
+            </li>
+            <li>
+             <a href="page_faq.html">
+              FAQ
+             </a>
+            </li>
+            <li>
+             <a href="page_featured.html">
+              Featured
+             </a>
+            </li>
+            <li>
+             <a href="page_agents.html">
+              Agents
+             </a>
+            </li>
+            <li>
+             <a href="page_profile.html">
+              Agent Profile
+             </a>
+            </li>
+            <li>
+             <a href="page_blog.html">
+              Blog List
+             </a>
+            </li>
+            <li>
+             <a href="page_cart.html">
+              Cart
+             </a>
+            </li>
+            <li>
+             <a href="component_animation.html">
+              Components
+             </a>
+            </li>
+            <li>
+             <a href="page_invoice.html">
+              Invoice
+             </a>
+            </li>
+            <li>
+             <a href="page_contact.html">
+              Contact
+             </a>
+            </li>
+           </ul>
+          </li>
+         </ul>
+        </div>
+       </nav>
+       <!-- /.main menu -->
+      </div>
+      <div class="top-bar-center2 hidden-sm">
+       <div class="mail">
+        <a href="mailto:info@worlddealer.com">
+         info@worlddealer.com
+         <i class="fa fa-envelope">
+         </i>
+        </a>
+       </div>
+      </div>
+      <div class="top-bar-right">
+       <div class="skew-block color-secondary">
+       </div>
+       <div class="search-form-mini closed">
+        <a class="search" href="#">
+         <i class="fa fa-search">
+         </i>
+        </a>
+        <input placeholder="Search" type="text"/>
+        <a class="close" href="#">
+         <i class="fa fa-remove">
+         </i>
+        </a>
+       </div>
+       <a class="search-btn color-secondary search-form-mini-open" href="#">
+       </a>
+      </div>
+     </div>
+    </div>
+    <!-- /.top bar-->
+    <div class="sub-top-bar overflow hidden-xs">
+     <div class="&lt;!--container--&gt;">
+      <div class="block block-black block-left-up">
+       <a class="btn-custom vert-line-l-r vert-line-orange link-effect-1" data-hover="Submint Listing" href="mylistings.html">
+        Submint Listing
+       </a>
+       <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Register" data-target="#registr-form" data-toggle="modal" href="#">
+        Register
+       </a>
+       <div class="lang-manu lang-manu-custom dropdown">
+        <button class="btn dropdown-toggle" data-toggle="dropdown" type="button">
+         <img alt="" src="{% static 'assets/img/flags/en.png' %}"/>
+         <span>
+          EN
+         </span>
+         <span class="caret">
+         </span>
+        </button>
+        <ul class="dropdown-menu">
+         <li>
+          <a class="dropdown-item" href="#">
+           <img alt="" src="{% static 'assets/img/flags/en.png' %}"/>
+           English
           </a>
-          <ul class="dropdown-menu">
-           <li>
-            <a href="page_image-gallery.html">
-             Basic with Gallery
-            </a>
-           </li>
-           <li>
-            <a href="login.html">
-             Login
-            </a>
-           </li>
-           <li>
-            <a href="mylistings.html">
-             My Listings
-            </a>
-           </li>
-           <li class="active">
-            <a href="listing.html">
-             Listing Preview
-            </a>
-           </li>
-           <li>
-            <a href="page_faq.html">
-             FAQ
-            </a>
-           </li>
-           <li>
-            <a href="page_featured.html">
-             Featured
-            </a>
-           </li>
-           <li>
-            <a href="page_agents.html">
-             Agents
-            </a>
-           </li>
-           <li>
-            <a href="page_profile.html">
-             Agent Profile
-            </a>
-           </li>
-           <li>
-            <a href="page_blog.html">
-             Blog List
-            </a>
-           </li>
-           <li>
-            <a href="page_cart.html">
-             Cart
-            </a>
-           </li>
-           <li>
-            <a href="component_animation.html">
-             Components
-            </a>
-           </li>
-           <li>
-            <a href="page_invoice.html">
-             Invoice
-            </a>
-           </li>
-           <li>
-            <a href="page_contact.html">
-             Contact
-            </a>
-           </li>
-          </ul>
+         </li>
+         <li>
+          <a class="dropdown-item" href="#">
+           <img alt="" src="{% static 'assets/img/flags/hr.png' %}"/>
+           Hrvatska
+          </a>
+         </li>
+         <li>
+          <a class="dropdown-item" href="#">
+           <img alt="" src="{% static 'assets/img/flags/ru.png' %}"/>
+           Russian
+          </a>
+         </li>
+         <li>
+          <a class="dropdown-item" href="#">
+           <img alt="" src="{% static 'assets/img/flags/au.png' %}"/>
+           Australia
+          </a>
+         </li>
+         <li>
+          <a class="dropdown-item" href="#">
+           <img alt="" src="{% static 'assets/img/flags/fi.png' %}"/>
+           Finland
+          </a>
          </li>
         </ul>
        </div>
-      </nav>
-      <!-- /.main menu -->
-     </div>
-     <div class="top-bar-center2 hidden-sm">
-      <div class="mail">
-       <a href="mailto:info@worlddealer.com">
-        info@worlddealer.com
-        <i class="fa fa-envelope">
-        </i>
-       </a>
+       <!-- /.lang menu -->
       </div>
-     </div>
-     <div class="top-bar-right">
-      <div class="skew-block color-secondary">
-      </div>
-      <div class="search-form-mini closed">
-       <a class="search" href="#">
-        <i class="fa fa-search">
-        </i>
-       </a>
-       <input placeholder="Search" type="text"/>
-       <a class="close" href="#">
-        <i class="fa fa-remove">
-        </i>
-       </a>
-      </div>
-      <a class="search-btn color-secondary search-form-mini-open" href="#">
-      </a>
      </div>
     </div>
-   </div>
-   <!-- /.top bar-->
-   <div class="sub-top-bar overflow hidden-xs">
-    <div class="&lt;!--container--&gt;">
-     <div class="block block-black block-left-up">
-      <a class="btn-custom vert-line-l-r vert-line-orange link-effect-1" data-hover="Submint Listing" href="mylistings.html">
-       Submint Listing
-      </a>
-      <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Register" data-target="#registr-form" data-toggle="modal" href="#">
-       Register
-      </a>
-      <div class="lang-manu lang-manu-custom dropdown">
-       <button class="btn dropdown-toggle" data-toggle="dropdown" type="button">
-        <img alt="" src="{% static 'assets/img/flags/en.png' %}"/>
-        <span>
-         EN
-        </span>
-        <span class="caret">
-        </span>
-       </button>
-       <ul class="dropdown-menu">
-        <li>
-         <a class="dropdown-item" href="#">
-          <img alt="" src="{% static 'assets/img/flags/en.png' %}"/>
-          English
-         </a>
-        </li>
-        <li>
-         <a class="dropdown-item" href="#">
-          <img alt="" src="{% static 'assets/img/flags/hr.png' %}"/>
-          Hrvatska
-         </a>
-        </li>
-        <li>
-         <a class="dropdown-item" href="#">
-          <img alt="" src="{% static 'assets/img/flags/ru.png' %}"/>
-          Russian
-         </a>
-        </li>
-        <li>
-         <a class="dropdown-item" href="#">
-          <img alt="" src="{% static 'assets/img/flags/au.png' %}"/>
-          Australia
-         </a>
-        </li>
-        <li>
-         <a class="dropdown-item" href="#">
-          <img alt="" src="{% static 'assets/img/flags/fi.png' %}"/>
-          Finland
-         </a>
-        </li>
-        <li>
-         <a class="dropdown-item" href="listing_rtl.html">
-          <img alt="" src="{% static 'assets/img/flags/ae.png' %}"/>
-          Arabie
-         </a>
-        </li>
-       </ul>
-      </div>
-      <!-- /.lang menu -->
-     </div>
-    </div>
-   </div>
-   <!-- /. sub-top bar-->
-  </header>
+    <!-- /. sub-top bar-->
+   </header>
   <!-- /.header-->
   <div class="widget-top-title container container-palette">
    <div class="color-secondary">
     <div class="bg-mask">
      <div class="container">
       <h1>
-       Fast car Sportback 1,6 TDI DSG
+       {{object.title}}
       </h1>
      </div>
     </div>
@@ -634,7 +622,7 @@
       <div class="notice-info">
        <div class="clearfix">
         <div class="col-xs-4">
-         ID: 345
+         ID: {{object.id}}
         </div>
         <div class="col-xs-4">
          <i class="fa fa-eye">
@@ -656,61 +644,111 @@
         <ul class="list-values">
          <li>
           <span class="list-values-option">
-           Purpose
+           Category
           </span>
           <div class="list-values-value-mask">
            <span class="list-values-value">
-            Rent
+            {{object.category}}
            </span>
           </div>
          </li>
          <li>
           <span class="list-values-option">
-           Type
+           Power
           </span>
           <div class="list-values-value-mask">
            <span class="list-values-value">
-            Luxury abc
+            {{object.power}}
            </span>
           </div>
          </li>
          <li>
           <span class="list-values-option">
-           ZIP code
+           Speed
           </span>
           <div class="list-values-value-mask">
            <span class="list-values-value">
-            42208
+            {{object.speed}}
            </span>
           </div>
          </li>
          <li>
           <span class="list-values-option">
-           County
+           Model
           </span>
           <div class="list-values-value-mask">
            <span class="list-values-value">
-            VaraÅ¾din
+            {{object.model}}
            </span>
           </div>
          </li>
          <li>
           <span class="list-values-option">
-           ZIP code
+           Make
           </span>
           <div class="list-values-value-mask">
            <span class="list-values-value">
-            42208
+            {{object.make}}
            </span>
           </div>
          </li>
          <li>
           <span class="list-values-option">
-           Type
+           Year
           </span>
           <div class="list-values-value-mask">
            <span class="list-values-value">
-            Luxury abc
+            {{object.model_year}}
+           </span>
+          </div>
+         </li>
+         <li>
+          <span class="list-values-option">
+        Transmission
+          </span>
+          <div class="list-values-value-mask">
+           <span class="list-values-value">
+            {{object.transmission}}
+           </span>
+          </div>
+         </li>
+         <li>
+          <span class="list-values-option">
+           Ratings
+          </span>
+          <div class="list-values-value-mask">
+           <span class="list-values-value">
+           {{object.rating}}
+           </span>
+          </div>
+         </li>
+         <li>
+          <span class="list-values-option">
+           Use State
+          </span>
+          <div class="list-values-value-mask">
+           <span class="list-values-value">
+            {{object.use_state}}
+           </span>
+          </div>
+         </li>
+         <li>
+          <span class="list-values-option">
+           Condition
+          </span>
+          <div class="list-values-value-mask">
+           <span class="list-values-value">
+            {{object.condition}}
+           </span>
+          </div>
+         </li>
+         <li>
+          <span class="list-values-option">
+           Price
+          </span>
+          <div class="list-values-value-mask">
+           <span class="list-values-value">
+            {{object.price}}
            </span>
           </div>
          </li>
@@ -723,31 +761,24 @@
        <div class="carousel slide carousel-slider-preview" data-ride="carousel" id="carousel-example-generic">
         <!-- Indicators -->
         <ol class="carousel-indicators">
+          {% for item in object.image.all %}
          <li class="image-cover active" data-slide-to="0" data-target="#carousel-example-generic">
-          <img alt="" src="{% static 'assets/img/placeholders/120x165.png' %}"/>
+          <img alt="" src="{% get_media_prefix %}{{item.image}}"/>
          </li>
-         <li class="image-cover" data-slide-to="1" data-target="#carousel-example-generic">
-          <img alt="" src="{% static 'assets/img/placeholders/120x165.png' %}"/>
-         </li>
+         {% endfor %}
         </ol>
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
+          {% for item in object.image.all %}
          <div class="item image-cover-div active">
-          <img alt="" src="{% static 'assets/img/placeholders/1600x550.png' %}"/>
+          <img alt="" src="{% get_media_prefix %}{{item.image}}"/>
           <div class="carousel-caption">
            <span class="value">
-            114.630 km
+            {{object.speed}}
            </span>
           </div>
          </div>
-         <div class="item image-cover-div">
-          <img alt="" src="{% static 'assets/img/placeholders/1600x550.png' %}"/>
-          <div class="carousel-caption">
-           <span class="value">
-            199.530 km
-           </span>
-          </div>
-         </div>
+         {% endfor %}
         </div>
         <a class="left carousel-control" data-slide="prev" href="#carousel-example-generic" role="button">
          <span aria-hidden="true" class="glyphicon glyphicon-chevron-left">

@@ -75,11 +75,14 @@
      <div class="sub-top-bar sub-top-bar-mobile visible-xs-block">
       <div class="&lt;!--container--&gt;">
        <div class="block block-black block-left-up">
-        <a class="btn-custom vert-line-l-r vert-line-orange link-effect-1" data-hover="Submit Listing" href="mylistings.html">
+        <a class="btn-custom vert-line-l-r vert-line-orange link-effect-1" data-hover="Submit Listing" href="submit-listing">
          Submit Listing
         </a>
         <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Register" href="login.html">
          Register
+        </a>
+        <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Login" href="login2.html">
+         Login
         </a>
         <button class="navbar-toggle" id="toggle-mainmenu" type="button">
          <span class="sr-only">
@@ -141,59 +144,6 @@
       <nav class="navbar mainmenu">
        <div class="container-fluid">
         <ul class="nav navbar-nav">
-         <li class="dropdown active">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-           Slider
-           <span class="caret">
-           </span>
-          </a>
-          <ul class="dropdown-menu">
-           <li>
-            <a href="slider_standard.html">
-             Standard
-            </a>
-           </li>
-           <li class="active">
-            <a href="homepage_video.html">
-             Video
-            </a>
-           </li>
-           <li>
-            <a href="slider_full-screen.html">
-             Full Screen
-            </a>
-           </li>
-          </ul>
-         </li>
-         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-           Map
-           <span class="caret">
-           </span>
-          </a>
-          <ul class="dropdown-menu">
-           <li>
-            <a href="index_map.html">
-             Grid results
-            </a>
-           </li>
-           <li>
-            <a href="index_list.html">
-             List result
-            </a>
-           </li>
-           <li>
-            <a href="map_side.html">
-             Side version
-            </a>
-           </li>
-           <li>
-            <a href="map_geo.html">
-             Geo regions
-            </a>
-           </li>
-          </ul>
-         </li>
          <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
            Categories
@@ -437,78 +387,6 @@
            </div>
           </div>
          </li>
-         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-           Pages
-           <span class="caret">
-           </span>
-          </a>
-          <ul class="dropdown-menu">
-           <li>
-            <a href="page_image-gallery.html">
-             Basic with Gallery
-            </a>
-           </li>
-           <li>
-            <a href="login.html">
-             Login
-            </a>
-           </li>
-           <li>
-            <a href="mylistings.html">
-             My Listings
-            </a>
-           </li>
-           <li>
-            <a href="listing.html">
-             Listing Preview
-            </a>
-           </li>
-           <li>
-            <a href="page_faq.html">
-             FAQ
-            </a>
-           </li>
-           <li>
-            <a href="page_featured.html">
-             Featured
-            </a>
-           </li>
-           <li>
-            <a href="page_agents.html">
-             Agents
-            </a>
-           </li>
-           <li>
-            <a href="page_profile.html">
-             Agent Profile
-            </a>
-           </li>
-           <li>
-            <a href="page_blog.html">
-             Blog List
-            </a>
-           </li>
-           <li>
-            <a href="page_cart.html">
-             Cart
-            </a>
-           </li>
-           <li>
-            <a href="component_animation.html">
-             Components
-            </a>
-           </li>
-           <li>
-            <a href="page_invoice.html">
-             Invoice
-            </a>
-           </li>
-           <li>
-            <a href="page_contact.html">
-             Contact
-            </a>
-           </li>
           </ul>
          </li>
         </ul>
@@ -548,11 +426,14 @@
    <div class="sub-top-bar overflow hidden-xs">
     <div class="&lt;!--container--&gt;">
      <div class="block block-black block-left-up">
-      <a class="btn-custom vert-line-l-r vert-line-orange link-effect-1" data-hover="Submint Listing" href="mylistings.html">
-       Submint Listing
+      <a class="btn-custom vert-line-l-r vert-line-orange link-effect-1" data-hover="Submint Listing" href="submit-listing">
+       Submit Listing
       </a>
       <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Register" data-target="#registr-form" data-toggle="modal" href="#">
        Register
+      </a>
+      <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Login" data-target="#login-form" data-toggle="modal" href="#">
+       Login
       </a>
       <div class="lang-manu lang-manu-custom dropdown">
        <button class="btn dropdown-toggle" data-toggle="dropdown" type="button">
@@ -604,8 +485,8 @@
   </header>
   <div class="widget-video-top container container-palette section-xs">
    <div class="video-box">
-    <video autoplay="" loop="">
-     <source src="assets/video/video-preview.mov" type="video/mp4"/>
+    <video autoplay loop="">
+     <source src="{% static 'assets/video/video-preview.mov' %}" type="video/mp4"/>
     </video>
    </div>
   </div>
@@ -613,11 +494,10 @@
   <!-- /.header-->
   <main class="container container-overflow section">
    <div class="block block-white block-right-down widget-custom-filet-2">
-    <form action="#" class="custom-filet-2">
      <label class="field-box">
-      <input checked="" class="field-box-input" name="car" type="radio" value="1"/>
+      <input checked="" id="auto" class="field-box-input" name="car" type="radio" value="auto"/>
       <span>
-       <i class="icon-car-auto">
+       <i class="icon-car-auto" onclick="showOutput2()">
        </i>
       </span>
       <span class="label-title">
@@ -625,19 +505,19 @@
       </span>
      </label>
      <label class="field-box">
-      <input class="field-box-input" name="car" type="radio" value="2"/>
+      <input  id="truck" class="field-box-input" name="car" type="radio" value="truck"/>
       <span>
-       <i class="icon-car-kamion">
+       <i class="icon-car-kamion" onclick="showOutput3()">
        </i>
       </span>
       <span class="label-title">
-       Truck (5)
+       Truck
       </span>
      </label>
      <label class="field-box">
-      <input class="field-box-input" name="car" type="radio" value="3"/>
+      <input id="tractor" class="field-box-input" name="car" type="radio" value="tractor"/>
       <span>
-       <i class="icon-car-bager">
+       <i class="icon-car-bager" onclick="showOutput4()">
        </i>
       </span>
       <span class="label-title">
@@ -645,9 +525,9 @@
       </span>
      </label>
      <label class="field-box">
-      <input class="field-box-input" name="car" type="radio" value="4"/>
+      <input id="moped" class="field-box-input" name="car" type="radio" value="moped"/>
       <span>
-       <i class="icon-car-moped">
+       <i class="icon-car-moped" onclick="showOutput5()">
        </i>
       </span>
       <span class="label-title">
@@ -655,18 +535,82 @@
       </span>
      </label>
      <label class="field-box">
-      <input class="field-box-input" name="car" type="radio" value="5"/>
+      <input id="bus" class="field-box-input" name="car" type="radio" value="bus"/>
       <span>
-       <i class="icon-car-bus">
+       <i class="icon-car-bus" onclick="showOutput6()">
        </i>
       </span>
       <span class="label-title">
        Bus (9)
       </span>
      </label>
-    </form>
    </div>
    <!-- /. overflow search-block -->
+   <script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function showOutput () {
+  var value=document.getElementById("make").value;
+  var value_2=document.getElementById("model").value;
+  var value_5=document.getElementById("year_min").value;
+  var value_6=document.getElementById("year_max").value;
+  var value_7=document.getElementById("price_min").value;
+  var value_8=document.getElementById("price_max").value;
+  var value_9=document.getElementById("fuel_type").value;
+  var value_10=document.getElementById("transmission").value;
+  var value_11=document.getElementById("condition").value;
+  var value_12=document.getElementById("keyword").value;
+  if (document.getElementById("new").checked == true){
+    var value_4=document.getElementById("new").value;
+  } else if (document.getElementById("used").checked == true){
+    var value_4=document.getElementById("used").value;
+  } else if (document.getElementById("import").checked == true){
+    var value_4=document.getElementById("import").value;
+  }else {
+    var value_4="";
+  }
+
+  var paid="one";
+  var queryString = "?first_check=" +paid  + "&use_state=" + value_4 + "&make=" + value + "&model=" + value_2 + "&year_min=" + value_5 + "&year_max=" + value_6 + "&price_min=" + value_7 + "&price_max=" + value_8 + "&fuel_type=" + value_9 + "&transmission=" + value_10 + "&condition=" + value_11 + "&keyword=" + value_12;
+  window.location.href="search" + queryString;
+}
+
+function showOutput2 () {
+  var value=document.getElementById("auto").value;
+
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + value;
+  window.location.href="cars" + queryString;
+}
+function showOutput3 () {
+  var value=document.getElementById("truck").value;
+
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + value;
+  window.location.href="cars" + queryString;
+}
+function showOutput4 () {
+  var value=document.getElementById("tractor").value;
+
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + value;
+  window.location.href="cars" + queryString;
+}
+function showOutput5 () {
+  var value=document.getElementById("moped").value;
+
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + value;
+  window.location.href="cars" + queryString;
+}
+function showOutput6 () {
+  var value=document.getElementById("bus").value;
+
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + value;
+  window.location.href="cars" + queryString;
+}
+</script>
    <div class="box-fill box">
     <div class="row">
      <div class="col-sm-3">
@@ -677,63 +621,57 @@
         </h2>
        </div>
        <div class="widget-content">
-        <form action="#">
          <div class="form-group">
           <label class="checkbox-inline">
-           <input type="checkbox" value=""/>
+           <input id="used" name="use_state"  type="radio" value="used"/>
            Used
           </label>
           <label class="checkbox-inline">
-           <input type="checkbox" value=""/>
+           <input id="new" name="use_state"  type="radio" value="new"/>
            New
           </label>
           <label class="checkbox-inline">
-           <input type="checkbox" value=""/>
+           <input id="import" name="use_state" type="radio" value="import"/>
            Import
           </label>
          </div>
          <div class="form-group">
-          <select class="form-control selectpicker">
+          <select id="make" name="make" class="form-control selectpicker">
            <option value="">
             Makes
            </option>
-           <option value="a">
+           <option value="A">
             A
            </option>
            <option value="B">
             B
            </option>
-           <option value="c">
+           <option value="C">
             C
            </option>
-           <option value="d">
+           <option value="D">
             D
            </option>
-           <option value="e">
-            E
-           </option>
-           <option value="f">
-            F
            </option>
           </select>
          </div>
          <div class="form-group">
-          <select class="form-control selectpicker">
-           <option value="">
-            Model
-           </option>
-           <option>
-            A
-           </option>
-           <option>
-            B
-           </option>
-           <option>
-            C
-           </option>
-           <option>
-            D
-           </option>
+          <select id="model" name="model" class="form-control selectpicker">
+            <option value="">
+             Model
+            </option>
+            <option value="A">
+             A
+            </option>
+            <option value="B">
+             B
+            </option>
+            <option value="C">
+             C
+            </option>
+            <option value="D">
+             D
+            </option>
           </select>
          </div>
          <div class="form-group">
@@ -749,8 +687,8 @@
             <span class="nonlinear-max">
             </span>
            </div>
-           <input class="value-min hidden" placeholder="" type="text" value=""/>
-           <input class="value-max hidden" placeholder="" type="text" value=""/>
+           <input class="value-min hidden" id="year_min" name="year_min" placeholder="" type="text" value=""/>
+           <input class="value-max hidden" placeholder="" id="year_max" name="year_max" type="text" value=""/>
           </div>
          </div>
          <div class="form-group">
@@ -766,12 +704,12 @@
             <span class="nonlinear-max">
             </span>
            </div>
-           <input class="value-min hidden" placeholder="" type="text" value=""/>
-           <input class="value-max hidden" placeholder="" type="text" value=""/>
+           <input class="value-min hidden" id="price_min" name="price_min" placeholder="" type="text" value=""/>
+           <input class="value-max hidden" placeholder=""  id="price_max" name="price_min" type="text" value=""/>
           </div>
          </div>
          <div class="form-group">
-          <select class="form-control selectpicker">
+          <select id="fuel_type" name="fuel_type" class="form-control selectpicker">
            <option value="">
             Fuel type
            </option>
@@ -790,7 +728,7 @@
           </select>
          </div>
          <div class="form-group">
-          <select class="form-control selectpicker">
+          <select id="transmission" name="transmission" class="form-control selectpicker">
            <option value="">
             Transmission
            </option>
@@ -809,29 +747,29 @@
           </select>
          </div>
          <div class="form-group">
-          <select class="form-control selectpicker">
+          <select id="condition" class="form-control selectpicker">
            <option value="">
             Condition
            </option>
-           <option>
+           <option value="A">
             A
            </option>
-           <option>
+           <option value="B">
             B
            </option>
-           <option>
+           <option value="C">
             C
            </option>
-           <option>
+           <option value="D">
             D
            </option>
           </select>
          </div>
          <div class="form-group">
-          <input class="form-control" id="keywords" placeholder="Keywords" type="text"/>
+          <input class="form-control" id="keyword" name="keyword" placeholder="Keywords" type="text"/>
          </div>
          <div class="form-group submit-box">
-          <button class="btn btn-custom btn-custom-primary color-primary" type="button">
+          <button class="btn btn-custom btn-custom-primary color-primary" type="button"  onclick="showOutput()">
            <i class="fa fa-search">
            </i>
            Search
@@ -842,7 +780,6 @@
            Save
           </button>
          </div>
-        </form>
        </div>
       </div>
       <!-- /. search-form -->
@@ -953,40 +890,35 @@
            </option>
           </select>
          </div>
-         <div class="grid-type">
-          <a class="grid active" href="homepage_video.html">
-           <i class="fa fa-th">
-           </i>
-          </a>
-          <a class="list" href="index_list.html">
-           <i class="fa fa-list">
-           </i>
-          </a>
-         </div>
         </div>
        </div>
        <!-- /. filters -->
        <div class="widget-content properties-grid">
         <div class="row">
+          {% for car in cars %}
          <div class="col-md-4 col-sm-6">
           <div class="thumbnail thumbnail-property features">
            <div class="property-image">
-            <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
+             {% for item in car.image.all %}
+            {% if forloop.first %}
+            <img alt="car" src="{% get_media_prefix %}{{item.image}}"/>
+            {% endif %}
+            {% endfor %}
             <div class="image-count">
              <i class="icon-image">
              </i>
              <span>
-              2
+              {{car.image.all.count}}
              </span>
             </div>
             <div class="budget budget-used">
              <div class="budget-mask">
               <span>
-               Used
+              {{car.condition}}
               </span>
              </div>
             </div>
-            <a class="property-image-hover" href="listing.html">
+            <a class="property-image-hover" href="{{car.get_absolute_url}}">
              <span class="property-im-m property-im-m-lt">
              </span>
              <span class="property-im-m property-im-m-lb">
@@ -997,23 +929,57 @@
              </span>
             </a>
            </div>
+           <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function {{car.slug}}bookmark () {
+          var value=document.getElementById("btitle").value;
+          var value_2=document.getElementById("bcategory").value;
+          var value_3=document.getElementById("bpower").value;
+          var value_4=document.getElementById("bspeed").value;
+          var value_5=document.getElementById("bmodel").value;
+          var value_6=document.getElementById("bmodel_year").value;
+          var value_7=document.getElementById("btransmission").value;
+          var value_8=document.getElementById("bfuel_type").value;
+          var value_9=document.getElementById("bimage").value;
+          var value_10=document.getElementById("bcondition").value;
+          var value_11=document.getElementById("buse_state").value;
+          var value_12=document.getElementById("bprice").value;
+
+          var paid="three";
+          var queryString = "?third_check=" +paid  + "&title=" + value + "&category=" + value_2 + "&power=" + value_3 + "&speed=" + value_4 + "&model=" + value_5 + "&model_year=" + value_6 + "&transmission=" + value_7 + "&fuel_type=" + value_8 + "&image=" + value_9 + "&condition=" + value_10 + "&use_state=" + value_11 + "&price=" + value_12;
+          window.location.href="index.html" + queryString;
+        }
+        </script>
            <div class="caption">
+             <input type="hidden" id="btitle" value="{{car.title}}"/>
+             <input type="hidden" id="bcategory" value="{{car.category}}"/>
+             <input type="hidden" id="bpower" value="{{car.power}}"/>
+             <input type="hidden" id="bspeed" value="{{car.speed}}"/>
+             <input type="hidden" id="bmodel" value="{{car.model}}"/>
+             <input type="hidden" id="bmodel_year" value="{{car.model_year}}"/>
+             <input type="hidden" id="btransmission" value="{{car.transmission}}"/>
+             <input type="hidden" id="bfuel_type" value="{{car.fuel_type}}"/>
+             <input type="hidden" id="bimage" value="{{car.image.url}}"/>
+             <input type="hidden" id="bcondition" value="{{car.condition}}"/>
+             <input type="hidden" id="buse_state" value="{{car.use_state}}"/>
+             <input type="hidden" id="bprice" value="{{car.price}}"/>
             <div class="anchor">
-             <a class="" href="#">
+             <a class="" onclick="{{car.slug}}bookmark()">
               <i class="fa fa-bookmark">
               </i>
              </a>
             </div>
             <h3 class="property-title">
              <a href="listing.html">
-              Fast car 1,6 TDI DSG
+            {{car.title}}
              </a>
             </h3>
             <p class="property-description">
-             2014. g. 39.138 km, 66kW/90KS
+             {{car.model}}. g. {{car.speed}}km, {{car.power}}kW/90KS
             </p>
             <span class="property-field">
-             114.630 km
+             {{car.speed}} km
             </span>
             <div class="property-ratings">
              <i class="icon-star-ratings-1">
@@ -1022,537 +988,7 @@
            </div>
           </div>
          </div>
-         <div class="col-md-4 col-sm-6">
-          <div class="thumbnail thumbnail-property features">
-           <div class="property-image">
-            <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-            <div class="image-count">
-             <i class="icon-image">
-             </i>
-             <span>
-              2
-             </span>
-            </div>
-            <div class="budget budget-used">
-             <div class="budget-mask">
-              <span>
-               Used
-              </span>
-             </div>
-            </div>
-            <a class="property-image-hover" href="listing.html">
-             <span class="property-im-m property-im-m-lt">
-             </span>
-             <span class="property-im-m property-im-m-lb">
-             </span>
-             <span class="property-im-m property-im-m-rt">
-             </span>
-             <span class="property-im-m property-im-m-rb">
-             </span>
-            </a>
-           </div>
-           <div class="caption">
-            <div class="anchor active">
-             <a class="" href="#">
-              <i class="fa fa-bookmark">
-              </i>
-             </a>
-            </div>
-            <h3 class="property-title">
-             <a href="listing.html">
-              Blue car  1,6 TDI DSG
-             </a>
-            </h3>
-            <p class="property-description">
-             2012. g. 39.138 km, 70kW/80KS
-            </p>
-            <span class="property-field">
-             204.630 km
-            </span>
-            <div class="property-ratings">
-             <i class="icon-star-ratings-3">
-             </i>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6">
-          <div class="thumbnail thumbnail-property features">
-           <div class="property-image">
-            <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-            <div class="image-count">
-             <i class="icon-image">
-             </i>
-             <span>
-              2
-             </span>
-            </div>
-            <div class="budget budget-damage">
-             <div class="budget-mask">
-              <span>
-               Damaged
-              </span>
-             </div>
-            </div>
-            <a class="property-image-hover" href="listing.html">
-             <span class="property-im-m property-im-m-lt">
-             </span>
-             <span class="property-im-m property-im-m-lb">
-             </span>
-             <span class="property-im-m property-im-m-rt">
-             </span>
-             <span class="property-im-m property-im-m-rb">
-             </span>
-            </a>
-           </div>
-           <div class="caption">
-            <div class="anchor">
-             <a class="" href="#">
-              <i class="fa fa-bookmark">
-              </i>
-             </a>
-            </div>
-            <h3 class="property-title">
-             <a href="listing.html">
-              Blue car A1  3,5 TDI DSG
-             </a>
-            </h3>
-            <p class="property-description">
-             2015.g. 19.13 km, 68kW/70KS
-            </p>
-            <span class="property-field">
-             14.630 km
-            </span>
-            <div class="property-ratings">
-             <i class="icon-star-ratings-2">
-             </i>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6">
-          <div class="thumbnail thumbnail-property">
-           <div class="property-image">
-            <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-            <div class="image-count">
-             <i class="icon-image">
-             </i>
-             <span>
-              2
-             </span>
-            </div>
-            <a class="property-image-hover" href="listing.html">
-             <span class="property-im-m property-im-m-lt">
-             </span>
-             <span class="property-im-m property-im-m-lb">
-             </span>
-             <span class="property-im-m property-im-m-rt">
-             </span>
-             <span class="property-im-m property-im-m-rb">
-             </span>
-            </a>
-           </div>
-           <div class="caption">
-            <div class="anchor">
-             <a class="" href="#">
-              <i class="fa fa-bookmark">
-              </i>
-             </a>
-            </div>
-            <h3 class="property-title">
-             <a href="listing.html">
-              Fast car A6 4,6 TDI DSG
-             </a>
-            </h3>
-            <p class="property-description">
-             2015.g. 19.00 km, 68GmbH/70
-            </p>
-            <span class="property-field">
-             24.000 km
-            </span>
-            <div class="property-ratings">
-             <i class="icon-star-ratings-5">
-             </i>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6">
-          <div class="thumbnail thumbnail-property">
-           <div class="property-image">
-            <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-            <div class="image-count">
-             <i class="icon-image">
-             </i>
-             <span>
-              1
-             </span>
-            </div>
-            <a class="property-image-hover" href="listing.html">
-             <span class="property-im-m property-im-m-lt">
-             </span>
-             <span class="property-im-m property-im-m-lb">
-             </span>
-             <span class="property-im-m property-im-m-rt">
-             </span>
-             <span class="property-im-m property-im-m-rb">
-             </span>
-            </a>
-           </div>
-           <div class="caption">
-            <div class="anchor">
-             <a class="" href="#">
-              <i class="fa fa-bookmark">
-              </i>
-             </a>
-            </div>
-            <h3 class="property-title">
-             <a href="listing.html">
-              Red sedan  2,0 TDI DSG
-             </a>
-            </h3>
-            <p class="property-description">
-             2014. g. 49.138 km, 56kW/70KS
-            </p>
-            <span class="property-field">
-             100.600 km
-            </span>
-            <div class="property-ratings">
-             <i class="icon-star-ratings">
-             </i>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6">
-          <div class="thumbnail thumbnail-property">
-           <div class="property-image">
-            <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-            <div class="image-count">
-             <i class="icon-image">
-             </i>
-             <span>
-              5
-             </span>
-            </div>
-            <a class="property-image-hover" href="listing.html">
-             <span class="property-im-m property-im-m-lt">
-             </span>
-             <span class="property-im-m property-im-m-lb">
-             </span>
-             <span class="property-im-m property-im-m-rt">
-             </span>
-             <span class="property-im-m property-im-m-rb">
-             </span>
-            </a>
-           </div>
-           <div class="caption">
-            <div class="anchor">
-             <a class="" href="#">
-              <i class="fa fa-bookmark">
-              </i>
-             </a>
-            </div>
-            <h3 class="property-title">
-             <a href="listing.html">
-              Datia  1,4 TDI DSG
-             </a>
-            </h3>
-            <p class="property-description">
-             2009.g. 12.140 km, 75kW/80KS
-            </p>
-            <span class="property-field">
-             10.004 km
-            </span>
-            <div class="property-ratings">
-             <i class="icon-star-ratings-2">
-             </i>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6">
-          <div class="thumbnail thumbnail-property">
-           <div class="property-image">
-            <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-            <div class="image-count">
-             <i class="icon-image">
-             </i>
-             <span>
-              2
-             </span>
-            </div>
-            <a class="property-image-hover" href="listing.html">
-             <span class="property-im-m property-im-m-lt">
-             </span>
-             <span class="property-im-m property-im-m-lb">
-             </span>
-             <span class="property-im-m property-im-m-rt">
-             </span>
-             <span class="property-im-m property-im-m-rb">
-             </span>
-            </a>
-           </div>
-           <div class="caption">
-            <div class="anchor">
-             <a class="" href="#">
-              <i class="fa fa-bookmark">
-              </i>
-             </a>
-            </div>
-            <h3 class="property-title">
-             <a href="listing.html">
-              Classic sedan 1,4 TDI
-             </a>
-            </h3>
-            <p class="property-description">
-             2010. g. 120.14 km, 75kW/80KS
-            </p>
-            <span class="property-field">
-             160.004 km
-            </span>
-            <div class="property-ratings">
-             <i class="icon-star-ratings-2">
-             </i>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6">
-          <div class="thumbnail thumbnail-property">
-           <div class="property-image">
-            <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-            <div class="image-count">
-             <i class="icon-image">
-             </i>
-             <span>
-              2
-             </span>
-            </div>
-            <a class="property-image-hover" href="listing.html">
-             <span class="property-im-m property-im-m-lt">
-             </span>
-             <span class="property-im-m property-im-m-lb">
-             </span>
-             <span class="property-im-m property-im-m-rt">
-             </span>
-             <span class="property-im-m property-im-m-rb">
-             </span>
-            </a>
-           </div>
-           <div class="caption">
-            <div class="anchor">
-             <a class="" href="#">
-              <i class="fa fa-bookmark">
-              </i>
-             </a>
-            </div>
-            <h3 class="property-title">
-             <a href="listing.html">
-              Modern car  1,6 TDI DSG
-             </a>
-            </h3>
-            <p class="property-description">
-             2014. g. 39.138 km, 66kW/90KS
-            </p>
-            <span class="property-field">
-             114.630 km
-            </span>
-            <div class="property-ratings">
-             <i class="icon-star-ratings-3">
-             </i>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6">
-          <div class="thumbnail thumbnail-property">
-           <div class="property-image">
-            <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-            <div class="image-count">
-             <i class="icon-image">
-             </i>
-             <span>
-              2
-             </span>
-            </div>
-            <a class="property-image-hover" href="listing.html">
-             <span class="property-im-m property-im-m-lt">
-             </span>
-             <span class="property-im-m property-im-m-lb">
-             </span>
-             <span class="property-im-m property-im-m-rt">
-             </span>
-             <span class="property-im-m property-im-m-rb">
-             </span>
-            </a>
-           </div>
-           <div class="caption">
-            <div class="anchor">
-             <a class="" href="#">
-              <i class="fa fa-bookmark">
-              </i>
-             </a>
-            </div>
-            <h3 class="property-title">
-             <a href="listing.html">
-              Hybrid car TDI DSG
-             </a>
-            </h3>
-            <p class="property-description">
-             2013. g. 30.130 km, 60kW/90KS
-            </p>
-            <span class="property-field">
-             37.630 km
-            </span>
-            <div class="property-ratings">
-             <i class="icon-star-ratings-3">
-             </i>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6">
-          <div class="thumbnail thumbnail-property">
-           <div class="property-image">
-            <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-            <div class="image-count">
-             <i class="icon-image">
-             </i>
-             <span>
-              2
-             </span>
-            </div>
-            <a class="property-image-hover" href="listing.html">
-             <span class="property-im-m property-im-m-lt">
-             </span>
-             <span class="property-im-m property-im-m-lb">
-             </span>
-             <span class="property-im-m property-im-m-rt">
-             </span>
-             <span class="property-im-m property-im-m-rb">
-             </span>
-            </a>
-           </div>
-           <div class="caption">
-            <div class="anchor">
-             <a class="" href="#">
-              <i class="fa fa-bookmark">
-              </i>
-             </a>
-            </div>
-            <h3 class="property-title">
-             <a href="listing.html">
-              Infinity car 3,2 TDI DSG
-             </a>
-            </h3>
-            <p class="property-description">
-             2012. g. 50.130 km, 70kW/90KS
-            </p>
-            <span class="property-field">
-             457.400 km
-            </span>
-            <div class="property-ratings">
-             <i class="icon-star-ratings-3">
-             </i>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6">
-          <div class="thumbnail thumbnail-property">
-           <div class="property-image">
-            <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-            <div class="image-count">
-             <i class="icon-image">
-             </i>
-             <span>
-              2
-             </span>
-            </div>
-            <a class="property-image-hover" href="listing.html">
-             <span class="property-im-m property-im-m-lt">
-             </span>
-             <span class="property-im-m property-im-m-lb">
-             </span>
-             <span class="property-im-m property-im-m-rt">
-             </span>
-             <span class="property-im-m property-im-m-rb">
-             </span>
-            </a>
-           </div>
-           <div class="caption">
-            <div class="anchor">
-             <a class="" href="#">
-              <i class="fa fa-bookmark">
-              </i>
-             </a>
-            </div>
-            <h3 class="property-title">
-             <a href="listing.html">
-              Fast car 2,0 TDI DSG
-             </a>
-            </h3>
-            <p class="property-description">
-             2009. g. 30.130 km, 95kW/80KS
-            </p>
-            <span class="property-field">
-             123.470 km
-            </span>
-            <div class="property-ratings">
-             <i class="icon-star-ratings-5">
-             </i>
-            </div>
-           </div>
-          </div>
-         </div>
-         <div class="col-md-4 col-sm-6">
-          <div class="thumbnail thumbnail-property">
-           <div class="property-image">
-            <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-            <div class="image-count">
-             <i class="icon-image">
-             </i>
-             <span>
-              2
-             </span>
-            </div>
-            <a class="property-image-hover" href="listing.html">
-             <span class="property-im-m property-im-m-lt">
-             </span>
-             <span class="property-im-m property-im-m-lb">
-             </span>
-             <span class="property-im-m property-im-m-rt">
-             </span>
-             <span class="property-im-m property-im-m-rb">
-             </span>
-            </a>
-           </div>
-           <div class="caption">
-            <div class="anchor">
-             <a class="" href="#">
-              <i class="fa fa-bookmark">
-              </i>
-             </a>
-            </div>
-            <h3 class="property-title">
-             <a href="listing.html">
-              Alfa 2, TDI
-             </a>
-            </h3>
-            <p class="property-description">
-             2014. g. 31.130 km, 70kW/90KS
-            </p>
-            <span class="property-field">
-             25.630 km
-            </span>
-            <div class="property-ratings">
-             <i class="icon-star-ratings-4">
-             </i>
-            </div>
-           </div>
-          </div>
-         </div>
+         {% endfor %}
         </div>
         <nav aria-label="Page navigation" class="text-center">
          <ul class="pagination">
@@ -1840,6 +1276,43 @@
    </div>
   </footer>
   <!-- /. footer -->
+  <div class="modal fade modal-form" id="login-form" role="dialog" tabindex="-1">
+   <div class="modal-dialog" role="document">
+    <div class="modal-content">
+     <div class="modal-header">
+      <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+       <span aria-hidden="true">
+        ×
+       </span>
+      </button>
+      <h4 class="modal-title">
+       Login
+      </h4>
+     </div>
+     <div class="modal-body">
+      <form method="POST">
+        {% csrf_token %}
+       <div class="form-group">
+         <input name="login" type="hidden" value="true"/>
+        <input class="form-control" name="email" placeholder="Mail" type="text"/>
+       </div>
+       <div class="form-group">
+        <input class="form-control" name="password" placeholder="Password" type="text"/>
+       </div>
+       <div class="form-group">
+        <button class="btn btn-primary btn_color" type="submit">
+         Login
+        </button>
+       </div>
+       {{message}}
+      </form>
+     </div>
+    </div>
+    <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+  </div>
+
   <div class="modal fade modal-form" id="registr-form" role="dialog" tabindex="-1">
    <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -1854,60 +1327,27 @@
       </h4>
      </div>
      <div class="modal-body">
-      <form>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <input name="register" type="hidden" value="true"/>
+         <input class="form-control" name="name" placeholder="full name" type="text"/>
+        </div>
+        <div class="form-group">
+         <input class="form-control" name="phone" placeholder="phone number" type="text"/>
+        </div>
        <div class="form-group">
-        <input class="form-control" name="mail" placeholder="Mail" type="text"/>
+        <input class="form-control" name="email" placeholder="Mail" type="text"/>
        </div>
        <div class="form-group">
         <input class="form-control" name="password" placeholder="Password" type="text"/>
        </div>
        <div class="form-group">
-        <div class="g-recaptcha" data-sitekey="6LcsLCMTAAAAAGBLfo_gUkpTEa7DuEL35u4tCJfS">
-        </div>
-       </div>
-       <div class="form-group">
-        <button class="btn btn-primary btn_color" type="button">
+        <button class="btn btn-primary btn_color" type="submit">
          Register
         </button>
        </div>
       </form>
-     </div>
-     <div class="modal-footer">
-      <p>
-       Login by others accounts
-      </p>
-      <ul class="list-other-accounts social social-boxed">
-       <li>
-        <a class="facebook" href="#">
-         <i class="fa fa-facebook">
-         </i>
-        </a>
-       </li>
-       <li>
-        <a class="youtube" href="#">
-         <i class="fa fa-youtube">
-         </i>
-        </a>
-       </li>
-       <li>
-        <a class="google-plus" href="#">
-         <i class="fa fa-google-plus">
-         </i>
-        </a>
-       </li>
-       <li>
-        <a class="twitter" href="#">
-         <i class="fa fa-twitter">
-         </i>
-        </a>
-       </li>
-       <li>
-        <a class="linkedin" href="#">
-         <i class="fa fa-linkedin">
-         </i>
-        </a>
-       </li>
-      </ul>
      </div>
     </div>
     <!-- /.modal-content -->
