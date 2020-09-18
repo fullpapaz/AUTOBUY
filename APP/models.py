@@ -56,3 +56,13 @@ class Bookmark(models.Model):
     use_state=models.TextField(blank=True, null=True)
     creator=models.ForeignKey(User, null=True,blank=True, on_delete=models.CASCADE)
     price=models.IntegerField(blank=True, null=True)
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
+    phone=models.CharField(max_length=100, null=True,blank=True)
+    USER_TYPE_CHOICES = (
+        ('Dealer', 'Dealer'),
+        ('Buyer', 'Buyer'),
+    )
+    user_type = models.CharField(max_length=100, choices=USER_TYPE_CHOICES)

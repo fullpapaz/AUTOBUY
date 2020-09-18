@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, View
-from . models import Car,Bookmark
+from . models import Car,Bookmark,UserProfile
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib.auth.models import User, auth
 
 # Create your views here.
 def index(request):
@@ -10,6 +11,16 @@ def index(request):
 class IndexListView(ListView):
     model = Car
     template_name = "index.html"
+    def post(self,request,*args, **kwargs):
+        email = self.request.POST.get('email')
+        password = self.request.POST.get('password')
+        username = self.request.POST.get('username')
+        name=self.request.POST.get('name')
+        phone = self.request.POST.get('phone')
+        password1 = self.request.POST.get('password1')
+        password2 = self.request.POST.get('password2')
+        return super(IndexListView, self).get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(IndexListView, self).get_context_data(**kwargs)
         if self.request.GET.get('sub')=="true":
@@ -45,13 +56,35 @@ class IndexListView(ListView):
         elif self.request.method == 'POST':
             if self.request.POST.get("login")=="true":
                 email = self.request.POST['email']
+                if User.objects.filter(email=email):
+                    username=User.objects.get(email=email).username
+                else:
+                    username=''
                 password = self.request.POST['password']
-                user = auth.authenticate(email=email, password=password)
+                user = auth.authenticate(username=username, password=password)
                 if user is not None:
-                    auth.login(request, user)
+                    auth.login(self.request, user)
                     context['message']="logged in"
                 else:
                     context['message']="invalid login credentials"
+            elif self.request.POST.get("register")=="true":
+                username = self.request.POST['username']
+                name=self.request.POST['name']
+                email = self.request.POST['email']
+                phone = self.request.POST['phone']
+                password1 = self.request.POST['password1']
+                password2 = self.request.POST['password2']
+                if password1 == password2:
+                    if User.objects.filter(email=email).exists() or User.objects.filter(username=username).exists():
+
+                        context["message"] ="user with email already exists"
+                    else:
+                        user = User.objects.create(
+                        username=username, password=password1, email=email)
+                        user.set_password(user.password)
+                        user.save()
+                        profile = UserProfile.objects.create(user=user, phone=phone)
+                        profile.save()
         elif self.request.GET.get('third_check')=="three":
             if self.request.user.is_authenticated:
                 title=self.request.GET.get('title')
@@ -159,6 +192,15 @@ class SearchListView(ListView):
             if first_check=="one":
                 search = self.model.objects.filter(Q(title__icontains=query),Q(use_state__icontains=use_state),Q(category__icontains=category),Q(fuel_type__icontains=fuel_type),Q(condition__icontains=condition),Q(model__icontains=model), Q(transmission__icontains=transmission),Q(make__icontains=make),Q(model_year__range=(new_year_min, new_year_max)),Q(price__range=(new_price_min, new_price_max)))
                 context['search'] = search
+            else:
+                search = self.model.objects.none()
+                context['search'] = search
+        elif self.request.GET.get('second_check')=="two":
+            second_check="two"
+            query = self.request.GET.get('keyword')
+            if second_check=="two":
+                search = self.model.objects.filter(Q(title__icontains=query))
+                context['search']=search
             else:
                 search = self.model.objects.none()
                 context['search'] = search

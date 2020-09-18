@@ -407,11 +407,11 @@
       <div class="skew-block color-secondary">
       </div>
       <div class="search-form-mini closed">
-       <a class="search" href="#">
-        <i class="fa fa-search">
+       <input placeholder="Search" id="search" name="search" type="text"/>
+       <a class="search" >
+        <i class="fa fa-search" onclick="search()">
         </i>
        </a>
-       <input placeholder="Search" type="text"/>
        <a class="close" href="#">
         <i class="fa fa-remove">
         </i>
@@ -609,6 +609,13 @@ function showOutput6 () {
   var paid="true";
   var queryString = "?search=" +paid  + "&category=" + value;
   window.location.href="cars" + queryString;
+}
+function search () {
+  var value=document.getElementById("search").value;
+
+  var paid="two";
+  var queryString = "?second_check=" +paid  + "&keyword=" + value;
+  window.location.href="search" + queryString;
 }
 </script>
    <div class="box-fill box">
@@ -1297,7 +1304,7 @@ function showOutput6 () {
         <input class="form-control" name="email" placeholder="Mail" type="text"/>
        </div>
        <div class="form-group">
-        <input class="form-control" name="password" placeholder="Password" type="text"/>
+        <input class="form-control" name="password" placeholder="Password" type="password"/>
        </div>
        <div class="form-group">
         <button class="btn btn-primary btn_color" type="submit">
@@ -1336,11 +1343,17 @@ function showOutput6 () {
         <div class="form-group">
          <input class="form-control" name="phone" placeholder="phone number" type="text"/>
         </div>
+        <div class="form-group">
+         <input class="form-control" name="username" placeholder="username" type="text"/>
+        </div>
        <div class="form-group">
         <input class="form-control" name="email" placeholder="Mail" type="text"/>
        </div>
        <div class="form-group">
-        <input class="form-control" name="password" placeholder="Password" type="text"/>
+        <input class="form-control" name="password1" placeholder="Password" type="password"/>
+       </div>
+       <div class="form-group">
+        <input class="form-control" name="password2" placeholder="Confirm Password" type="password"/>
        </div>
        <div class="form-group">
         <button class="btn btn-primary btn_color" type="submit">
