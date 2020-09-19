@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, View
-from . models import Car,Bookmark,UserProfile
+from . models import Car,Bookmark,UserProfile,Images
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.models import User, auth
@@ -74,6 +74,7 @@ class IndexListView(ListView):
                 phone = self.request.POST['phone']
                 password1 = self.request.POST['password1']
                 password2 = self.request.POST['password2']
+                user_type = self.request.POST['user_type']
                 if password1 == password2:
                     if User.objects.filter(email=email).exists() or User.objects.filter(username=username).exists():
 
@@ -83,7 +84,7 @@ class IndexListView(ListView):
                         username=username, password=password1, email=email)
                         user.set_password(user.password)
                         user.save()
-                        profile = UserProfile.objects.create(user=user, phone=phone)
+                        profile = UserProfile.objects.create(user=user, phone=phone,user_type=user_type)
                         profile.save()
         elif self.request.GET.get('third_check')=="three":
             if self.request.user.is_authenticated:
@@ -281,8 +282,94 @@ class CategoryListView(ListView):
             context['page_obj'] = page_obj
         return context
 
-def mylisting(request):
-    return render(request,"mylistings.html")
-
 def submit_listing(request):
-    return render(request,"mylistings.html")
+    context={"car":Car.objects.filter(user=request.user)}
+    if request.POST.get("create")=="true":
+        title=request.POST.get("title")
+        model=request.POST.get("model")
+        power=request.POST.get("power")
+        make=request.POST.get("make")
+        category=request.POST.get("category")
+        model_year=request.POST.get("model_year")
+        transmission=request.POST.get("transmission")
+        fuel_type=request.POST.get("fuel_type")
+        condition=request.POST.get("condition")
+        use_state=request.POST.get("use_state")
+        price=request.POST.get("price")
+        ratings=request.POST.get("ratings")
+        phone=request.POST.get("phone")
+        speed=request.POST.get("speed")
+        email=request.POST.get("email")
+        image=request.FILES.getlist("image")
+        slug=title+model+power
+        car_check=Car.objects.filter(title=title,power=power,make=make,model=model,transmission=transmission,
+        fuel_type=fuel_type,condition=condition,use_state=use_state,price=price,rating=ratings,phone=phone,email=email)
+        if car_check:
+            context={"message":"car alrady exists","car":Car.objects.filter(user=request.user)}
+        else:
+            context={"message":"car created","car":Car.objects.filter(user=request.user)}
+            car=Car.objects.create(title=title,power=power,speed=speed,make=make,model=model,transmission=transmission,
+            fuel_type=fuel_type,condition=condition,use_state=use_state,price=price,rating=ratings,phone=phone,email=email,user=request.user,slug=slug)
+            car.save()
+            for x in image:
+                new_image=Images.objects.create(title=title,image=x)
+                new_image.save()
+                car.image.add(new_image)
+                car.save()
+            return render(request,"mylistings.html",context)
+    elif request.POST.get("edit")=="true":
+        item=request.POST.get("item")
+        item_2=request.POST.get("item_2")
+        title=request.POST.get("title")
+        model=request.POST.get("model")
+        power=request.POST.get("power")
+        make=request.POST.get("make")
+        model_year=request.POST.get("model_year")
+        transmission=request.POST.get("transmission")
+        fuel_type=request.POST.get("fuel_type")
+        condition=request.POST.get("condition")
+        use_state=request.POST.get("use_state")
+        price=request.POST.get("price")
+        ratings=request.POST.get("ratings")
+        phone=request.POST.get("phone")
+        speed=request.POST.get("speed")
+        email=request.POST.get("email")
+        image=request.FILES.getlist("image")
+        car_check=Car.objects.get(title=item,slug=item_2)
+        if title:
+            car_check.title=title
+        if model:
+            car_check.model=model
+        if power:
+            car_check.power=power
+        if make:
+            car_check.ake=make
+        if model_year:
+            car_check.model_year=model_year
+        if transmission:
+            car_check.transmission=transmission
+        if fuel_type:
+            car_check.fuel_type=fuel_type
+        if condition:
+            car_check.condition=condition
+        if use_state:
+            car_check.use_state=use_state
+        if price:
+            car_check.price=price
+        if ratings:
+            car_check.rating=ratings
+        if phone:
+            car_check.phone=phone
+        if speed:
+            car_check.speed=speed
+        if email:
+            car_check.email=email
+        car_check.save()
+        if image:
+            for x in image:
+                new_image=Images.objects.create(title=title,image=x)
+                new_image.save()
+                car_check.image=car_check.image.add(new_image)
+                car_check.save()
+        context={"car":Car.objects.filter(user=request.user)}
+    return render(request,"mylistings.html",context)

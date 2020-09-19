@@ -11,7 +11,6 @@ urlpatterns = [
     path("car/<slug>", views.CarDetailView.as_view(), name="details"),
     path("search", views.SearchListView.as_view(), name="search"),
     path("cars", views.CategoryListView.as_view(), name="cars"),
-    path("mylistings.html", views.mylisting, name="mylisting"),
     path("submit-listing", views.submit_listing, name="submit_listing"),
 
 ]

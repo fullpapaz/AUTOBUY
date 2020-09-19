@@ -40,7 +40,26 @@ class Car(models.Model):
         return reverse("APP:details", kwargs={
             'slug': self.slug
         })
-
+class Featured(models.Model):
+    title=models.TextField(blank=True, null=True)
+    category=models.TextField(blank=True, null=True)
+    power=models.IntegerField(blank=True, null=True)
+    speed=models.IntegerField(blank=True, null=True)
+    model=models.TextField(blank=True, null=True)
+    make=models.TextField(blank=True, null=True)
+    model_year=models.TextField(blank=True, null=True)
+    transmission=models.TextField(blank=True, null=True)
+    fuel_type=models.TextField(blank=True, null=True)
+    image=models.ManyToManyField(Images)
+    condition=models.TextField(blank=True, null=True)
+    use_state=models.TextField(blank=True, null=True)
+    user=models.ForeignKey(User, null=True,blank=True, on_delete=models.CASCADE)
+    price=models.IntegerField(blank=True, null=True)
+    phone = models.TextField(blank=True, null=True)
+    email = models.TextField(blank=True, null=True)
+    rating = models.IntegerField(blank=True, null=True)
+    slug = models.SlugField()
+    paginate_by = 2
 
 class Bookmark(models.Model):
     title=models.TextField(blank=True, null=True)

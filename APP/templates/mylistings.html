@@ -359,6 +359,7 @@
                 </div>
             </div>
         </div><!-- /.widget geo map-->
+
         <main class="container container-overflow-low-xs">
                 <div class="widget box box-fill section">
                     <div class="widget-header vert-line-r-l vert-line-primary">
@@ -368,38 +369,60 @@
                             <table class="table table-striped footable-sort" data-sorting="true">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Address</th>
+                                        <th>id</th>
+
                                         <!-- Dynamic generated -->
                                         <th data-breakpoints="xs sm md"  data-type="html">Listing name</th>
-                                        <th data-breakpoints="xs sm md"  data-type="html">Purpose</th>
-                                        <th data-breakpoints="xs sm md"  data-type="html">Type</th>
-                                        <th data-breakpoints="xs sm md"  data-type="html">City</th>
+                                        <th>Category</th>
+                                        <th data-breakpoints="xs sm md"  data-type="html">Power</th>
+                                        <th data-breakpoints="xs sm md"  data-type="html">Use State</th>
+                                        <th data-breakpoints="xs sm md"  data-type="html">Speed</th>
+                                        <th data-breakpoints="xs sm md"  data-type="html">Model</th>
+                                        <th data-breakpoints="xs sm md"  data-type="html">Model Year</th>
+                                        <th data-breakpoints="xs sm md"  data-type="html">Make</th>
                                         <!-- End dynamic generated -->
                                         <th data-breakpoints="xs md" ></th>
+                                        <th data-hide="phone" data-toggle="modal"  data-target="#create-listing-form" class="btn btn-info"   data-type="html">Create</th>
                                         <th data-hide="phone" class="control"  data-type="html">Edit</th>
                                         <th data-breakpoints="xs md" class="control"  data-type="html">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                  {% for item in car %}
+                                  <script>
+                                  function {{item.slug}}delete () {
+                                    var value=document.getElementById("{{item.slug}}delete_item").value;
+
+                                    var paid="true";
+                                    var queryString = "?delete=" +paid  + "&item=" + value;
+                                    window.location.href="submit-listing" + queryString;
+                                    return confirm('Are you sure?');
+                                  }
+                                  </script>
                                     <tr>
-                                        <td>29</td>
+                                        <td>{{item.id}}</td>
                                         <td>
-                                        <a href="#">Veliki lovrečan</a>
+                                        <a href="#">{{item.title}}</a>
                                         </td>
                                         <!-- Dynamic generated -->
-                                        <td>My listing</td>
-                                        <td>Sale</td>
-                                        <td>Land</td>
-                                        <td>Cestica</td>
+                                        <td>{{item.category}}</td>
+                                        <td>{{item.power}}</td>
+                                        <td>{{item.use_state}}</td>
+                                        <td>{{item.speed}}</td>
+                                        <td>{{item.model}}</td>
+                                        <td>{{item.model_year}}</td>
+                                        <td>{{item.make}}</td>
                                         <!-- End dynamic generated -->
                                         <td>
                                             <a class="btn btn-primary" href="#">
                                             <i class="icon-circle-arrow-up"></i> Make featured</a>
                                         </td>
-                                        <td><a href="#" class="btn btn-info"><i class="icon-edit"></i> Edit</a></td>
-                                        <td><a href="#" onclick="return confirm('Are you sure?')" class="btn btn-danger"><i class="icon-remove"></i> Delete</a></td>
+                                        <td><a href="#" data-toggle="modal" data-target="#{{item.slug}}edit-listing-form"
+                                        data-hover="Register" class="btn btn-info"><i class="icon-edit"></i> Edit</a></td>
+                                        <input type="hidden" id="{{item.slug}}delete_item" value="{{item.slug}}"/>
+                                        <td><a href="#" onclick="{{item.slug}}delete()" class="btn btn-danger"><i class="icon-remove"></i> Delete</a></td>
                                     </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                             <div class="box-body">
@@ -564,6 +587,264 @@
                 </div>
             </div>
         </footer><!-- /. footer -->
+        <div class="modal fade modal-form" id="create-listing-form" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Create Listing</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{% url 'APP:submit_listing' %}" enctype="multipart/form-data">
+                          {% csrf_token %}
+                            <div class="form-group">
+                              <input type="hidden" name="create" value="true"/>
+                                <input type="text" class="form-control" name="title" placeholder="title" value=""/>
+                            </div>
+                            <div class="form-group">
+                              <select class="form-control" name="category">
+                                <option>auto</option>
+                                <option>truck</option>
+                                <option>tractor</option>
+                                <option>moped</option>
+                                <option>bus</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="power" placeholder="power" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="speed" placeholder="speed" value=""/>
+                            </div>
+                            Images
+                            <div class="form-group">
+                                <input type="file" class="form-control" name="image" multiple/>
+                            </div>
+                            Model
+                            <div class="form-group">
+                              <select class="form-control" name="model">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                              </select>
+                            </div>
+                            Make
+                            <div class="form-group">
+                              <select class="form-control" name="make">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                              </select>
+                            </div>
+                            Model Year
+                              <div class="form-group">
+                                <input type="text" name="model_year" class="form-control"/>
+                              </div>
+                            Transmission
+                            <div class="form-group">
+                              <select class="form-control" name="transmission">
+                                <option>automatic</option>
+                                <option>continously variable</option>
+                                <option>semi-automatic</option>
+                                <option>dual-clotch</option>
+                              </select>
+                            </div>
+                            Fuel Type
+                            <div class="form-group">
+                              <select class="form-control" name="condition">
+                                <option>Gas</option>
+                                <option>Diesel</option>
+                                <option>Hydrogen</option>
+                                <option>Petrol</option>
+                              </select>
+                            </div>
+                            Condition
+                            <div class="form-group">
+                            <select class="form-control" name="condition">
+                              <option>A</option>
+                              <option>B</option>
+                              <option>C</option>
+                              <option>D</option>
+                            </select>
+                          </div>
+                            Use State
+                            <div class="form-group">
+                              <select class="form-control" name="use_state">
+                                <option>Used</option>
+                                <option>New</option>
+                                <option>Import</option>
+                              </select>
+                            </div>
+                            Price
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="price" placeholder="price" value=""/>
+                            </div>
+                            Phone
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="phone" placeholder="phone" value=""/>
+                            </div>
+                            Email
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="email" placeholder="email" value=""/>
+                            </div>
+                            Ratings
+                            <div class="form-group">
+                                <select class="form-control" name="ratings">
+                                  <option>1</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn_color">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        {% for i in car %}
+        <div class="modal fade modal-form" id="{{i.slug}}edit-listing-form" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Edit Listing</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                          {% csrf_token %}
+                            <div class="form-group">
+                              <input type="hidden" name="edit" value="true"/>
+                              <input type="hidden" name="item" value="{{i.title}}"/>
+                              <input type="hidden" name="item_2" value="{{i.slug}}"/>
+                              <input type="text" class="form-control" name="title" placeholder="title" value=""/>
+                            </div>
+                            <div class="form-group">
+                              <select class="form-control" name="model">
+                                <option></option>
+                                <option>auto</option>
+                                <option>truck</option>
+                                <option>tractor</option>
+                                <option>moped</option>
+                                <option>bus</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="power" placeholder="power" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="speed" placeholder="speed" value=""/>
+                            </div>
+                            Images
+                            <div class="form-group">
+                                <input type="file" class="form-control" name="image" multiple/>
+                            </div>
+                            Model
+                            <div class="form-group">
+                              <select class="form-control" name="model">
+                                <option></option>
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                              </select>
+                            </div>
+                            Make
+                            <div class="form-group">
+                              <select class="form-control" name="make">
+                                <option></option>
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                              </select>
+                            </div>
+                            Model Year
+                              <div class="form-group">
+                                <select class="form-control" name="model_year">
+                                  <option></option>
+                                  <option>A</option>
+                                  <option>B</option>
+                                  <option>C</option>
+                                  <option>D</option>
+                                </select>
+                              </div>
+                            Transmission
+                            <div class="form-group">
+                              <select class="form-control" name="transmission">
+                                <option></option>
+                                <option>automatic</option>
+                                <option>continously variable</option>
+                                <option>semi-automatic</option>
+                                <option>dual-clotch</option>
+                              </select>
+                            </div>
+                            Fuel Type
+                            <div class="form-group">
+                              <select class="form-control" name="condition">
+                                <option></option>
+                                <option>Gas</option>
+                                <option>Diesel</option>
+                                <option>Hydrogen</option>
+                                <option>Petrol</option>
+                              </select>
+                            </div>
+                            Condition
+                            <div class="form-group">
+                            <select class="form-control" name="condition">
+                              <option></option>
+                              <option>A</option>
+                              <option>B</option>
+                              <option>C</option>
+                              <option>D</option>
+                            </select>
+                          </div>
+                            Use State
+                            <div class="form-group">
+                              <select class="form-control" name="use_state">
+                                <option></option>
+                                <option>Used</option>
+                                <option>New</option>
+                                <option>Import</option>
+                              </select>
+                            </div>
+                            Price
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="price" placeholder="price" value=""/>
+                            </div>
+                            Phone
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="phone" placeholder="phone" value=""/>
+                            </div>
+                            Email
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="email" placeholder="email" value=""/>
+                            </div>
+                            Ratings
+                            <div class="form-group">
+                                <select class="form-control" name="rating">
+                                  <option></option>
+                                  <option>1</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn_color">Edit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        {% endfor %}
         <div class="modal fade modal-form" id="registr-form" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
