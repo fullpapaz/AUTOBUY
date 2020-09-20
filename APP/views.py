@@ -27,9 +27,15 @@ class IndexListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(IndexListView, self).get_context_data(**kwargs)
         boost=Car.objects.filter(feature_expire=datetime.datetime.now().date())
+        premium=UserProfile.objects.filter(premium_expire=datetime.datetime.now().date())
         for i in boost:
             i.featured=False
             i.feature_expire=""
+            i.save()
+        for i in premium:
+            i.premium=False
+            i.premium_expire=""
+            i.premium_feature_count=0
             i.save()
         if self.request.GET.get('sub')=="true":
             email=self.request.GET.get('email')
@@ -402,6 +408,15 @@ def submit_listing(request):
         boost.featured= True
         boost.feature_expire=date+date2
         boost.save()
+        context={"car":Car.objects.filter(user=request.user)}
+    elif request.GET.get("premium")=="true":
+        date=datetime.datetime.now().date()
+        date2 = datetime.timedelta(days=30)
+        premium=UserProfile.objects.get(user=request.user)
+        premium.premium=True
+        premium.premium_feature_count=2
+        premium.premium_expire=date+date2
+        premium.save()
         context={"car":Car.objects.filter(user=request.user)}
     return render(request,"mylistings.html",context)
 

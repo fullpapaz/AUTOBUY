@@ -88,6 +88,7 @@ class UserProfile(models.Model):
     description=models.TextField(blank=True, null=True)
     premium=models.BooleanField(default=False)
     premium_expire=models.DateField(blank=True, null=True)
+    premium_feature_count=models.IntegerField(blank=True, null=True,default="0")
     USER_TYPE_CHOICES = (
         ('Dealer', 'Dealer'),
         ('Buyer', 'Buyer'),

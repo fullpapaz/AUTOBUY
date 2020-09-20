@@ -434,8 +434,12 @@
                                             <button class="dropbtn">Boost
                                               <i class="fa fa-rocket" aria-hidden="true"></i></button>
                                               <div class="dropdown-content">
+                                                {% if user.profile.premium_feature_count > 0 %}
+                                                <a onclick="payWithPaystack3{{item.slug}}()">Boost</a>
+                                                {% else %}
                                                <a onclick="payWithPaystack{{item.slug}}()">Boost For 1 week(₦2000)</a>
                                                <a onclick="payWithPaystack2{{item.slug}}()">Boost For 2 weeks(₦5000)</a>
+                                               {% endif %}
                                               </div>
                                             </div>
                                             {% endif %}
@@ -497,6 +501,39 @@
      });
      handler.openIframe();
    }
+   function payWithPaystack3{{item.slug}}(){
+      var value=document.getElementById("{{item.slug}}delete_item").value;
+      var paid="true";
+      var queryString = "?boost=" +paid  + "&item=" + value;
+      window.location.href="submit-listing" + queryString;
+   }
+   function payWithPaystack(){
+  var handler = PaystackPop.setup({
+    key: 'pk_test_2e6c36e35df589cd45c15eca59189df5e3fcc1af',
+    email: "chukslord1@gmail.com",
+    amount: 2000000,
+    ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+    metadata: {
+       custom_fields: [
+          {
+              display_name: "chukslord1",
+              variable_name: "Afriproperty Basic Subscription Package",
+              value: "+2348012345678"
+          }
+       ]
+    },
+    callback: function(response){
+        alert('success. transaction ref is ' + response.reference);
+        var paid="true";
+        var queryString = "?premium=" +paid;
+        window.location.href="submit-listing" + queryString;
+      },
+    onClose: function(){
+        alert('window closed');
+    }
+  });
+  handler.openIframe();
+}
    </script>
                                         <td><a href="#" data-toggle="modal" data-target="#{{item.slug}}edit-listing-form"
                                         data-hover="Register" class="btn btn-info"><i class="icon-edit"></i> Edit</a></td>
@@ -573,7 +610,11 @@
                                   <td>1</td>
                                   <td>
                                       Free <i class="icon-eye-open"></i>
+                                      {% if user.profile.premium %}
                                       <span class="label label-important">Not activated</span>
+                                      {% else %}
+                                      <i class="icon-eye-open"></i><span class="label label-success">Activated</span>
+                                      {% endif %}
                                   </td>
                                   <td>
                                       0.00 Naira
@@ -593,20 +634,24 @@
                               <tr>
                                   <td>3</td>
                                   <td>
-                                      Premium <i class="icon-eye-open"></i><span class="label label-success">Activated</span>
+                                      Premium {% if user.profile.premium %}
+                                      <i class="icon-eye-open"></i><span class="label label-success">Activated</span>
+                                      {% else %}
+                                      <span class="label label-important">Not activated</span>
+                                      {% endif %}
                                   </td>
                                   <td>
                                       20,000 Naira
                                   </td>
                                   <td><i class="icon-ok"></i></td>
                                   <td>
-                                      30, 2017-12-14 13:18:25
+                                      {{user.profile.premium_expire}}
                                   </td>
                                   <td>
                                       40
                                   </td>
                                   <td>
-                                      1
+                                      2
                                   </td>
                                   <td>
                                   <div class="btn-group">
@@ -614,8 +659,7 @@
                                           <i class="icon-shopping-cart"></i> Buy/Extend <i class="icon-dropdown-white"></i>
                                       </a>
                                       <ul class="dropdown-menu">
-                                          <li><a href="#"><i class="icon-shopping-cart"></i> Buy/Extend with PayPal</a></li>
-                                          <li><a href="#"><i class="icon-shopping-cart"></i> Buy/Extend with bank payment</a></li>
+                                          <li><a onclick="payWithPaystack()"><i class="icon-shopping-cart"></i> Buy/Extend with PayStack</a></li>
                                       </ul>
                                   </div>
                                   </td>
