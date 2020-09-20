@@ -621,144 +621,47 @@
      <div class="col-sm-9">
       <div class="result section">
        <div class="list-result">
+         {% for article in blogs %}
         <div class="article-list-result box-fill">
          <div class="media">
           <div class="media-left image-preview">
-           <a class="image-hoveffect-zoomlong" href="page_image-gallery.html">
-            <img alt="" src="{% static 'assets/img/placeholders/250x210.png' %}"/>
+           <a class="image-hoveffect-zoomlong" href="{{article.get_absolute_url}}">
+            <img alt="" src="{{article.image.url}}"/>
            </a>
           </div>
           <div class="media-body">
            <h2 class="title">
-            <a class="primary-hover" href="page_image-gallery.html">
-             New modern house designs
+            <a class="primary-hover" href="{{article.get_absolute_url}}">
+             {{article.title}}
             </a>
            </h2>
            <div class="description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate nec neque gravida rhoncus. Donec sit amet blandit mauris, sed bibendum risus. Cras ut urna semper, facilisis augue sed, imperdiet nulla. Duis tristique tellus tortor, dapibus gravida sem sodales id. Nullam quis convallis libero, vitae pulvinar nisi.
+            {{article.summmary}}
            </div>
            <div class="property-card-tasm">
             <div class="pull-left item-t">
              <a class="img-circle-cover" href="page_profile.html">
-              <img alt="" class="img-circle" src="{% static 'assets/img/placeholders/30x30.png' %}"/>
+              <img alt="" class="img-circle" src="{{article.author_image.url}}"/>
              </a>
              <span class="name">
               by
               <a class="text-color-primary" href="page_profile.html">
-               Lazo Bikup
+               {{article.author}}
               </a>
              </span>
              <span class="date">
               <i class="fa fa-calendar">
               </i>
-              June 9, 2017
+              {{article.created_at}}
              </span>
             </div>
             <div class="item-tag pull-right text-color-primary">
-             <a href="#">
-              House
-             </a>
-             ,
-             <a href="#">
-              Auto
-             </a>
             </div>
            </div>
           </div>
          </div>
         </div>
-        <div class="article-list-result box-fill">
-         <div class="media">
-          <div class="media-left image-preview">
-           <a class="image-hoveffect-zoomlong" href="page_image-gallery.html">
-            <img alt="" src="{% static 'assets/img/placeholders/250x210.png' %}"/>
-           </a>
-          </div>
-          <div class="media-body">
-           <h2 class="title">
-            <a class="primary-hover" href="page_image-gallery.html">
-             Healthy body important
-            </a>
-           </h2>
-           <div class="description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate nec neque gravida rhoncus. Donec sit amet blandit mauris, sed bibendum risus. Cras ut urna semper, facilisis augue sed, imperdiet nulla. Duis tristique tellus tortor, dapibus gravida sem sodales id. Nullam quis convallis libero, vitae pulvinar nisi.
-           </div>
-           <div class="property-card-tasm">
-            <div class="pull-left item-t">
-             <a class="img-circle-cover" href="page_profile.html">
-              <img alt="" class="img-circle" src="{% static 'assets/img/placeholders/30x30.png' %}"/>
-             </a>
-             <span class="name">
-              by
-              <a class="text-color-primary" href="page_profile.html">
-               Grace Aitken
-              </a>
-             </span>
-             <span class="date">
-              <i class="fa fa-calendar">
-              </i>
-              February 6, 2017
-             </span>
-            </div>
-            <div class="item-tag pull-right text-color-primary">
-             <a href="#">
-              Car
-             </a>
-             ,
-             <a href="#">
-              Auto
-             </a>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div>
-        <div class="article-list-result box-fill">
-         <div class="media">
-          <div class="media-left image-preview">
-           <a class="image-hoveffect-zoomlong" href="page_image-gallery.html">
-            <img alt="" src="{% static 'assets/img/placeholders/250x210.png' %}"/>
-           </a>
-          </div>
-          <div class="media-body">
-           <h2 class="title">
-            <a class="primary-hover" href="page_image-gallery.html">
-             Become successfully speaker
-            </a>
-           </h2>
-           <div class="description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate nec neque gravida rhoncus. Donec sit amet blandit mauris, sed bibendum risus. Cras ut urna semper, facilisis augue sed, imperdiet nulla. Duis tristique tellus tortor, dapibus gravida sem sodales id. Nullam quis convallis libero, vitae pulvinar nisi.
-           </div>
-           <div class="property-card-tasm">
-            <div class="pull-left item-t">
-             <a class="img-circle-cover" href="page_profile.html">
-              <img alt="" class="img-circle" src="{% static 'assets/img/placeholders/30x30.png' %}"/>
-             </a>
-             <span class="name">
-              by
-              <a class="text-color-primary" href="page_profile.html">
-               Holly Crouch
-              </a>
-             </span>
-             <span class="date">
-              <i class="fa fa-calendar">
-              </i>
-              May 1, 2017
-             </span>
-            </div>
-            <div class="item-tag pull-right text-color-primary">
-             <a href="#">
-              Car
-             </a>
-             ,
-             <a href="#">
-              Speaker
-             </a>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div>
+        {% endfor %}
        </div>
        <nav aria-label="Page navigation" class="text-center">
         <ul class="pagination">

@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, View
-from . models import Car,Bookmark,UserProfile,Images
+from . models import Car,Bookmark,UserProfile,Images,Article,Question
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.models import User, auth
-
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 # Create your views here.
 def index(request):
     return render(request,"index.html")
@@ -64,9 +66,9 @@ class IndexListView(ListView):
                 user = auth.authenticate(username=username, password=password)
                 if user is not None:
                     auth.login(self.request, user)
-                    context['message']="logged in"
+                    context['message_login']="logged in"
                 else:
-                    context['message']="invalid login credentials"
+                    context['message_login']="invalid login credentials"
             elif self.request.POST.get("register")=="true":
                 username = self.request.POST['username']
                 name=self.request.POST['name']
@@ -78,14 +80,16 @@ class IndexListView(ListView):
                 if password1 == password2:
                     if User.objects.filter(email=email).exists() or User.objects.filter(username=username).exists():
 
-                        context["message"] ="user with email already exists"
+                        context["message_register"] ="user with email already exists"
                     else:
                         user = User.objects.create(
                         username=username, password=password1, email=email)
                         user.set_password(user.password)
                         user.save()
-                        profile = UserProfile.objects.create(user=user, phone=phone,user_type=user_type)
+                        slug=name.replace(" ","")
+                        profile = UserProfile.objects.create(user=user,name=name,website=email,phone=phone,user_type=user_type,slug=slug)
                         profile.save()
+                        context["message_register"] ="user created"
         elif self.request.GET.get('third_check')=="three":
             if self.request.user.is_authenticated:
                 title=self.request.GET.get('title')
@@ -111,7 +115,8 @@ class IndexListView(ListView):
                     book.save()
 
         context['cars'] = Car.objects.all()
-
+        context['articles'] = Article.objects.all().order_by('-id')[:2]
+        context['dealers'] = UserProfile.objects.filter(user_type__icontains="dealer").order_by('-id')[:3]
 
         return context
 class CarDetailView(DetailView):
@@ -373,3 +378,111 @@ def submit_listing(request):
                 car_check.save()
         context={"car":Car.objects.filter(user=request.user)}
     return render(request,"mylistings.html",context)
+
+class ArticleListView(ListView):
+    model = Article
+    template_name = "page_blog.html"
+    def get_context_data(self, **kwargs):
+        context = super(ArticleListView, self).get_context_data(**kwargs)
+        check_login=self.request.user
+        context['blogs'] = Article.objects.all()
+        blog=Article.objects.all()
+        paginator= Paginator(Article.objects.all(),10)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+
+        return context
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = "page_image-gallery.html"
+
+    def get_object(self, queryset=None):
+        global obj
+        obj = super(ArticleDetailView, self).get_object(queryset=queryset)
+        return obj
+    def get_context_data(self, **kwargs):
+        context = super(ArticleDetailView, self).get_context_data(**kwargs)
+        if self.request.GET.get('comment_check')=="True":
+            name=self.request.GET.get("name")
+            email=self.request.GET.get("email")
+            comment=self.request.GET.get("comment")
+            new_comment=Comment.objects.create(name=name,email=email,comment=comment,blog=obj.title)
+            new_comment.save()
+        check_login=self.request.user
+
+        context['latest'] = Car.objects.all().order_by('-id')[:3]
+        context['blogs'] = Article.objects.all()
+        popular=[]
+        blog=Article.objects.all()
+        check=1
+
+        return context
+
+
+class DealerDetailView(DetailView):
+    model = UserProfile
+    template_name = "page_profile.html"
+
+
+    def post(self,request,*args, **kwargs):
+        email = self.request.POST.get('email')
+        name=self.request.POST.get('name')
+        phone = self.request.POST.get('phone')
+        question = self.request.POST.get('question')
+        return super(DealerDetailView, self).get(request, *args, **kwargs)
+    def get_object(self, queryset=None):
+        global obj
+        obj = super(DealerDetailView, self).get_object(queryset=queryset)
+        return obj
+    def get_context_data(self, **kwargs):
+        context = super(DealerDetailView, self).get_context_data(**kwargs)
+        if self.request.method == 'POST':
+            email = self.request.POST.get('email')
+            name=self.request.POST.get('name')
+            phone = self.request.POST.get('phone')
+            question = self.request.POST.get('question')
+            tour=Question.objects.create(phone=phone,name=name,question=question)
+            tour.save()
+            message="Questions From A Buyer Regarding A Car You Have Assigned To You On autobuy.com "+question+" ."
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = "chukslord1@gmail.com"
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] ="Enquiry For Car"
+
+
+            body = message+ "My contacts are"  + " phone " + phone
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            context['message']="Question Sent Successfully"
+
+        context['latest'] = Car.objects.all().order_by('-id')[:3]
+        context['assigned'] = Car.objects.filter(user=obj.user)
+        context['blogs'] = Article.objects.all()
+        popular=[]
+        blog=Article.objects.all()
+        check=1
+        paginator= Paginator(Car.objects.filter(user=obj.user),10)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+
+        return context
+
+def contact(request):
+    return render(request,"page_contact.html")
+
+
+def featured(request):
+    context={"featured":Car.objects.filter(featured=True)}
+    return render(request,"features.html",context)

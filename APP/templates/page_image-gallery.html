@@ -608,7 +608,7 @@
     <div class="bg-mask">
      <div class="container">
       <h1>
-       Basic with Gallery
+      {{object.title}}
       </h1>
      </div>
     </div>
@@ -620,53 +620,18 @@
     <div class="col-sm-9 container-overflow-low-xs">
      <div class="section box-fill box-content">
       <p class="">
-       <img alt="" class="pull-right-img lg" src="{% static 'assets/img/placeholders/450x300.png' %}"/>
-       This is simply dummy text of the printing and typesetting industry. That has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Layout passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Layout.
+       <img alt="" class="pull-right-img lg" src="{{object.image.url}}"/>
+       {{object.body}}
       </p>
       <p>
-       <img alt="" class="pull-left-img lg" src="{% static 'assets/img/placeholders/450x300.png' %}"/>
+       <img alt="" class="pull-left-img lg" src="{{object.image_body.url}}"/>
        <strong>
-        This is simply dummy text of the printing and typesetting industry. That has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronicÑŽ
+        {{object.highlight}}
        </strong>
       </p>
       <p>
-       This is simply dummy text of the printing and typesetting industry. That has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Layout passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Layout.
+       {{object.body_2}}
       </p>
-     </div>
-     <div class="widget box box-fill">
-      <div class="widget-header vert-line-r-l vert-line-primary">
-       <h2>
-        Image gallery
-       </h2>
-      </div>
-      <div class="">
-       <ul class="images-gallery clearfix" data-target="#modal-gallery" data-toggle="modal-gallery">
-        <li class="col-sm-4">
-         <a class="preview show-icon" data-gallery="gallery" download="assets/img/placeholders/1600x1080.png" href="assets/img/placeholders/1600x1080.png" title="">
-          <img alt="" class="" src="{% static 'assets/img/preview-icon.png' %}"/>
-         </a>
-         <div class="preview-img image-cover-div">
-          <img alt="" class="" data-src="assets/img/placeholders/1600x1080.png" src="{% static 'assets/img/placeholders/360x210.png' %}"/>
-         </div>
-        </li>
-        <li class="col-sm-4">
-         <a class="preview show-icon" data-gallery="gallery" download="assets/img/placeholders/1600x1080.png" href="assets/img/placeholders/1600x1080.png" title="">
-          <img alt="" class="" src="{% static 'assets/img/preview-icon.png' %}"/>
-         </a>
-         <div class="preview-img image-cover-div">
-          <img alt="" class="" data-src="assets/img/placeholders/1600x1080.png" src="{% static 'assets/img/placeholders/360x210.png' %}"/>
-         </div>
-        </li>
-        <li class="col-sm-4">
-         <a class="preview show-icon" data-gallery="gallery" download="assets/img/placeholders/1600x1080.png" href="assets/img/placeholders/1600x1080.png" title="">
-          <img alt="" class="" src="{% static 'assets/img/preview-icon.png' %}"/>
-         </a>
-         <div class="preview-img image-cover-div">
-          <img alt="" class="" data-src="assets/img/placeholders/1600x1080.png" src="{% static 'assets/img/placeholders/360x210.png' %}"/>
-         </div>
-        </li>
-       </ul>
-      </div>
      </div>
     </div>
     <div class="col-sm-3 content-right-s">
@@ -678,15 +643,20 @@
       </div>
       <div class="widget-content properties-grid">
        <div class="row">
+         {% for item in latest %}
         <div class="col-xs-12">
          <div class="thumbnail thumbnail-property features">
           <div class="property-image object-fit-container compat-object-fit">
-           <img alt="car" src="{% static 'assets/img/placeholders/180x120.png' %}"/>
+            {% for i in item.image.all %}
+           {% if forloop.first %}
+           <img alt="car" src="{% get_media_prefix %}{{i.image}}"/>
+           {% endif %}
+           {% endfor %}
            <div class="property-ratings">
-            <i class="icon-star-ratings-1">
+            <i class="icon-star-ratings-{{item.rating}}">
             </i>
            </div>
-           <a class="property-image-hover" href="listing.html">
+           <a class="property-image-hover" href="{{item.get_absolute_url}}">
             <span class="property-im-m property-im-m-lt">
             </span>
             <span class="property-im-m property-im-m-lb">
@@ -700,68 +670,13 @@
           <div class="caption">
            <h3 class="property-title">
             <a href="listing.html">
-             Fast car Sportback 1,6 TDI DSG
+             {{item.title}}
             </a>
            </h3>
           </div>
          </div>
         </div>
-        <div class="col-xs-12">
-         <div class="thumbnail thumbnail-property features">
-          <div class="property-image object-fit-container compat-object-fit">
-           <img alt="car" src="{% static 'assets/img/placeholders/180x120.png' %}"/>
-           <div class="property-ratings">
-            <i class="icon-star-ratings-3">
-            </i>
-           </div>
-           <a class="property-image-hover" href="listing.html">
-            <span class="property-im-m property-im-m-lt">
-            </span>
-            <span class="property-im-m property-im-m-lb">
-            </span>
-            <span class="property-im-m property-im-m-rt">
-            </span>
-            <span class="property-im-m property-im-m-rb">
-            </span>
-           </a>
-          </div>
-          <div class="caption">
-           <h3 class="property-title">
-            <a href="listing.html">
-             Fast car Sportback 1,6 TDI DSG
-            </a>
-           </h3>
-          </div>
-         </div>
-        </div>
-        <div class="col-xs-12">
-         <div class="thumbnail thumbnail-property features">
-          <div class="property-image object-fit-container compat-object-fit">
-           <img alt="car" src="{% static 'assets/img/placeholders/180x120.png' %}"/>
-           <div class="property-ratings">
-            <i class="icon-star-ratings-2">
-            </i>
-           </div>
-           <a class="property-image-hover" href="listing.html">
-            <span class="property-im-m property-im-m-lt">
-            </span>
-            <span class="property-im-m property-im-m-lb">
-            </span>
-            <span class="property-im-m property-im-m-rt">
-            </span>
-            <span class="property-im-m property-im-m-rb">
-            </span>
-           </a>
-          </div>
-          <div class="caption">
-           <h3 class="property-title">
-            <a href="listing.html">
-             Fast car Sportback 1,6 TDI DSG
-            </a>
-           </h3>
-          </div>
-         </div>
-        </div>
+        {% endfor %}
        </div>
       </div>
       <!-- /. recent properties -->

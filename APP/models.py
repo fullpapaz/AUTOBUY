@@ -30,6 +30,7 @@ class Car(models.Model):
     phone = models.TextField(blank=True, null=True)
     email = models.TextField(blank=True, null=True)
     rating = models.IntegerField(blank=True, null=True)
+    featured=models.BooleanField(default=False)
     slug = models.SlugField()
     paginate_by = 2
 
@@ -79,9 +80,53 @@ class Bookmark(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
+    name= models.TextField(blank=True, null=True)
+    website=models.CharField(max_length=300, null=True,blank=True)
+    image= models.ImageField(blank=True, null=True)
     phone=models.CharField(max_length=100, null=True,blank=True)
+    description=models.TextField(blank=True, null=True)
     USER_TYPE_CHOICES = (
         ('Dealer', 'Dealer'),
         ('Buyer', 'Buyer'),
     )
     user_type = models.CharField(max_length=100, choices=USER_TYPE_CHOICES)
+    slug = models.SlugField()
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("APP:dealer", kwargs={
+            'slug': self.slug
+        })
+
+class Article(models.Model):
+    title=models.TextField(blank=True, null=True)
+    image = models.ImageField(blank=True, null=True)
+    date=models.DateField(auto_now_add=True)
+    summmary=models.TextField(blank=True, null=True)
+    highlight=models.TextField(blank=True, null=True)
+    body=models.TextField(blank=True, null=True)
+    image_body = models.ImageField(blank=True, null=True)
+    body_2= models.TextField(blank=True, null=True)
+    author=models.TextField(blank=True, null=True)
+    email = models.TextField(blank=True, null=True)
+    author_description = models.TextField(blank=True, null=True)
+    author_image =  models.ImageField(blank=True, null=True)
+    slug = models.SlugField()
+    paginate_by = 2
+
+    def __str__(self):
+        return self.title
+    def get_absolute_url(self):
+        return reverse("APP:blog", kwargs={
+            'slug': self.slug
+        })
+
+class Question(models.Model):
+    car = models.TextField(blank=True, null=True)
+    phone =models.TextField(blank=True, null=True)
+    name =models.TextField(blank=True, null=True)
+    question=models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.question
