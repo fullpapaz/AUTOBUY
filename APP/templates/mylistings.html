@@ -379,9 +379,9 @@
                                         <th data-breakpoints="xs sm md"  data-type="html">Speed</th>
                                         <th data-breakpoints="xs sm md"  data-type="html">Model</th>
                                         <th data-breakpoints="xs sm md"  data-type="html">Model Year</th>
-                                        <th data-breakpoints="xs sm md"  data-type="html">Make</th>
                                         <!-- End dynamic generated -->
                                         <th data-breakpoints="xs md" ></th>
+                                        <th data-hide="phone" class="control"  data-type="html">Boost</th>
                                         <th data-hide="phone" data-toggle="modal"  data-target="#create-listing-form" class="btn btn-info"   data-type="html">Create</th>
                                         <th data-hide="phone" class="control"  data-type="html">Edit</th>
                                         <th data-breakpoints="xs md" class="control"  data-type="html">Delete</th>
@@ -411,12 +411,81 @@
                                         <td>{{item.speed}}</td>
                                         <td>{{item.model}}</td>
                                         <td>{{item.model_year}}</td>
-                                        <td>{{item.make}}</td>
+
                                         <!-- End dynamic generated -->
                                         <td>
                                             <a class="btn btn-primary" href="#">
                                             <i class="icon-circle-arrow-up"></i> Make featured</a>
                                         </td>
+                                        <td>
+                                          <script src="https://js.paystack.co/v1/inline.js"></script>
+                                          <div class="dropdown">
+                                            <button class="dropbtn">Boost
+                                              <i class="fa fa-rocket" aria-hidden="true"></i></button>
+                                              <div class="dropdown-content">
+                                               <a onclick="payWithPaystack{{item.slug}}()">Boost For 1 week(₦2000)</a>
+                                               <a onclick="payWithPaystack2{{item.slug}}()">Boost For 2 weeks(₦5000)</a>
+                                              </div>
+                                            </div>
+                                        </td>
+                                        <script>
+   function payWithPaystack{{item.slug}}(){
+     var handler = PaystackPop.setup({
+       key: 'pk_test_2e6c36e35df589cd45c15eca59189df5e3fcc1af',
+       email: "{{user.email}}",
+       amount: 200000,
+       ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+       metadata: {
+          custom_fields: [
+             {
+                 display_name: "{{user.username}}",
+                 variable_name: "Boost Listing",
+                 value: "+2348012345678"
+             }
+          ]
+       },
+       callback: function(response){
+           alert('success. transaction ref is ' + response.reference);
+           var value=document.getElementById("{{item.slug}}delete_item").value;
+           var paid="true";
+           var queryString = "?boost=" +paid  + "&item=" + value;
+           window.location.href="submit-listing" + queryString;
+         },
+       onClose: function(){
+           alert('window closed');
+       }
+     });
+     handler.openIframe();
+   }
+   function payWithPaystack2{{item.slug}}(){
+     var handler = PaystackPop.setup({
+       key: 'pk_test_2e6c36e35df589cd45c15eca59189df5e3fcc1af',
+       email: "{{user.email}}",
+       amount: 500000,
+       ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+       metadata: {
+          custom_fields: [
+             {
+                 display_name: "{{user.username}}",
+                 variable_name: "Boost Listing",
+                 value: "+2348012345678"
+             }
+          ]
+       },
+       callback: function(response){
+           alert('success. transaction ref is ' + response.reference);
+           var value=document.getElementById("{{item.slug}}delete_item").value;
+           var paid="false";
+           var queryString = "?boost=" +paid  + "&item=" + value;
+           window.location.href="submit-listing" + queryString;
+         },
+       onClose: function(){
+           alert('window closed');
+       }
+     });
+     handler.openIframe();
+   }
+   </script>
                                         <td><a href="#" data-toggle="modal" data-target="#{{item.slug}}edit-listing-form"
                                         data-hover="Register" class="btn btn-info"><i class="icon-edit"></i> Edit</a></td>
                                         <input type="hidden" id="{{item.slug}}delete_item" value="{{item.slug}}"/>
@@ -425,6 +494,48 @@
                                     {% endfor %}
                                 </tbody>
                             </table>
+                            <style>
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
                             <div class="box-body">
                                 * Listing activation price: 5 USD<br />
                                 * Listing featured price: 10 USD

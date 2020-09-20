@@ -484,5 +484,9 @@ def contact(request):
 
 
 def featured(request):
-    context={"featured":Car.objects.filter(featured=True)}
+    context={"search":Car.objects.filter(featured=True)}
+    if request.GET.get("boost")=="true":
+        item=request.GET.get("item")
+    elif request.GET.get("boost")=="false":
+        item=request.GET.get("item")
     return render(request,"features.html",context)
