@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User, auth
 import smtplib
 from email.mime.text import MIMEText
+import datetime
 from email.mime.multipart import MIMEMultipart
 # Create your views here.
 def index(request):
@@ -25,6 +26,11 @@ class IndexListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexListView, self).get_context_data(**kwargs)
+        boost=Car.objects.filter(feature_expire=datetime.datetime.now().date())
+        for i in boost:
+            i.featured=False
+            i.feature_expire=""
+            i.save()
         if self.request.GET.get('sub')=="true":
             email=self.request.GET.get('email')
             name=self.request.GET.get('name')
@@ -251,6 +257,7 @@ class CategoryListView(ListView):
             category=self.request.GET.get("category")
             if first_check=="one":
                 search = self.model.objects.filter(category=category)
+                context["category"]=category
                 context['search'] = search
 
             else:
@@ -377,6 +384,25 @@ def submit_listing(request):
                 car_check.image=car_check.image.add(new_image)
                 car_check.save()
         context={"car":Car.objects.filter(user=request.user)}
+    elif request.GET.get("boost")=="true":
+        date1 = datetime.timedelta(days=7)
+        date2 = datetime.timedelta(days=14)
+        date=datetime.datetime.now().date()
+        item=request.GET.get("item")
+        boost=Car.objects.get(slug=item)
+        boost.featured= True
+        boost.feature_expire=date+date1
+        boost.save()
+    elif request.GET.get("boost")=="false":
+        date1 = datetime.timedelta(days=7)
+        date2 = datetime.timedelta(days=14)
+        date=datetime.datetime.now().date()
+        item=request.GET.get("item")
+        boost=Car.objects.get(slug=item)
+        boost.featured= True
+        boost.feature_expire=date+date2
+        boost.save()
+        context={"car":Car.objects.filter(user=request.user)}
     return render(request,"mylistings.html",context)
 
 class ArticleListView(ListView):
@@ -485,8 +511,4 @@ def contact(request):
 
 def featured(request):
     context={"search":Car.objects.filter(featured=True)}
-    if request.GET.get("boost")=="true":
-        item=request.GET.get("item")
-    elif request.GET.get("boost")=="false":
-        item=request.GET.get("item")
     return render(request,"features.html",context)

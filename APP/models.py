@@ -86,6 +86,8 @@ class UserProfile(models.Model):
     image= models.ImageField(blank=True, null=True)
     phone=models.CharField(max_length=100, null=True,blank=True)
     description=models.TextField(blank=True, null=True)
+    premium=models.BooleanField(default=False)
+    premium_expire=models.DateField(blank=True, null=True)
     USER_TYPE_CHOICES = (
         ('Dealer', 'Dealer'),
         ('Buyer', 'Buyer'),

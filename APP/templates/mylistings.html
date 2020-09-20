@@ -369,7 +369,7 @@
                             <table class="table table-striped footable-sort" data-sorting="true">
                                 <thead>
                                     <tr>
-                                        <th>id</th>
+                                        <th>Boost Status</th>
 
                                         <!-- Dynamic generated -->
                                         <th data-breakpoints="xs sm md"  data-type="html">Listing name</th>
@@ -381,7 +381,7 @@
                                         <th data-breakpoints="xs sm md"  data-type="html">Model Year</th>
                                         <!-- End dynamic generated -->
                                         <th data-breakpoints="xs md" ></th>
-                                        <th data-hide="phone" class="control"  data-type="html">Boost</th>
+
                                         <th data-hide="phone" data-toggle="modal"  data-target="#create-listing-form" class="btn btn-info"   data-type="html">Create</th>
                                         <th data-hide="phone" class="control"  data-type="html">Edit</th>
                                         <th data-breakpoints="xs md" class="control"  data-type="html">Delete</th>
@@ -400,7 +400,15 @@
                                   }
                                   </script>
                                     <tr>
-                                        <td>{{item.id}}</td>
+                                        <td>
+                                          {% if item.featured %}
+                                          <i class="fa fa-check" aria-hidden="true"></i>
+                                          True
+                                          {% else %}
+                                          <i class="fa fa-times" aria-hidden="true"></i>
+                                          False
+                                          {% endif %}
+                                        </td>
                                         <td>
                                         <a href="#">{{item.title}}</a>
                                         </td>
@@ -419,6 +427,9 @@
                                         </td>
                                         <td>
                                           <script src="https://js.paystack.co/v1/inline.js"></script>
+                                          {% if item.featured %}
+                                          Boost expires {{item.feature_expire}}
+                                          {% else %}
                                           <div class="dropdown">
                                             <button class="dropbtn">Boost
                                               <i class="fa fa-rocket" aria-hidden="true"></i></button>
@@ -427,6 +438,7 @@
                                                <a onclick="payWithPaystack2{{item.slug}}()">Boost For 2 weeks(₦5000)</a>
                                               </div>
                                             </div>
+                                            {% endif %}
                                         </td>
                                         <script>
    function payWithPaystack{{item.slug}}(){
@@ -536,10 +548,6 @@
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 </style>
-                            <div class="box-body">
-                                * Listing activation price: 5 USD<br />
-                                * Listing featured price: 10 USD
-                            </div>
                     </div>
                 </div>
                 <div class="widget box box-fill section">
@@ -554,7 +562,7 @@
                                   <th data-type="html">Package name</th>
                                   <th data-type="html">Price</th>
                                   <th data-breakpoints="xs sm" data-type="html">Free listing activation</th>
-                                  <th  data-breakpoints="xs md" data-type="html">Days limit</th>
+                                  <th  data-breakpoints="xs md" data-type="html">Expiring Date</th>
                                   <th data-breakpoints="xs md" data-type="html">Listings limit (num)</th>
                                   <th data-breakpoints="xs sm" data-type="html">Free featured limit</th>
                                   <th data-breakpoints="xs sm" data-type="html" class="control" style="width: 120px;">Buy/Extend</th>
@@ -568,7 +576,7 @@
                                       <span class="label label-important">Not activated</span>
                                   </td>
                                   <td>
-                                      0.00 USD
+                                      0.00 Naira
                                   </td>
                                   <td></td>
                                   <td>
@@ -588,7 +596,7 @@
                                       Premium <i class="icon-eye-open"></i><span class="label label-success">Activated</span>
                                   </td>
                                   <td>
-                                      20.00 USD
+                                      20,000 Naira
                                   </td>
                                   <td><i class="icon-ok"></i></td>
                                   <td>
@@ -614,16 +622,6 @@
                               </tr>
                           </tbody>
                       </table>
-                    </div>
-                </div>
-                <div class="widget box box-fill section">
-                    <div class="widget-header vert-line-r-l vert-line-primary">
-                        <h2>Bank Payment Details</h2>
-                    </div>
-                    <div class="box">
-                        IBAN: HR43 2340009 3207462177<br />
-                        SWIFT: PBZGHR2X<br />
-                        Notice: Please enter 'property id #' in Bank transfer notice
                     </div>
                 </div>
         </main>
