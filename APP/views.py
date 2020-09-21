@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import ListView, DetailView, View
-from . models import Car,Bookmark,UserProfile,Images,Article,Question
+from . models import Car,Bookmark,UserProfile,Images,Article,Question,Report
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.models import User, auth
@@ -9,8 +9,7 @@ from email.mime.text import MIMEText
 import datetime
 from email.mime.multipart import MIMEMultipart
 # Create your views here.
-def index(request):
-    return render(request,"index.html")
+
 class IndexListView(ListView):
     model = Car
     template_name = "index.html"
@@ -135,6 +134,8 @@ class IndexListView(ListView):
         context['dealers'] = UserProfile.objects.filter(user_type__icontains="dealer").order_by('-id')[:3]
 
         return context
+
+
 class CarDetailView(DetailView):
     model = Car
     template_name = "listing.html"
@@ -142,14 +143,79 @@ class CarDetailView(DetailView):
     def get_object(self, queryset=None):
         global obj
         obj = super(CarDetailView, self).get_object(queryset=queryset)
-        print(obj)
         return obj
     def get_context_data(self, **kwargs):
         context = super(CarDetailView, self).get_context_data(**kwargs)
+        if self.request.GET.get("inspect")=="true":
+            name=self.request.GET.get("name")
+            phone=self.request.GET.get("phone")
+            email=self.request.GET.get("email")
+            address=self.request.GET.get("address")
+            message=self.request.GET.get("message")
+            message="Inspection Request From A Buyer Regarding A Car You Have Assigned To You On autobuy.com "+message+" ."
+            fromaddr = "housing-send@advancescholar.com"
+            toaddr = UserProfile.objects.get(user=obj.user).website
+            msg = MIMEMultipart()
+            msg['From'] = fromaddr
+            msg['To'] = toaddr
+            msg['Subject'] ="Inspection Of Car"
 
+
+            body = message+ "My contacts are"  + " phone " + phone
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('mail.advancescholar.com',  26)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+            text = msg.as_string()
+            server.sendmail(fromaddr, toaddr, text)
+            context['message']="Question Sent Successfully"
+        elif self.request.GET.get('third_check')=="three":
+            if self.request.user.is_authenticated:
+                item=self.request.GET.get('item')
+                favorite=Car.objects.get(slug=item)
+                title=favorite.title
+                power=favorite.power
+                speed=favorite.speed
+                category=favorite.category
+                model=favorite.model
+                price=favorite.price
+                model_year=favorite.model_year
+                image=favorite.image
+                image_url=image.replace('/media/','')
+                transmission=favorite.transmission
+                fuel_type=favorite.fuel_type
+                condition=favorite.condition
+                use_state=favorite.use_state
+                book_check=Bookmark.objects.filter(title=title,power=power,speed=speed,category=category,price=price,model_year=model_year,image=image_url,
+                transmission=transmission,fuel_type=fuel_type,condition=condition,use_state=use_state,creator=self.request.user)
+                if book_check:
+                    pass
+                else:
+                    book=Bookmark.objects.create(title=title,power=power,speed=speed,category=category,price=price,model_year=model_year,image=image_url,
+                    transmission=transmission,fuel_type=fuel_type,condition=condition,use_state=use_state,creator=self.request.user)
+                    book.save()
+        elif self.request.GET.get('report')=="true":
+            item=Car.objects.get(title=obj.title)
+            title=item.title
+            reason=self.request.GET.get('reason')
+            report=Report.objects.create(title=title,reason=reason)
+            report.save()
         context['cars'] = Car.objects.all()
+        context['other'] = Car.objects.filter(category=obj.category).order_by("-id")
+        paginator= Paginator(Car.objects.filter(category=obj.category).order_by("-id"),10)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+        context['latest'] = Car.objects.all().order_by('-id')[:3]
+        if UserProfile.objects.filter(user=obj.user):
+            context['dealer']=UserProfile.objects.get(user=obj.user)
         context['featured'] = Car.objects.filter(featured=True)[:3]
         return context
+
+
 
 class SearchListView(ListView):
     model = Car
@@ -441,6 +507,7 @@ class ArticleListView(ListView):
         page_obj = paginator.get_page(page_number)
         context['page_obj'] = page_obj
         context["featured"]=Car.objects.filter(featured=True)[:3]
+        context["dealers"]=UserProfile.objects.filter(user_type__icontains="dealer")[:3]
         return context
 
 class ArticleDetailView(DetailView):

@@ -84,7 +84,7 @@
          Register
         </a>
         {% if user.is_authenticated %}
-        <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Login" data-target="#login-form" data-toggle="modal" href="{% url 'APP:profile' %}">
+        <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1"  href="{% url 'APP:profile' %}">
          Profile
         </a>
         {% else %}
@@ -845,22 +845,26 @@ function search () {
          {% for i in dealers %}
         <div class="agent-box media">
          <div class="media-left">
-          <a class="agent-box-image image-hoveffect-zoom" href="page_profile.html">
+          <a class="agent-box-image image-hoveffect-zoom" href="{{i.get_absolute_url}}">
+            {% if i.image %}
+            <img alt="" src="{{i.image.url}}"/>
+            {% else %}
            <img alt="" src="{% static 'assets/img/placeholders/125x125.png' %}"/>
+           {% endif %}
           </a>
          </div>
          <div class="media-right">
           <h3 class="title">
-           <a class="primary-hover" href="page_profile.html">
-            Ketty Springs (6)
+           <a class="primary-hover" href="{{i.get_absolute_url}}">
+            {{i.name}}
            </a>
           </h3>
           <span class="number">
-           +385 (0)91 123 321
+          {{i.phone}}
           </span>
           <span class="mail">
-           <a href="mailto:kety@website.com">
-            kety@website.com
+           <a href="mailto:{{i.website}}">
+            {{i.website}}
            </a>
           </span>
          </div>

@@ -135,3 +135,7 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question
+
+class Report(models.Model):
+    title=models.TextField(blank=True, null=True)
+    reason=models.TextField(blank=True, null=True)

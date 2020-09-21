@@ -81,7 +81,7 @@
          </a>
          {% endif %}
          {% if user.is_authenticated %}
-         <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Login" data-target="#login-form" data-toggle="modal" href="{% url 'APP:profile' %}">
+         <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1"  href="{% url 'APP:profile' %}">
           Profile
          </a>
          {% else %}
@@ -293,7 +293,7 @@
        </a>
        {% endif %}
        {% if user.is_authenticated %}
-       <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1"  href="profile">
+       <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1"  href="{% url 'APP:profile' %}">
         Profile
        </a>
        {% else %}
@@ -378,6 +378,20 @@
   var queryString = "?second_check=" +paid  + "&keyword=" + value;
   window.location.href="search" + queryString;
   }
+  function favorite () {
+  var value=document.getElementById("favorite").value;
+
+  var paid="three";
+  var queryString = "?third_check=" +paid + "?item=" + value;
+  window.location.href=queryString;
+  }
+  function report () {
+  var value=document.getElementById("favorite").value;
+
+  var paid="true";
+  var queryString = "?report=" +paid;
+  window.location.href=queryString;
+  }
   </script>
   <!-- /.header-->
   <div class="widget-top-title container container-palette">
@@ -404,11 +418,12 @@
         <div class="col-xs-4">
          <i class="fa fa-eye">
          </i>
-         2532
         </div>
+        {% if object.featured %}
         <div class="col-xs-4">
          Featured
         </div>
+        {% endif %}
        </div>
       </div>
       <div class="widget widget-overview box-fill box">
@@ -588,22 +603,28 @@
        <div class="widget-content">
         <div class="agent-box media">
          <div class="media-left">
-          <a class="agent-box-image image-hoveffect-zoom" href="page_profile.html">
+           {% if dealer.image %}
+           <a class="agent-box-image image-hoveffect-zoom" href="{{dealer.get_absolute_url}}">
+            <img alt="" src="{{dealer.image.url}}"/>
+           </a>
+           {% else %}
+          <a class="agent-box-image image-hoveffect-zoom" href="{{dealer.get_absolute_url}}">
            <img alt="" src="{% static 'assets/img/placeholders/125x125.png' %}"/>
           </a>
+          {% endif %}
          </div>
          <div class="media-right">
           <h3 class="title">
-           <a class="primary-hover" href="page_profile.html">
-            Ketty Springs (6)
+           <a class="primary-hover" href="{{dealer.get_absolute_url}}">
+            {{dealer.name}}
            </a>
           </h3>
           <span class="number">
-           +385 (0)91 123 321
+          {{dealer.phone}}
           </span>
           <span class="mail">
            <a href="mailto:kety@website.com">
-            kety@website.com
+            {{dealer.website}}
            </a>
           </span>
          </div>
@@ -614,12 +635,13 @@
       <div class="widget widget-contactform">
        <div class="widget-header vert-line-r-l vert-line-primary">
         <h2>
-         Form
+         Request Inspection
         </h2>
        </div>
        <div class="widget-content">
-        <form action="#">
+        <form action="#" method="GET">
          <div class="form-group">
+           <input class="form-control" name="inspect" type="hidden" value="true"/>
           <input class="form-control" name="name" placeholder="Full name" type="text"/>
          </div>
          <div class="form-group">
@@ -632,31 +654,20 @@
           <input class="form-control" name="address" placeholder="Address" type="text"/>
          </div>
          <div class="form-group">
-          <textarea class="form-control" name="address" placeholder="Message" rows="4"></textarea>
+          <textarea class="form-control" name="message" placeholder="Message" rows="4"></textarea>
          </div>
          <div class="form-group submit-box">
-          <button class="btn btn-custom btn-custom-primary color-primary btn-wide" type="button">
+          <button class="btn btn-custom btn-custom-primary color-primary btn-wide" type="submit">
            <i class="fa fa-envelope">
            </i>
-           Search
+           Request
           </button>
          </div>
+         {{message}}
         </form>
        </div>
       </div>
       <!-- /. contact-form -->
-      <aside class="widget widget-ads hidden-xs">
-       <div class="widget-header vert-line-r-l vert-line-primary">
-        <h2>
-         Sponsor
-        </h2>
-       </div>
-       <div class="widget-content">
-        <a href="#">
-         <img alt="" src="{% static 'assets/img/placeholders/170x140.png' %}"/>
-        </a>
-       </div>
-      </aside>
       <!-- /. ads -->
       <div class="widget widget-rightrecentproperties-2">
        <div class="widget-header vert-line-r-l vert-line-primary">
@@ -665,111 +676,123 @@
         </h2>
        </div>
        <div class="widget-content properties-list-small clearfix">
+         {% for item in latest %}
         <div class="property">
+          {% for i in item.image.all %}
+         {% if forloop.first %}
          <a class="image image-hoveffect-zoom image-cover-div" href="listing.html">
-          <img alt="" src="{% static 'assets/img/placeholders/120x80.png' %}"/>
+          <img alt="" src="{% get_media_prefix %}{{i.image}}"/>
          </a>
+         {% endif %}
+         {% endfor %}
+
          <!-- /.image -->
          <div class="body">
           <div class="title">
            <h3>
             <a href="listing.html">
-             27523 Pacific Coast
+             {{item.title}}
             </a>
            </h3>
           </div>
           <!-- /.title -->
           <div class="location">
-           Palo Alto CA
+           {{item.model_year}}
           </div>
           <!-- /.location -->
           <div class="price">
-           â‚¬2 300 000
+           {{item.speed}}km/h
           </div>
           <!-- /.price -->
          </div>
          <!-- /.wrapper -->
         </div>
-        <div class="property">
-         <a class="image image-hoveffect-zoom image-cover-div" href="listing.html">
-          <img alt="" src="{% static 'assets/img/placeholders/120x80.png' %}"/>
-         </a>
-         <!-- /.image -->
-         <div class="body">
-          <div class="title">
-           <h3>
-            <a href="listing.html">
-             27523 Pacific Coast
-            </a>
-           </h3>
-          </div>
-          <!-- /.title -->
-          <div class="location">
-           Palo Alto CA
-          </div>
-          <!-- /.location -->
-          <div class="price">
-           â‚¬2 300 000
-          </div>
-          <!-- /.price -->
-         </div>
-         <!-- /.wrapper -->
-        </div>
-        <div class="property">
-         <a class="image image-hoveffect-zoom image-cover-div" href="listing.html">
-          <img alt="" src="{% static 'assets/img/placeholders/120x80.png' %}"/>
-         </a>
-         <!-- /.image -->
-         <div class="body">
-          <div class="title">
-           <h3>
-            <a href="listing.html">
-             27523 Pacific Coast
-            </a>
-           </h3>
-          </div>
-          <!-- /.title -->
-          <div class="location">
-           Palo Alto CA
-          </div>
-          <!-- /.location -->
-          <div class="price">
-           â‚¬2 300 000
-          </div>
-          <!-- /.price -->
-         </div>
-         <!-- /.wrapper -->
-        </div>
-        <div class="property">
-         <a class="image image-hoveffect-zoom image-cover-div" href="listing.html">
-          <img alt="" src="{% static 'assets/img/placeholders/120x80.png' %}"/>
-         </a>
-         <!-- /.image -->
-         <div class="body">
-          <div class="title">
-           <h3>
-            <a href="listing.html">
-             27523 Pacific Coast
-            </a>
-           </h3>
-          </div>
-          <!-- /.title -->
-          <div class="location">
-           Palo Alto CA
-          </div>
-          <!-- /.location -->
-          <div class="price">
-           â‚¬2 300 000
-          </div>
-          <!-- /.price -->
-         </div>
-         <!-- /.wrapper -->
-        </div>
+        {% endfor %}
        </div>
        <!-- /. recent properties -->
       </div>
       <!-- /. widget recent properties -->
      </div>
+     <style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  bottom: 23px;
+  left: 28px;
+  width: 280px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  bottom: 0;
+  left: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+</style>
+
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
      <div class="col-md-9">
       <div class="widget widget-property-description">
        <div class="widget-header property-btns clearfix">
@@ -794,35 +817,53 @@
          </li>
         </ul>
         <div class="pull-right">
-         <a class="btn btn-custom btn-custom-success" href="#" style="">
+         <a class="btn btn-custom btn-custom-success" onclick="favorite()" style="">
           <i class="fa fa-star fa-color-white">
           </i>
           Add to favorites
           <i class="load-indicator">
           </i>
+          <input id="favorite" name="favorite" type="hidden" value="{{object.slug}}"/>
          </a>
-         <a class="btn btn-custom btn-custom-info" href="#" style="">
+         <a class="btn btn-custom btn-custom-info" onclick="openForm()" style="">
           <i class="fa fa-flag-o fa-color-white">
           </i>
           Report listing
           <i class="load-indicator">
           </i>
          </a>
+         <form class="form-popup" id="myForm" method="GET">
+    Reason
+    <input type="hidden" name="report" value="true" />
+    <input type="text" name="reason" />
+    <button type="submit">Submit Report</button>
+    {{message}}
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
         </div>
        </div>
+
+      </div>
+      {% if object.features %}
+      <div class="widget widget-features">
+       <div class="widget-header vert-line-r-l vert-line-primary">
+        <h2>
+         Features
+        </h2>
+       </div>
        <div class="widget-content">
-        <p>
-         <img alt="" class="pull-left-img" src="{% static 'assets/img/placeholders/450x300.png' %}"/>
-         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate nec neque gravida rhoncus. Donec sit amet blandit mauris, sed bibendum risus. Cras ut urna semper, facilisis augue sed, imperdiet nulla. Duis tristique tellus tortor, dapibus gravida sem sodales id. Nullam quis convallis libero, vitae pulvinar nisi.
-         <img alt="" class="pull-right-img" src="{% static 'assets/img/placeholders/450x300.png' %}"/>
-        </p>
-        <p>
-         <strong>
-          Nam eget est facilisis, porta mi ac, ultricies enim. Proin nisi diam, eleifend ac eleifend in, dapibus in orci. Vestibulum elementum lectus non nisl venenatis, tempus molestie nisi tempus. Pellentesque facilisis nibh nec purus blandit, id aliquam lorem fermentum.
-         </strong>
-        </p>
+        <div class="row">
+         <div class="col-sm-6">
+          <ul class="list-checked">
+           <li class="checked">
+            {{object.features}}
+           </li>
+          </ul>
+         </div>
+        </div>
        </div>
       </div>
+      {% endif %}
      </div>
     </div>
    </div>
@@ -849,30 +890,35 @@
        <div class="widget widget-property-otherlistings">
         <div class="widget-header vert-line-r-l vert-line-primary">
          <h2>
-          Dealers other vehicles
+          Other vehicles
          </h2>
         </div>
         <div class="widget-content properties-grid">
          <div class="row">
+           {% for item in other %}
           <div class="col-md-4 col-sm-6">
            <div class="thumbnail thumbnail-property features">
             <div class="property-image">
-             <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
+              {% for i in item.image.all %}
+             {% if forloop.first %}
+             <img alt="car" src="{% get_media_prefix %}{{i.image}}"/>
+             {% endif %}
+             {% endfor %}
              <div class="image-count">
               <i class="icon-image">
               </i>
               <span>
-               2
+              {{item.image.all.count}}
               </span>
              </div>
              <div class="budget budget-used">
               <div class="budget-mask">
                <span>
-                Used
+                {{item.use_state}}
                </span>
               </div>
              </div>
-             <a class="property-image-hover" href="listing.html">
+             <a class="property-image-hover" href="{{item.get_absolute_url}}">
               <span class="property-im-m property-im-m-lt">
               </span>
               <span class="property-im-m property-im-m-lb">
@@ -891,15 +937,15 @@
               </a>
              </div>
              <h3 class="property-title">
-              <a href="listing.html">
-               Fast car Sportback 1,6 TDI DSG
+              <a href="{{item.get_absolute_url}}">
+               {{item.title}}
               </a>
              </h3>
              <p class="property-description">
-              2014. g. 39.138 km, 66kW/90KS
+              {{item.model_year}} g. {{item.speed}} km, {{item.power}}kW/90KS
              </p>
              <span class="property-field">
-              114.630 km
+              {{item.speed}} km
              </span>
              <div class="property-ratings">
               <i class="icon-star-ratings-1">
@@ -908,156 +954,41 @@
             </div>
            </div>
           </div>
-          <div class="col-md-4 col-sm-6">
-           <div class="thumbnail thumbnail-property features">
-            <div class="property-image">
-             <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-             <div class="image-count">
-              <i class="icon-image">
-              </i>
-              <span>
-               2
-              </span>
-             </div>
-             <div class="budget budget-used">
-              <div class="budget-mask">
-               <span>
-                Used
-               </span>
-              </div>
-             </div>
-             <a class="property-image-hover" href="listing.html">
-              <span class="property-im-m property-im-m-lt">
-              </span>
-              <span class="property-im-m property-im-m-lb">
-              </span>
-              <span class="property-im-m property-im-m-rt">
-              </span>
-              <span class="property-im-m property-im-m-rb">
-              </span>
-             </a>
-            </div>
-            <div class="caption">
-             <div class="anchor active">
-              <a class="" href="#">
-               <i class="fa fa-bookmark">
-               </i>
-              </a>
-             </div>
-             <h3 class="property-title">
-              <a href="listing.html">
-               Fast car Sportback 1,6 TDI DSG
-              </a>
-             </h3>
-             <p class="property-description">
-              2014. g. 39.138 km, 66kW/90KS
-             </p>
-             <span class="property-field">
-              114.630 km
-             </span>
-             <div class="property-ratings">
-              <i class="icon-star-ratings-3">
-              </i>
-             </div>
-            </div>
-           </div>
-          </div>
-          <div class="col-md-4 col-sm-6">
-           <div class="thumbnail thumbnail-property features">
-            <div class="property-image">
-             <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-             <div class="image-count">
-              <i class="icon-image">
-              </i>
-              <span>
-               2
-              </span>
-             </div>
-             <div class="budget budget-damage">
-              <div class="budget-mask">
-               <span>
-                Damaged
-               </span>
-              </div>
-             </div>
-             <a class="property-image-hover" href="listing.html">
-              <span class="property-im-m property-im-m-lt">
-              </span>
-              <span class="property-im-m property-im-m-lb">
-              </span>
-              <span class="property-im-m property-im-m-rt">
-              </span>
-              <span class="property-im-m property-im-m-rb">
-              </span>
-             </a>
-            </div>
-            <div class="caption">
-             <div class="anchor">
-              <a class="" href="#">
-               <i class="fa fa-bookmark">
-               </i>
-              </a>
-             </div>
-             <h3 class="property-title">
-              <a href="listing.html">
-               Fast car Sportback 1,6 TDI DSG
-              </a>
-             </h3>
-             <p class="property-description">
-              2014. g. 39.138 km, 66kW/90KS
-             </p>
-             <span class="property-field">
-              114.630 km
-             </span>
-             <div class="property-ratings">
-              <i class="icon-star-ratings-2">
-              </i>
-             </div>
-            </div>
-           </div>
-          </div>
+          {% endfor %}
          </div>
          <nav aria-label="Page navigation" class="text-center">
           <ul class="pagination">
+              {% if page_obj.has_next %}
            <li>
-            <a aria-label="Previous" href="#">
+            <a aria-label="Previous" href="?page={{ page_obj.previous_page_number }}">
              <span aria-hidden="true">
               «
              </span>
             </a>
            </li>
+           {% endif %}
            <li>
-            <a class="active" href="#">
-             1
+            <a class="active" href="?page=1">
+             {{ page_obj.number }}
             </a>
            </li>
+           {% if page_obj.has_next %}
            <li>
-            <a href="#">
+            <a href="?page={{ page_obj.next_page_number }}">
              2
             </a>
            </li>
-           <li>
-            <a href="#">
-             3
-            </a>
+           {% endif %}
            </li>
+           {% if page_obj.has_next %}
            <li>
-            <a href="#">
-             4
-            </a>
-           </li>
-           <li>
-            <a href="#">
-             5
-            </a>
-           </li>
-           <li>
-            <a aria-label="Next" href="#">
+            <a aria-label="Next" href="?page={{ page_obj.next_page_number }}">
              <span aria-hidden="true">
               »
              </span>
             </a>
            </li>
+           {% endif %}
           </ul>
          </nav>
         </div>

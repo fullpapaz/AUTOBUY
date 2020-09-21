@@ -81,7 +81,7 @@
          </a>
          {% endif %}
          {% if user.is_authenticated %}
-         <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Login" data-target="#login-form" data-toggle="modal" href="{% url 'APP:profile' %}">
+         <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1"  href="{% url 'APP:profile' %}">
           Profile
          </a>
          {% else %}
@@ -293,7 +293,7 @@
        </a>
        {% endif %}
        {% if user.is_authenticated %}
-       <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1"  href="profile">
+       <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1"  href="{% url 'APP:profile' %}">
         Profile
        </a>
        {% else %}
@@ -539,14 +539,14 @@
               </div>
               <h3 class="property-title">
                <a href="listing.html">
-              {{car.title}}
+              {{item.title}}
                </a>
               </h3>
               <p class="property-description">
-               {{car.model}}. g. {{car.speed}}km, {{car.power}}kW/90KS
+               {{item.model}}. g. {{item.speed}}km, {{item.power}}kW/90KS
               </p>
               <span class="property-field">
-               {{car.speed}} km
+               {{item.speed}} km
               </span>
               <div class="property-ratings">
                <i class="icon-star-ratings-{{car.rating}}">
