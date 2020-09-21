@@ -13,10 +13,13 @@ urlpatterns = [
     path("cars", views.CategoryListView.as_view(), name="cars"),
     path("blogs", views.ArticleListView.as_view(), name="blog_list"),
     path("blog/<slug>", views.ArticleDetailView.as_view(), name="blog"),
+    path("dealers", views.DealerListView.as_view(), name="dealers"),
     path("dealer/<slug>", views.DealerDetailView.as_view(), name="dealer"),
     path("submit-listing", views.submit_listing, name="submit_listing"),
     path("contact", views.contact, name="contact"),
     path("featured", views.featured, name="featured"),
+    path("profile", views.profile, name="profile"),
+    path("logout.html", views.logout, name="logout"),
 
 
 ]

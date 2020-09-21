@@ -5,7 +5,7 @@
  <head>
   <meta charset="utf-8"/>
   <title>
-   Contact page
+   Component Example Page
   </title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
   <link href="{% static 'assets/img/favicon.ico' %}" rel="icon" type="image/x-icon"/>
@@ -27,14 +27,14 @@
   <!-- Start blueimp  -->
   <link href="{% static 'assets/css/blueimp-gallery.min.css' %}" rel="stylesheet"/>
   <!-- End blueimp  -->
-  <!-- Start JS MAP  -->
-  <link href="{% static 'assets/css/map.css' %}" rel="stylesheet"/>
-  <!-- End JS MAP  -->
   <!-- Start custom styles  -->
   <link href="{% static 'assets/css/custom.css' %}" rel="stylesheet"/>
   <!-- End custom styles  -->
   <script src="{% static 'assets/js/modernizr.custom.js' %}">
   </script>
+  <!-- Start codemirror  -->
+  <link href="{% static 'assets/libraries/codemirror/lib/codemirror.css' %}" rel="stylesheet"/>
+  <!-- End codemirror  -->
   <link href="{% static 'assets/libraries/nouislider/nouislider.css' %}" rel="stylesheet"/>
  </head>
  <body>
@@ -187,7 +187,7 @@
              Side version
             </a>
            </li>
-           <li>
+           <li class="active">
             <a href="map_geo.html">
              Geo regions
             </a>
@@ -494,7 +494,7 @@
              Cart
             </a>
            </li>
-           <li>
+           <li class="active">
             <a href="component_animation.html">
              Components
             </a>
@@ -504,7 +504,7 @@
              Invoice
             </a>
            </li>
-           <li class="active">
+           <li>
             <a href="page_contact.html">
              Contact
             </a>
@@ -520,8 +520,6 @@
       <div class="mail">
        <a href="mailto:info@worlddealer.com">
         info@worlddealer.com
-        <i class="fa fa-envelope">
-        </i>
        </a>
       </div>
      </div>
@@ -600,101 +598,102 @@
      </div>
     </div>
    </div>
-   <!-- /. sub-top bar-->
   </header>
   <!-- /.header-->
-  <div class="widget-top-title-2 slim section container container-palette">
+  <div class="widget-top-title-2 section container container-palette">
    <div class="color-secondary">
     <div class="bg-mask-map">
      <div class="container">
       <h1>
-       Contact
+       Profile
       </h1>
      </div>
     </div>
    </div>
   </div>
   <!-- /.widget geo map-->
-  <main class="container">
-   <div class="">
-    <div class="widget box box-fill widget-contact">
-     <div class="widget-header vert-line-r-l vert-line-primary">
-      <h2>
-       Contact
-      </h2>
+  <main class="container section">
+   <div class="bg-parallax-e">
+    <div class="row">
+     <div class="col-sm-3">
+      <div class="widget">
+       <div class="widget-header vert-line-r-l vert-line-primary">
+        <h2>
+         Menu
+        </h2>
+       </div>
+       <div class="widget-body box-default">
+        <ul class="categories list-menu">
+         <li>
+          <a class="dropdown-item active" href="profile">
+           Profile
+          </a>
+         </li>
+         <li>
+          <a class="dropdown-item " href="logout.html">
+           Logout
+          </a>
+         </li>
+        </ul>
+       </div>
+      </div>
      </div>
-     <div class="widget-content">
-      <h4>
-       <strong class="text-color-primary">
-        World Dealer
-       </strong>
-      </h4>
-      Ilica 345
-      <br/>
-      HR-10000 Zagreb
-      <br/>
-      <strong class="text-color-primary">
-       Tel:
-      </strong>
-      +385 (0)1 123 321
-      <br/>
-      <strong class="text-color-primary">
-       Fax:
-      </strong>
-      +385 (0)1 123 322
-      <br/>
-      <strong class="text-color-primary">
-       Mail:
-      </strong>
-      info@info.info
-     </div>
-    </div>
-    <div class="widget widget-contactformbottom box box-fill">
-     <div class="widget-header vert-line-r-l vert-line-primary">
-      <h2>
-       Contact
-      </h2>
-     </div>
-     <div class="widget-content">
-      <form class="form-additional" method="POST">
-        {% csrf_token %}
-       <div class="row">
-        <div class="col-sm-6">
-         <div class="form-group">
-          <input class="form-control" name="name" placeholder="First and last name" type="text"/>
-         </div>
-         <div class="form-group">
-          <input class="form-control" name="email" placeholder="Email" type="text"/>
-         </div>
-         <div class="form-group">
-          <input class="form-control" name="phone" placeholder="Phone" type="text"/>
-         </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="form-group">
-           <input class="form-control" name="subject" placeholder="Subject" type="text"/>
-          </div>
-         <div class="form-group">
-          <textarea class="form-control" name="message" placeholder="Message" rows="6"></textarea>
+     <div class="col-sm-9">
+      <div class="widget">
+       <div class="widget-header vert-line-r-l vert-line-primary">
+        <h2>
+         Profile
+        </h2>
+       </div>
+       <div class="widget-body box-default">
+        <div class="bd-example">
+         <div class="panel-group panel-content property_content_position" id="accordionThree">
+           <h3> Edit Profile Info</h3>
+           <div class="widget-content">
+             {% if user.profile.image %}
+             <a>
+              <img alt="" src="{{user.profile.image.url}}"/>
+             </a>
+             {% else %}
+            <a>
+             <img alt="" src="{% static 'assets/img/placeholders/170x140.png' %}"/>
+            </a>
+            {% endif %}
+           </div>
+           <br>
+           <form method="POST">
+             {% csrf_token %}
+           <div class="row">
+            <div class="col-sm-6">
+             <div class="form-group">
+              <input class="form-control" name="name" placeholder="{% if user.profile.name %}{{user.profile.name}}{% else %}Full Name{% endif %}" type="text"/>
+             </div>
+             <div class="form-group">
+              <input class="form-control" name="email" placeholder="{% if user.profile.website %}{{user.profile.website}}{% else %}Email{% endif %}" type="text"/>
+             </div>
+             <div class="form-group">
+              <input class="form-control" name="phone" placeholder="{% if user.profile.phone %}{{user.profile.phone}}{% else %}Phone{% endif %}" type="text"/>
+             </div>
+             <div class="form-group">
+              <input class="form-control" name="description" placeholder="{% if user.profile.description %}{{user.profile.description}}{% else %}Description{% endif %}" type="text"/>
+             </div>
+             <div class="form-group">
+              <input class="form-control" name="image" type="file"/>
+             </div>
+             <div class="form-group clearfix">
+              <button class="btn btn-primary color-primary pull-right" type="submit">
+               Submit
+              </button>
+             </div>
+            </div>
+            </form>
+           </div>
          </div>
         </div>
        </div>
-       <div class="row">
-        <div class="col-sm-6">
-        </div>
-        <div class="col-sm-6">
-         <div class="form-group clearfix">
-          <button class="btn btn-primary color-primary pull-right" type="submit">
-           Send
-          </button>
-         </div>
-        </div>
-       </div>
-      </form>
-      {{message}}
+      </div>
      </div>
     </div>
-    <!-- /. contact-form -->
    </div>
   </main>
   <footer class="footer container container-palette">
@@ -914,16 +913,6 @@
   <script src="{% static 'assets/js/blueimp-gallery.min.js' %}" type="text/javascript">
   </script>
   <!-- End blueimp  -->
-  <!-- Start JS MAP  -->
-  <script src="http://maps.googleapis.com/maps/api/js?libraries=weather,geometry,visualization,places,drawing&amp;&amp;key=AIzaSyD95zDTtfBmAopNLYu3nBKVTLEBanURbM8" type="text/javascript">
-  </script>
-  <script src="{% static 'assets/js/map_infobox.js' %}" type="text/javascript">
-  </script>
-  <script src="{% static 'assets/js/markerclusterer.js' %}" type="text/javascript">
-  </script>
-  <script src="{% static 'assets/js/map.js' %}" type="text/javascript">
-  </script>
-  <!-- End JS MAP  -->
   <!-- Start custom styles  -->
   <script src="{% static 'assets/js/custom.js' %}" type="text/javascript">
   </script>
@@ -936,6 +925,24 @@
   <script src="{% static 'assets/js/worldmapgenerator_custom.js' %}" type="text/javascript">
   </script>
   <!-- End kevalbhatt-worldmapgenerator  -->
+  <!-- Start codemirror  -->
+  <script src="{% static 'assets/libraries/codemirror/lib/codemirror.js' %}">
+  </script>
+  <script src="{% static 'assets/libraries/codemirror/mode/javascript/javascript.js' %}">
+  </script>
+  <script src="{% static 'assets/libraries/codemirror/addon/edit/matchbrackets.js' %}">
+  </script>
+  <script src="{% static 'assets/libraries/codemirror/mode/htmlmixed/htmlmixed.js' %}">
+  </script>
+  <script src="{% static 'assets/libraries/codemirror/mode/xml/xml.js' %}">
+  </script>
+  <script src="{% static 'assets/libraries/codemirror/mode/clike/clike.js' %}">
+  </script>
+  <script src="{% static 'assets/libraries/codemirror/mode/php/php.js' %}">
+  </script>
+  <script src="{% static 'assets/js/codemirror_init.js' %}">
+  </script>
+  <!-- End codemirror  -->
   <script src="{% static 'assets/libraries/nouislider/nouislider.min.js' %}">
   </script>
   <script async="" defer="" src="{% static 'https://www.google.com/recaptcha/api.js' %}">

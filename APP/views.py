@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views.generic import ListView, DetailView, View
 from . models import Car,Bookmark,UserProfile,Images,Article,Question
 from django.core.paginator import Paginator
@@ -125,8 +125,12 @@ class IndexListView(ListView):
                     book=Bookmark.objects.create(title=title,power=power,speed=speed,category=category,price=price,model_year=model_year,image=image_url,
                     transmission=transmission,fuel_type=fuel_type,condition=condition,use_state=use_state,creator=self.request.user)
                     book.save()
-
+        paginator= Paginator(Car.objects.all(),10)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
         context['cars'] = Car.objects.all()
+        context['featured'] = Car.objects.filter(featured=True)[:3]
         context['articles'] = Article.objects.all().order_by('-id')[:2]
         context['dealers'] = UserProfile.objects.filter(user_type__icontains="dealer").order_by('-id')[:3]
 
@@ -520,10 +524,77 @@ class DealerDetailView(DetailView):
 
         return context
 
+class DealerListView(ListView):
+    model = UserProfile
+    template_name = "dealers.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(DealerListView, self).get_context_data(**kwargs)
+        context['search']=UserProfile.objects.filter(user_type__icontains="dealer")
+        paginator= Paginator(UserProfile.objects.filter(user_type__icontains="dealer"),10)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+
+        return context
+
+
 def contact(request):
+    if request.method=="POST":
+        name=request.POST['name']
+        email=request.POST['email']
+        phone=request.POST['phone']
+        message=request.POST['message']
+        fromaddr = "housing-send@advancescholar.com"
+        toaddr = "chukslord1@gmail.com"
+        subject=request.POST['subject']
+        msg = MIMEMultipart()
+        msg['From'] = fromaddr
+        msg['To'] = toaddr
+        msg['Subject'] = name + "-" + subject
+
+
+        body = message +"-"+"email" + email
+        msg.attach(MIMEText(body, 'plain'))
+
+        server = smtplib.SMTP('mail.advancescholar.com',  26)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+        text = msg.as_string()
+        server.sendmail(fromaddr, toaddr, text)
+        context={'message':'Your message has been sent sucessfully'}
+        return render(request, 'page_contact.html',context)
     return render(request,"page_contact.html")
 
 
 def featured(request):
     context={"search":Car.objects.filter(featured=True)}
     return render(request,"features.html",context)
+
+
+def profile(request):
+    if request.method=="POST":
+        name=request.POST.get("name")
+        email=request.POST.get("email")
+        phone=request.POST.get("phone")
+        description=request.POST.get("description")
+        image=request.FILES.get("image")
+        data=UserProfile.objects.get(user=request.user)
+        if name:
+            data.name=name
+        if phone:
+            data.phone=phone
+        if email:
+            data.website=email
+        if description:
+            data.description=description
+        if image:
+            data.image=image
+        data.save()
+    return render(request,"profile.html")
+
+def logout(request):
+    auth.logout(request)
+    return redirect("index.html")

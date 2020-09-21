@@ -307,12 +307,84 @@
   </div>
   <!-- /. sub-top bar-->
  </header>
+ <script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function showOutput () {
+var value=document.getElementById("make").value;
+var value_2=document.getElementById("model").value;
+var value_5=document.getElementById("year_min").value;
+var value_6=document.getElementById("year_max").value;
+var value_7=document.getElementById("price_min").value;
+var value_8=document.getElementById("price_max").value;
+var value_9=document.getElementById("fuel_type").value;
+var value_10=document.getElementById("transmission").value;
+var value_11=document.getElementById("condition").value;
+var value_12=document.getElementById("keyword").value;
+if (document.getElementById("new").checked == true){
+  var value_4=document.getElementById("new").value;
+} else if (document.getElementById("used").checked == true){
+  var value_4=document.getElementById("used").value;
+} else if (document.getElementById("import").checked == true){
+  var value_4=document.getElementById("import").value;
+}else {
+  var value_4="";
+}
+
+var paid="one";
+var queryString = "?first_check=" +paid  + "&use_state=" + value_4 + "&make=" + value + "&model=" + value_2 + "&year_min=" + value_5 + "&year_max=" + value_6 + "&price_min=" + value_7 + "&price_max=" + value_8 + "&fuel_type=" + value_9 + "&transmission=" + value_10 + "&condition=" + value_11 + "&keyword=" + value_12;
+window.location.href="search" + queryString;
+}
+
+function showOutput2 () {
+var value=document.getElementById("auto").value;
+
+var paid="true";
+var queryString = "?search=" +paid  + "&category=" + value;
+window.location.href="cars" + queryString;
+}
+function showOutput3 () {
+var value=document.getElementById("truck").value;
+
+var paid="true";
+var queryString = "?search=" +paid  + "&category=" + value;
+window.location.href="cars" + queryString;
+}
+function showOutput4 () {
+var value=document.getElementById("tractor").value;
+
+var paid="true";
+var queryString = "?search=" +paid  + "&category=" + value;
+window.location.href="cars" + queryString;
+}
+function showOutput5 () {
+var value=document.getElementById("moped").value;
+
+var paid="true";
+var queryString = "?search=" +paid  + "&category=" + value;
+window.location.href="cars" + queryString;
+}
+function showOutput6 () {
+var value=document.getElementById("bus").value;
+
+var paid="true";
+var queryString = "?search=" +paid  + "&category=" + value;
+window.location.href="cars" + queryString;
+}
+function search () {
+var value=document.getElementById("search").value;
+
+var paid="two";
+var queryString = "?second_check=" +paid  + "&keyword=" + value;
+window.location.href="search" + queryString;
+}
+</script>
   <div class="widget-top-title-2 container container-palette">
    <div class="color-secondary">
     <div class="bg-mask-map">
      <div class="container">
       <h1>
-       {{category}}s
+      Dealers
       </h1>
      </div>
     </div>
@@ -326,100 +398,59 @@
       <div class="widget widget-recentproperties">
        <div class="widget-content properties-grid">
         <div class="row">
-         {% for item in search %}
-        <div class="col-md-3 col-sm-6">
-         <div class="thumbnail thumbnail-property features">
-          <div class="property-image">
-            {% for i in item.image.all %}
-           {% if forloop.first %}
-           <img alt="car" src="{% get_media_prefix %}{{i.image}}"/>
-           {% endif %}
-           {% endfor %}
-           <div class="image-count">
-            <i class="icon-image">
-            </i>
-            <span>
-             {{item.image.all.count}}
-            </span>
-           </div>
-           <div class="budget budget-used">
-            <div class="budget-mask">
+          {% for item in search %}
+         <div class="col-md-3 col-sm-6">
+          <div class="thumbnail thumbnail-property features">
+           <div class="property-image">
+             {% if item.image %}
+             <img alt="car" src="{% get_media_prefix %}{{item.image}}"/>
+             {% else %}
+            <img alt="car" src="{% static 'assets/img/placeholders/170x140.png' %}"/>
+            {% endif %}
+            <div class="image-count">
+             <i class="icon-image">
+             </i>
              <span>
-              {{item.use_state}}
+              {{item.image.all.count}}
              </span>
             </div>
-           </div>
-           <a class="property-image-hover" href="listing.html">
-            <span class="property-im-m property-im-m-lt">
-            </span>
-            <span class="property-im-m property-im-m-lb">
-            </span>
-            <span class="property-im-m property-im-m-rt">
-            </span>
-            <span class="property-im-m property-im-m-rb">
-            </span>
-           </a>
-          </div>
-          <script>
-       /* When the user clicks on the button,
-       toggle between hiding and showing the dropdown content */
-       function {{item.slug}}bookmark () {
-         var value=document.getElementById("btitle").value;
-         var value_2=document.getElementById("bcategory").value;
-         var value_3=document.getElementById("bpower").value;
-         var value_4=document.getElementById("bspeed").value;
-         var value_5=document.getElementById("bmodel").value;
-         var value_6=document.getElementById("bmodel_year").value;
-         var value_7=document.getElementById("btransmission").value;
-         var value_8=document.getElementById("bfuel_type").value;
-         var value_9=document.getElementById("bimage").value;
-         var value_10=document.getElementById("bcondition").value;
-         var value_11=document.getElementById("buse_state").value;
-         var value_12=document.getElementById("bprice").value;
-
-         var paid="three";
-         var queryString = "?third_check=" +paid  + "&title=" + value + "&category=" + value_2 + "&power=" + value_3 + "&speed=" + value_4 + "&model=" + value_5 + "&model_year=" + value_6 + "&transmission=" + value_7 + "&fuel_type=" + value_8 + "&image=" + value_9 + "&condition=" + value_10 + "&use_state=" + value_11 + "&price=" + value_12;
-         window.location.href="search" + queryString;
-       }
-       </script>
-          <div class="caption">
-            <input type="hidden" id="btitle" value="{{item.title}}"/>
-            <input type="hidden" id="bcategory" value="{{item.category}}"/>
-            <input type="hidden" id="bpower" value="{{item.power}}"/>
-            <input type="hidden" id="bspeed" value="{{item.speed}}"/>
-            <input type="hidden" id="bmodel" value="{{item.model}}"/>
-            <input type="hidden" id="bmodel_year" value="{{item.model_year}}"/>
-            <input type="hidden" id="btransmission" value="{{item.transmission}}"/>
-            <input type="hidden" id="bfuel_type" value="{{item.fuel_type}}"/>
-            <input type="hidden" id="bimage" value="{{item.image.url}}"/>
-            <input type="hidden" id="bcondition" value="{{item.condition}}"/>
-            <input type="hidden" id="buse_state" value="{{item.use_state}}"/>
-            <input type="hidden" id="bprice" value="{{item.price}}"/>
-           <div class="anchor">
-             <a class="" onclick="{{item.slug}}bookmark()">
-              <i class="fa fa-bookmark">
-              </i>
-             </a>
-           </div>
-           <h3 class="property-title">
-            <a href="listing.html">
-             {{item.title}}
+            <div class="budget budget-used">
+             <div class="budget-mask">
+              <span>
+               {{item.use_state}}
+              </span>
+             </div>
+            </div>
+            <a class="property-image-hover" href="{{item.get_absolute_url}}">
+             <span class="property-im-m property-im-m-lt">
+             </span>
+             <span class="property-im-m property-im-m-lb">
+             </span>
+             <span class="property-im-m property-im-m-rt">
+             </span>
+             <span class="property-im-m property-im-m-rb">
+             </span>
             </a>
-           </h3>
-           <p class="property-description">
-            {{item.model_year}}. g. {{item.speed}} km, {{item.power}}kW/90KS
-           </p>
-           <span class="property-field">
-            {{item.speed}} km
-           </span>
-           <div class="property-ratings">
-            <i class="icon-star-ratings-1">
-            </i>
+           </div>
+           <div class="caption">
+            <h3 class="property-title">
+             <a href="{{item.get_absolute_url}}">
+              {{item.title}}
+             </a>
+            </h3>
+            <p class="property-description">
+             <b>{{item.name}}</b>
+            </p>
+            <span class="property-field">
+            </span>
+            <div class="property-ratings">
+             <i class="icon-star-ratings-5">
+             </i>
+            </div>
            </div>
           </div>
          </div>
-        </div>
-        {% endfor %}
+         {% endfor %}
         </div>
         <nav aria-label="Page navigation" class="text-center">
          <ul class="pagination">
@@ -457,78 +488,6 @@
          </ul>
         </nav>
        </div>
-       <script>
-    /* When the user clicks on the button,
-    toggle between hiding and showing the dropdown content */
-    function showOutput () {
-      var value=document.getElementById("make").value;
-      var value_2=document.getElementById("model").value;
-      var value_5=document.getElementById("year_min").value;
-      var value_6=document.getElementById("year_max").value;
-      var value_7=document.getElementById("price_min").value;
-      var value_8=document.getElementById("price_max").value;
-      var value_9=document.getElementById("fuel_type").value;
-      var value_10=document.getElementById("transmission").value;
-      var value_11=document.getElementById("condition").value;
-      var value_12=document.getElementById("keyword").value;
-      if (document.getElementById("new").checked == true){
-        var value_4=document.getElementById("new").value;
-      } else if (document.getElementById("used").checked == true){
-        var value_4=document.getElementById("used").value;
-      } else if (document.getElementById("import").checked == true){
-        var value_4=document.getElementById("import").value;
-      }else {
-        var value_4="";
-      }
-
-      var paid="one";
-      var queryString = "?first_check=" +paid  + "&use_state=" + value_4 + "&make=" + value + "&model=" + value_2 + "&year_min=" + value_5 + "&year_max=" + value_6 + "&price_min=" + value_7 + "&price_max=" + value_8 + "&fuel_type=" + value_9 + "&transmission=" + value_10 + "&condition=" + value_11 + "&keyword=" + value_12;
-      window.location.href="search" + queryString;
-    }
-
-    function showOutput2 () {
-      var value=document.getElementById("auto").value;
-
-      var paid="true";
-      var queryString = "?search=" +paid  + "&category=" + value;
-      window.location.href="cars" + queryString;
-    }
-    function showOutput3 () {
-      var value=document.getElementById("truck").value;
-
-      var paid="true";
-      var queryString = "?search=" +paid  + "&category=" + value;
-      window.location.href="cars" + queryString;
-    }
-    function showOutput4 () {
-      var value=document.getElementById("tractor").value;
-
-      var paid="true";
-      var queryString = "?search=" +paid  + "&category=" + value;
-      window.location.href="cars" + queryString;
-    }
-    function showOutput5 () {
-      var value=document.getElementById("moped").value;
-
-      var paid="true";
-      var queryString = "?search=" +paid  + "&category=" + value;
-      window.location.href="cars" + queryString;
-    }
-    function showOutput6 () {
-      var value=document.getElementById("bus").value;
-
-      var paid="true";
-      var queryString = "?search=" +paid  + "&category=" + value;
-      window.location.href="cars" + queryString;
-    }
-    function search () {
-      var value=document.getElementById("search").value;
-
-      var paid="two";
-      var queryString = "?second_check=" +paid  + "&keyword=" + value;
-      window.location.href="search" + queryString;
-    }
-    </script>
        <!-- /. recent properties -->
       </div>
      </div>
