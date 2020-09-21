@@ -32,6 +32,7 @@ class Car(models.Model):
     rating = models.IntegerField(blank=True, null=True)
     featured=models.BooleanField(default=False)
     feature_expire=models.DateField(blank=True, null=True)
+    features=models.TextField(blank=True, null=True)
     slug = models.SlugField()
     paginate_by = 2
 

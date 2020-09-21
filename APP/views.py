@@ -148,6 +148,7 @@ class CarDetailView(DetailView):
         context = super(CarDetailView, self).get_context_data(**kwargs)
 
         context['cars'] = Car.objects.all()
+        context['featured'] = Car.objects.filter(featured=True)[:3]
         return context
 
 class SearchListView(ListView):
@@ -254,6 +255,7 @@ class SearchListView(ListView):
             page_number = self.request.GET.get('page')
             page_obj = paginator.get_page(page_number)
             context['page_obj'] = page_obj
+        context['featured'] = Car.objects.filter(featured=True)[:3]
         return context
 
 class CategoryListView(ListView):
@@ -302,10 +304,11 @@ class CategoryListView(ListView):
             page_number = self.request.GET.get('page')
             page_obj = paginator.get_page(page_number)
             context['page_obj'] = page_obj
+        context['featured'] = Car.objects.filter(featured=True)[:3]
         return context
 
 def submit_listing(request):
-    context={"car":Car.objects.filter(user=request.user)}
+    context={"car":Car.objects.filter(user=request.user),'featured':Car.objects.filter(featured=True)[:3]}
     if request.POST.get("create")=="true":
         title=request.POST.get("title")
         model=request.POST.get("model")
@@ -322,16 +325,17 @@ def submit_listing(request):
         phone=request.POST.get("phone")
         speed=request.POST.get("speed")
         email=request.POST.get("email")
+        features=request.POST.get("features")
         image=request.FILES.getlist("image")
         slug=title+model+power
         car_check=Car.objects.filter(title=title,power=power,make=make,model=model,transmission=transmission,
         fuel_type=fuel_type,condition=condition,use_state=use_state,price=price,rating=ratings,phone=phone,email=email)
         if car_check:
-            context={"message":"car alrady exists","car":Car.objects.filter(user=request.user)}
+            context={"message":"car alrady exists","car":Car.objects.filter(user=request.user),'featured':Car.objects.filter(featured=True)[:3]}
         else:
-            context={"message":"car created","car":Car.objects.filter(user=request.user)}
+            context={"message":"car created","car":Car.objects.filter(user=request.user),'featured':Car.objects.filter(featured=True)[:3]}
             car=Car.objects.create(title=title,power=power,speed=speed,make=make,model=model,transmission=transmission,
-            fuel_type=fuel_type,condition=condition,use_state=use_state,price=price,rating=ratings,phone=phone,email=email,user=request.user,slug=slug)
+            fuel_type=fuel_type,condition=condition,use_state=use_state,price=price,rating=ratings,phone=phone,email=email,user=request.user,features=features,slug=slug)
             car.save()
             for x in image:
                 new_image=Images.objects.create(title=title,image=x)
@@ -393,7 +397,7 @@ def submit_listing(request):
                 new_image.save()
                 car_check.image=car_check.image.add(new_image)
                 car_check.save()
-        context={"car":Car.objects.filter(user=request.user)}
+        context={"car":Car.objects.filter(user=request.user),'featured':Car.objects.filter(featured=True)[:3]}
     elif request.GET.get("boost")=="true":
         date1 = datetime.timedelta(days=7)
         date2 = datetime.timedelta(days=14)
@@ -412,7 +416,7 @@ def submit_listing(request):
         boost.featured= True
         boost.feature_expire=date+date2
         boost.save()
-        context={"car":Car.objects.filter(user=request.user)}
+        context={"car":Car.objects.filter(user=request.user),'featured':Car.objects.filter(featured=True)[:3]}
     elif request.GET.get("premium")=="true":
         date=datetime.datetime.now().date()
         date2 = datetime.timedelta(days=30)
@@ -421,7 +425,7 @@ def submit_listing(request):
         premium.premium_feature_count=2
         premium.premium_expire=date+date2
         premium.save()
-        context={"car":Car.objects.filter(user=request.user)}
+        context={"car":Car.objects.filter(user=request.user),'featured':Car.objects.filter(featured=True)[:3]}
     return render(request,"mylistings.html",context)
 
 class ArticleListView(ListView):
@@ -436,7 +440,7 @@ class ArticleListView(ListView):
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         context['page_obj'] = page_obj
-
+        context["featured"]=Car.objects.filter(featured=True)[:3]
         return context
 
 class ArticleDetailView(DetailView):
@@ -462,7 +466,7 @@ class ArticleDetailView(DetailView):
         popular=[]
         blog=Article.objects.all()
         check=1
-
+        context["featured"]=Car.objects.filter(featured=True)[:3]
         return context
 
 
@@ -521,7 +525,7 @@ class DealerDetailView(DetailView):
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         context['page_obj'] = page_obj
-
+        context["featured"]=Car.objects.filter(featured=True)[:3]
         return context
 
 class DealerListView(ListView):
@@ -535,11 +539,12 @@ class DealerListView(ListView):
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         context['page_obj'] = page_obj
-
+        context["featured"]=Car.objects.filter(featured=True)[:3]
         return context
 
 
 def contact(request):
+    context={'featured':Car.objects.filter(featured=True)[:3]}
     if request.method=="POST":
         name=request.POST['name']
         email=request.POST['email']
@@ -564,17 +569,18 @@ def contact(request):
         server.login("housing-send@advancescholar.com", "housing@24hubs.com")
         text = msg.as_string()
         server.sendmail(fromaddr, toaddr, text)
-        context={'message':'Your message has been sent sucessfully'}
+        context={'message':'Your message has been sent sucessfully','featured':Car.objects.filter(featured=True)[:3]}
         return render(request, 'page_contact.html',context)
-    return render(request,"page_contact.html")
+    return render(request,"page_contact.html",context)
 
 
 def featured(request):
-    context={"search":Car.objects.filter(featured=True)}
+    context={"search":Car.objects.filter(featured=True),'featured':Car.objects.filter(featured=True)[:3]}
     return render(request,"features.html",context)
 
 
 def profile(request):
+    context={'featured':Car.objects.filter(featured=True)[:3]}
     if request.method=="POST":
         name=request.POST.get("name")
         email=request.POST.get("email")

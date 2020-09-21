@@ -38,570 +38,347 @@
   <link href="{% static 'assets/libraries/nouislider/nouislider.css' %}" rel="stylesheet"/>
  </head>
  <body>
-  <header class="header container container-palette affix-menu">
-   <div class="top-bar color-primary">
-    <div class="&lt;!--container--&gt;">
-     <div class="top-bar-left">
-      <div class="top-bar-body">
-       <a class="logo" href="index.html">
-        <img alt="" src="{% static 'assets/img/placeholders/60x60.png' %}"/>
-       </a>
-       <h1 class="website-title">
-        <a data-hover="World Dealer" href="index.html">
-         World Dealer
+   <header class="header container container-palette affix-menu">
+    <div class="top-bar color-primary">
+     <div class="&lt;!--container--&gt;">
+      <div class="top-bar-left">
+       <div class="top-bar-body">
+        <a class="logo" href="{% url 'APP:index' %}">
+         <img alt="" src="{% static 'assets/img/logo.png' %}"/>
         </a>
-       </h1>
-      </div>
-      <div class="skew-block">
-      </div>
-     </div>
-     <div class="top-bar-right search-form-middle-phone hidden">
-      <div class="skew-block">
-      </div>
-      <div class="search-form-mini closed">
-       <a class="search" href="#">
-        <i class="fa fa-search">
-        </i>
-       </a>
-       <input placeholder="Search" type="text"/>
-       <a class="close" href="#">
-        <i class="fa fa-remove">
-        </i>
-       </a>
-      </div>
-      <a class="search-btn search-form-mini-open" href="#">
-      </a>
-     </div>
-     <div class="sub-top-bar sub-top-bar-mobile visible-xs-block">
-      <div class="&lt;!--container--&gt;">
-       <div class="block block-black block-left-up">
-        <a class="btn-custom vert-line-l-r vert-line-orange link-effect-1" data-hover="Submint Listing" href="mylistings.html">
-         Submint Listing
-        </a>
-        <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Register" href="login.html">
-         Register
-        </a>
-        <button class="navbar-toggle" id="toggle-mainmenu" type="button">
-         <span class="sr-only">
-          Toggle navigation
-         </span>
-         <span class="icon-bar">
-         </span>
-         <span class="icon-bar">
-         </span>
-         <span class="icon-bar">
-         </span>
-        </button>
-        <div class="search-btn-box vert-line-l-r vert-line-orange">
-         <a class="search-btn" href="#">
+        <h1 class="website-title">
+         <a data-hover="Autobuy" href="{% url 'APP:index' %}">
+          Autobuy
          </a>
-        </div>
-        <div class="lang-manu dropdown">
-         <button class="btn dropdown-toggle" data-toggle="dropdown" type="button">
-          <img alt="" src="{% static 'assets/img/flags/en.png' %}"/>
-          <span>
-           EN
+        </h1>
+       </div>
+       <div class="skew-block">
+       </div>
+      </div>
+      <div class="top-bar-right search-form-middle-phone hidden">
+       <div class="skew-block">
+       </div>
+       <div class="search-form-mini closed">
+        <a class="search" href="#">
+         <i class="fa fa-search">
+         </i>
+        </a>
+        <input placeholder="Search" type="text"/>
+        <a class="close" href="#">
+         <i class="fa fa-remove">
+         </i>
+        </a>
+       </div>
+       <a class="search-btn search-form-mini-open" href="#">
+       </a>
+      </div>
+      <div class="sub-top-bar sub-top-bar-mobile visible-xs-block">
+       <div class="&lt;!--container--&gt;">
+        <div class="block block-black block-left-up">
+        {% if user.is_authenticated %}
+         <a class="btn-custom vert-line-l-r vert-line-orange link-effect-1" data-hover="Submit Listing" href="{% url 'APP:submit_listing' %}">
+          Submit Listing
+         </a>
+         {% endif %}
+         {% if user.is_authenticated %}
+         <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Login" data-target="#login-form" data-toggle="modal" href="{% url 'APP:profile' %}">
+          Profile
+         </a>
+         {% else %}
+         <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Login" data-target="#login-form" data-toggle="modal" href="#">
+          Login
+         </a>
+         {% endif %}
+         <button class="navbar-toggle" id="toggle-mainmenu" type="button">
+          <span class="sr-only">
+           Toggle navigation
           </span>
-          <span class="caret">
+          <span class="icon-bar">
+          </span>
+          <span class="icon-bar">
+          </span>
+          <span class="icon-bar">
           </span>
          </button>
-         <ul class="dropdown-menu">
-          <li>
-           <a class="dropdown-item" href="#">
-            <img alt="" src="{% static 'assets/img/flags/en.png' %}"/>
-            EN
+         <div class="search-btn-box vert-line-l-r vert-line-orange">
+          <a class="search-btn" href="#">
+          </a>
+         </div>
+
+         <!-- /.lang menu -->
+        </div>
+       </div>
+      </div>
+      <div class="search-form-mini-phone hidden-sm">
+       <div>
+        <input id="search" placeholder="Search" type="text"/>
+        <a class="search" href="#">
+         <i class="fa fa-search" onclick="search()">
+         </i>
+        </a>
+        <a class="close" href="#">
+         <i class="fa fa-remove">
+         </i>
+        </a>
+       </div>
+      </div>
+      <div class="top-bar-center">
+       <nav class="navbar mainmenu">
+        <div class="container-fluid">
+         <ul class="nav navbar-nav">
+          <li class="dropdown">
+           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Categories
+            <span class="caret">
+            </span>
            </a>
+
+
+
+
+           <ul class="dropdown-menu">
+            <li>
+             <a onclick="showOutput2()">
+              Automobiles
+             </a>
+            </li>
+            <li>
+             <a  onclick="showOutput3()">
+              Trucks
+             </a>
+            </li>
+            <li>
+             <a onclick="showOutput4()">
+           Tractor
+             </a>
+            </li>
+            <li>
+             <a onclick="showOutput5()">
+              Moped
+             </a>
+            </li>
+            <li>
+             <a onclick="showOutput6()">
+              Bus
+             </a>
+            </li>
+           </ul>
           </li>
-          <li>
-           <a class="dropdown-item" href="#">
-            <img alt="" src="{% static 'assets/img/flags/hr.png' %}"/>
-            HR
+          <li class="nav-item dropdown dropdown-mega">
+           <a class="dropdown-toggle" href="{% url 'APP:blog_list' %}">
+            Articles
            </a>
+         </li>
+          <li class="nav-item dropdown dropdown-mega">
+           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Featured
+           </a>
+           <div class="dropdown-menu dropdown-menu-property">
+            <div class="container">
+             <div class="widget-content properties-grid">
+              <div class="row">
+                {% for item in featured %}
+               <div class="col-md-3 col-sm-6">
+                <div class="thumbnail thumbnail-property features">
+                 <div class="property-image">
+                   {% for i in item.image.all %}
+                  {% if forloop.first %}
+                  <img alt="car" src="{% get_media_prefix %}{{i.image}}"/>
+                  {% endif %}
+                  {% endfor %}
+                  <div class="image-count">
+                   <i class="icon-image">
+                   </i>
+                   <span>
+                    {{item.image.all.count}}
+                   </span>
+                  </div>
+                  <div class="budget budget-used">
+                   <div class="budget-mask">
+                    <span>
+                     {{item.use_state}}
+                    </span>
+                   </div>
+                  </div>
+                  <a class="property-image-hover" href="{{item.get_absolute_url}}">
+                   <span class="property-im-m property-im-m-lt">
+                   </span>
+                   <span class="property-im-m property-im-m-lb">
+                   </span>
+                   <span class="property-im-m property-im-m-rt">
+                   </span>
+                   <span class="property-im-m property-im-m-rb">
+                   </span>
+                  </a>
+                 </div>
+                 <div class="caption">
+                  <h3 class="property-title">
+                   <a href="listing.html">
+                    {{item.title}}
+                   </a>
+                  </h3>
+                  <p class="property-description">
+                   {{item.model_year}}. g. {{item.speed}} km, {{item.power}}kW/KS
+                  </p>
+                  <span class="property-field">
+                   {{item.model}}
+                  </span>
+                  <div class="property-ratings">
+                   <i class="icon-star-ratings-{{item.rating}}">
+                   </i>
+                  </div>
+                 </div>
+                </div>
+               </div>
+               {% endfor %}
+               <a class="btn btn-custom btn-custom-primary color-primary" href="{% url 'APP:featured' %}">See all</a>
+              </div>
+             </div>
+             <!-- /. recent properties -->
+            </div>
+           </div>
+          </li>
+          <li class="nav-item dropdown dropdown-mega">
+           <a class="dropdown-toggle" href="{% url 'APP:dealers' %}">
+            Dealers
+           </a>
+         </li>
+         <li class="nav-item dropdown dropdown-mega">
+          <a class="dropdown-toggle" href="{% url 'APP:contact' %}">
+           Contact
+          </a>
+        </li>
+           </ul>
           </li>
          </ul>
         </div>
-        <!-- /.lang menu -->
+       </nav>
+       <!-- /.main menu -->
+      </div>
+      <div class="top-bar-center2 hidden-sm">
+       <div class="mail">
+        <a href="mailto:info@worlddealer.com">
+         info@worlddealer.com
+         <i class="fa fa-envelope">
+         </i>
+        </a>
        </div>
       </div>
-     </div>
-     <div class="search-form-mini-phone hidden-sm">
-      <div>
-       <a class="search" href="#">
-        <i class="fa fa-search">
-        </i>
-       </a>
-       <input placeholder="Search" type="text"/>
-       <a class="close" href="#">
-        <i class="fa fa-remove">
-        </i>
-       </a>
-      </div>
-     </div>
-     <div class="top-bar-center">
-      <nav class="navbar mainmenu">
-       <div class="container-fluid">
-        <ul class="nav navbar-nav">
-         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-           Slider
-           <span class="caret">
-           </span>
-          </a>
-          <ul class="dropdown-menu">
-           <li>
-            <a href="slider_standard.html">
-             Standard
-            </a>
-           </li>
-           <li>
-            <a href="homepage_video.html">
-             Video
-            </a>
-           </li>
-           <li>
-            <a href="slider_full-screen.html">
-             Full Screen
-            </a>
-           </li>
-          </ul>
-         </li>
-         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-           Map
-           <span class="caret">
-           </span>
-          </a>
-          <ul class="dropdown-menu">
-           <li>
-            <a href="index_map.html">
-             Grid results
-            </a>
-           </li>
-           <li>
-            <a href="index_list.html">
-             List result
-            </a>
-           </li>
-           <li>
-            <a href="map_side.html">
-             Side version
-            </a>
-           </li>
-           <li>
-            <a href="map_geo.html">
-             Geo regions
-            </a>
-           </li>
-          </ul>
-         </li>
-         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-           Categories
-           <span class="caret">
-           </span>
-          </a>
-          <ul class="dropdown-menu">
-           <li>
-            <a href="homepage-realestates.html">
-             Real Estate
-            </a>
-           </li>
-           <li>
-            <a href="homepage-yacht-market.html">
-             Yacht Market
-            </a>
-           </li>
-           <li>
-            <a href="homepage-cars.html">
-             Car Dealer
-            </a>
-           </li>
-           <li>
-            <a href="homepage-jobs.html">
-             Job Finder
-            </a>
-           </li>
-           <li>
-            <a href="map_business.html">
-             Business Directory
-            </a>
-           </li>
-           <li>
-            <a href="homepage_classified.html">
-             Classified Portal
-            </a>
-           </li>
-           <li>
-            <a href="homepage-shop.html">
-             Basic shop
-            </a>
-           </li>
-          </ul>
-         </li>
-         <li class="nav-item dropdown dropdown-mega">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-           Featured
-          </a>
-          <div class="dropdown-menu dropdown-menu-property">
-           <div class="container">
-            <div class="widget-content properties-grid">
-             <div class="row">
-              <div class="col-md-3 col-sm-6">
-               <div class="thumbnail thumbnail-property features">
-                <div class="property-image">
-                 <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-                 <div class="image-count">
-                  <i class="icon-image">
-                  </i>
-                  <span>
-                   2
-                  </span>
-                 </div>
-                 <div class="budget budget-used">
-                  <div class="budget-mask">
-                   <span>
-                    Used
-                   </span>
-                  </div>
-                 </div>
-                 <a class="property-image-hover" href="listing.html">
-                  <span class="property-im-m property-im-m-lt">
-                  </span>
-                  <span class="property-im-m property-im-m-lb">
-                  </span>
-                  <span class="property-im-m property-im-m-rt">
-                  </span>
-                  <span class="property-im-m property-im-m-rb">
-                  </span>
-                 </a>
-                </div>
-                <div class="caption">
-                 <h3 class="property-title">
-                  <a href="listing.html">
-                   Fast car 1,6 TDI DSG
-                  </a>
-                 </h3>
-                 <p class="property-description">
-                  2014. g. 39.138 km, 66kW/90KS
-                 </p>
-                 <span class="property-field">
-                  114.630 km
-                 </span>
-                 <div class="property-ratings">
-                  <i class="icon-star-ratings-1">
-                  </i>
-                 </div>
-                </div>
-               </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-               <div class="thumbnail thumbnail-property features">
-                <div class="property-image">
-                 <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-                 <div class="image-count">
-                  <i class="icon-image">
-                  </i>
-                  <span>
-                   2
-                  </span>
-                 </div>
-                 <div class="budget budget-used">
-                  <div class="budget-mask">
-                   <span>
-                    Used
-                   </span>
-                  </div>
-                 </div>
-                 <a class="property-image-hover" href="listing.html">
-                  <span class="property-im-m property-im-m-lt">
-                  </span>
-                  <span class="property-im-m property-im-m-lb">
-                  </span>
-                  <span class="property-im-m property-im-m-rt">
-                  </span>
-                  <span class="property-im-m property-im-m-rb">
-                  </span>
-                 </a>
-                </div>
-                <div class="caption">
-                 <h3 class="property-title">
-                  <a href="listing.html">
-                   Blue car  1,6 TDI DSG
-                  </a>
-                 </h3>
-                 <p class="property-description">
-                  2012. g. 39.138 km, 70kW/80KS
-                 </p>
-                 <span class="property-field">
-                  204.630 km
-                 </span>
-                 <div class="property-ratings">
-                  <i class="icon-star-ratings-3">
-                  </i>
-                 </div>
-                </div>
-               </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-               <div class="thumbnail thumbnail-property features">
-                <div class="property-image">
-                 <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-                 <div class="image-count">
-                  <i class="icon-image">
-                  </i>
-                  <span>
-                   2
-                  </span>
-                 </div>
-                 <div class="budget budget-damage">
-                  <div class="budget-mask">
-                   <span>
-                    Damaged
-                   </span>
-                  </div>
-                 </div>
-                 <a class="property-image-hover" href="listing.html">
-                  <span class="property-im-m property-im-m-lt">
-                  </span>
-                  <span class="property-im-m property-im-m-lb">
-                  </span>
-                  <span class="property-im-m property-im-m-rt">
-                  </span>
-                  <span class="property-im-m property-im-m-rb">
-                  </span>
-                 </a>
-                </div>
-                <div class="caption">
-                 <h3 class="property-title">
-                  <a href="listing.html">
-                   Blue car A1  3,5 TDI DSG
-                  </a>
-                 </h3>
-                 <p class="property-description">
-                  2015.g. 19.13 km, 68kW/70KS
-                 </p>
-                 <span class="property-field">
-                  14.630 km
-                 </span>
-                 <div class="property-ratings">
-                  <i class="icon-star-ratings-2">
-                  </i>
-                 </div>
-                </div>
-               </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-               <div class="thumbnail thumbnail-property">
-                <div class="property-image">
-                 <img alt="car" src="{% static 'assets/img/placeholders/400x300.png' %}"/>
-                 <div class="image-count">
-                  <i class="icon-image">
-                  </i>
-                  <span>
-                   2
-                  </span>
-                 </div>
-                 <a class="property-image-hover" href="listing.html">
-                  <span class="property-im-m property-im-m-lt">
-                  </span>
-                  <span class="property-im-m property-im-m-lb">
-                  </span>
-                  <span class="property-im-m property-im-m-rt">
-                  </span>
-                  <span class="property-im-m property-im-m-rb">
-                  </span>
-                 </a>
-                </div>
-                <div class="caption">
-                 <h3 class="property-title">
-                  <a href="listing.html">
-                   Fast car A6 4,6 TDI DSG
-                  </a>
-                 </h3>
-                 <p class="property-description">
-                  2015.g. 19.00 km, 68GmbH/70
-                 </p>
-                 <span class="property-field">
-                  24.000 km
-                 </span>
-                 <div class="property-ratings">
-                  <i class="icon-star-ratings-5">
-                  </i>
-                 </div>
-                </div>
-               </div>
-              </div>
-             </div>
-            </div>
-            <!-- /. recent properties -->
-           </div>
-          </div>
-         </li>
-         <li class="dropdown active">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-           Pages
-           <span class="caret">
-           </span>
-          </a>
-          <ul class="dropdown-menu">
-           <li>
-            <a href="page_image-gallery.html">
-             Basic with Gallery
-            </a>
-           </li>
-           <li>
-            <a href="login.html">
-             Login
-            </a>
-           </li>
-           <li>
-            <a href="mylistings.html">
-             My Listings
-            </a>
-           </li>
-           <li>
-            <a href="listing.html">
-             Listing Preview
-            </a>
-           </li>
-           <li>
-            <a href="page_faq.html">
-             FAQ
-            </a>
-           </li>
-           <li>
-            <a href="page_featured.html">
-             Featured
-            </a>
-           </li>
-           <li>
-            <a href="page_agents.html">
-             Agents
-            </a>
-           </li>
-           <li class="active">
-            <a href="page_profile.html">
-             Agent Profile
-            </a>
-           </li>
-           <li>
-            <a href="page_blog.html">
-             Blog List
-            </a>
-           </li>
-           <li>
-            <a href="page_cart.html">
-             Cart
-            </a>
-           </li>
-           <li>
-            <a href="component_animation.html">
-             Components
-            </a>
-           </li>
-           <li>
-            <a href="page_invoice.html">
-             Invoice
-            </a>
-           </li>
-           <li>
-            <a href="page_contact.html">
-             Contact
-            </a>
-           </li>
-          </ul>
-         </li>
-        </ul>
+      <div class="top-bar-right">
+       <div class="skew-block color-secondary">
        </div>
-      </nav>
-      <!-- /.main menu -->
-     </div>
-     <div class="top-bar-center2 hidden-sm">
-      <div class="mail">
-       <a href="mailto:info@worlddealer.com">
-        info@worlddealer.com
-        <i class="fa fa-envelope">
-        </i>
+       <div class="search-form-mini closed">
+        <input placeholder="Search" id="search" name="search" type="text"/>
+        <a class="search" >
+         <i class="fa fa-search" onclick="search()">
+         </i>
+        </a>
+        <a class="close" href="#">
+         <i class="fa fa-remove">
+         </i>
+        </a>
+       </div>
+       <a class="search-btn color-secondary search-form-mini-open" href="#">
        </a>
       </div>
-     </div>
-     <div class="top-bar-right">
-      <div class="skew-block color-secondary">
-      </div>
-      <div class="search-form-mini closed">
-       <a class="search" href="#">
-        <i class="fa fa-search">
-        </i>
-       </a>
-       <input placeholder="Search" type="text"/>
-       <a class="close" href="#">
-        <i class="fa fa-remove">
-        </i>
-       </a>
-      </div>
-      <a class="search-btn color-secondary search-form-mini-open" href="#">
-      </a>
      </div>
     </div>
-   </div>
-   <!-- /.top bar-->
-   <div class="sub-top-bar overflow hidden-xs">
-    <div class="&lt;!--container--&gt;">
-     <div class="block block-black block-left-up">
-      <a class="btn-custom vert-line-l-r vert-line-orange link-effect-1" data-hover="Submint Listing" href="mylistings.html">
-       Submint Listing
-      </a>
-      <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Register" data-target="#registr-form" data-toggle="modal" href="#">
-       Register
-      </a>
-      <div class="lang-manu lang-manu-custom dropdown">
-       <button class="btn dropdown-toggle" data-toggle="dropdown" type="button">
-        <img alt="" src="{% static 'assets/img/flags/en.png' %}"/>
-        <span>
-         EN
-        </span>
-        <span class="caret">
-        </span>
-       </button>
-       <ul class="dropdown-menu">
-        <li>
-         <a class="dropdown-item" href="#">
-          <img alt="" src="{% static 'assets/img/flags/en.png' %}"/>
-          English
-         </a>
-        </li>
-        <li>
-         <a class="dropdown-item" href="#">
-          <img alt="" src="{% static 'assets/img/flags/hr.png' %}"/>
-          Hrvatska
-         </a>
-        </li>
-        <li>
-         <a class="dropdown-item" href="#">
-          <img alt="" src="{% static 'assets/img/flags/ru.png' %}"/>
-          Russian
-         </a>
-        </li>
-        <li>
-         <a class="dropdown-item" href="#">
-          <img alt="" src="{% static 'assets/img/flags/au.png' %}"/>
-          Australia
-         </a>
-        </li>
-        <li>
-         <a class="dropdown-item" href="#">
-          <img alt="" src="{% static 'assets/img/flags/fi.png' %}"/>
-          Finland
-         </a>
-        </li>
-       </ul>
+    <!-- /.top bar-->
+    <div class="sub-top-bar overflow hidden-xs">
+     <div class="&lt;!--container--&gt;">
+      <div class="block block-black block-left-up">
+      {% if user.is_authenticated %}
+       <a class="btn-custom vert-line-l-r vert-line-orange link-effect-1" data-hover="Submit Listing" href="{% url 'APP:submit_listing' %}">
+        Submit Listing
+       </a>
+       {% endif %}
+       {% if user.is_authenticated %}
+       <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1"  href="profile">
+        Profile
+       </a>
+       {% else %}
+       <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Login" data-target="#login-form" data-toggle="modal" href="#">
+        Login
+       </a>
+       {% endif %}
+       <!-- /.lang menu -->
       </div>
-      <!-- /.lang menu -->
      </div>
     </div>
-   </div>
-   <!-- /. sub-top bar-->
-  </header>
+    <!-- /. sub-top bar-->
+   </header>
+   <script>
+  /* When the user clicks on the button,
+  toggle between hiding and showing the dropdown content */
+  function showOutput () {
+  var value=document.getElementById("make").value;
+  var value_2=document.getElementById("model").value;
+  var value_5=document.getElementById("year_min").value;
+  var value_6=document.getElementById("year_max").value;
+  var value_7=document.getElementById("price_min").value;
+  var value_8=document.getElementById("price_max").value;
+  var value_9=document.getElementById("fuel_type").value;
+  var value_10=document.getElementById("transmission").value;
+  var value_11=document.getElementById("condition").value;
+  var value_12=document.getElementById("keyword").value;
+  if (document.getElementById("new").checked == true){
+    var value_4=document.getElementById("new").value;
+  } else if (document.getElementById("used").checked == true){
+    var value_4=document.getElementById("used").value;
+  } else if (document.getElementById("import").checked == true){
+    var value_4=document.getElementById("import").value;
+  }else {
+    var value_4="";
+  }
+
+  var paid="one";
+  var queryString = "?first_check=" +paid  + "&use_state=" + value_4 + "&make=" + value + "&model=" + value_2 + "&year_min=" + value_5 + "&year_max=" + value_6 + "&price_min=" + value_7 + "&price_max=" + value_8 + "&fuel_type=" + value_9 + "&transmission=" + value_10 + "&condition=" + value_11 + "&keyword=" + value_12;
+  window.location.href="search" + queryString;
+  }
+
+  function showOutput2 () {
+  var value=document.getElementById("auto").value;
+
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + value;
+  window.location.href="cars" + queryString;
+  }
+  function showOutput3 () {
+  var value=document.getElementById("truck").value;
+
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + value;
+  window.location.href="cars" + queryString;
+  }
+  function showOutput4 () {
+  var value=document.getElementById("tractor").value;
+
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + value;
+  window.location.href="cars" + queryString;
+  }
+  function showOutput5 () {
+  var value=document.getElementById("moped").value;
+
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + value;
+  window.location.href="cars" + queryString;
+  }
+  function showOutput6 () {
+  var value=document.getElementById("bus").value;
+
+  var paid="true";
+  var queryString = "?search=" +paid  + "&category=" + value;
+  window.location.href="cars" + queryString;
+  }
+  function search () {
+  var value=document.getElementById("search").value;
+
+  var paid="two";
+  var queryString = "?second_check=" +paid  + "&keyword=" + value;
+  window.location.href="search" + queryString;
+  }
+  </script>
   <!-- /.header-->
   <div class="widget-top-title-2 container container-palette">
    <div class="color-secondary">
@@ -782,45 +559,37 @@
          </div>
          <nav aria-label="Page navigation" class="text-center">
           <ul class="pagination">
+              {% if page_obj.has_next %}
            <li>
-            <a aria-label="Previous" href="#">
+            <a aria-label="Previous" href="?page={{ page_obj.previous_page_number }}">
              <span aria-hidden="true">
               «
              </span>
             </a>
            </li>
+           {% endif %}
            <li>
-            <a class="active" href="#">
-             1
+            <a class="active" href="?page=1">
+             {{ page_obj.number }}
             </a>
            </li>
+           {% if page_obj.has_next %}
            <li>
-            <a href="#">
+            <a href="?page={{ page_obj.next_page_number }}">
              2
             </a>
            </li>
-           <li>
-            <a href="#">
-             3
-            </a>
+           {% endif %}
            </li>
+           {% if page_obj.has_next %}
            <li>
-            <a href="#">
-             4
-            </a>
-           </li>
-           <li>
-            <a href="#">
-             5
-            </a>
-           </li>
-           <li>
-            <a aria-label="Next" href="#">
+            <a aria-label="Next" href="?page={{ page_obj.next_page_number }}">
              <span aria-hidden="true">
               »
              </span>
             </a>
            </li>
+           {% endif %}
           </ul>
          </nav>
         </div>
@@ -920,33 +689,33 @@
       <div class="custom-box box-quicle-menu col-md-3 col-sm-6">
        <div class="custom-box-title vert-line-r-l vert-line-primary">
         <h2>
-         World Dealers
+         Quick Links
         </h2>
        </div>
        <div class="custom-box-content">
         <ul class="list">
          <li>
-          <a href="index.html">
+          <a href="{% url 'APP:index' %}">
            Home
           </a>
          </li>
          <li>
-          <a href="slider_standard.html">
-           Search
-          </a>
-         </li>
-         <li>
-          <a href="page_agents.html">
+          <a href="{% url 'APP:dealers' %}">
            Dealers
           </a>
          </li>
          <li>
-          <a href="page_featured.html">
-           Featuread Pages
+          <a href="{% url 'APP:blog_list' %}">
+           Blogs
           </a>
          </li>
          <li>
-          <a href="page_contact.html">
+          <a href="{% url 'APP:featured' %}">
+           Featured
+          </a>
+         </li>
+         <li>
+          <a href="{% url 'APP:contact' %}">
            Contact
           </a>
          </li>
