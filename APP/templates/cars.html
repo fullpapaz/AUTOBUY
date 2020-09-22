@@ -85,9 +85,6 @@
         Profile
        </a>
        {% else %}
-       <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Login" data-target="#login-form" data-toggle="modal" href="#">
-        Login
-       </a>
        {% endif %}
        <button class="navbar-toggle" id="toggle-mainmenu" type="button">
         <span class="sr-only">
@@ -297,9 +294,6 @@
       Profile
      </a>
      {% else %}
-     <a class="btn-custom vert-line-l-r vert-line-primary link-effect-1" data-hover="Login" data-target="#login-form" data-toggle="modal" href="#">
-      Login
-     </a>
      {% endif %}
      <!-- /.lang menu -->
     </div>
@@ -349,7 +343,7 @@
              </span>
             </div>
            </div>
-           <a class="property-image-hover" href="listing.html">
+           <a class="property-image-hover" href="{{item.get_absolute_url}}">
             <span class="property-im-m property-im-m-lt">
             </span>
             <span class="property-im-m property-im-m-lb">
@@ -391,7 +385,11 @@
             <input type="hidden" id="bmodel_year" value="{{item.model_year}}"/>
             <input type="hidden" id="btransmission" value="{{item.transmission}}"/>
             <input type="hidden" id="bfuel_type" value="{{item.fuel_type}}"/>
-            <input type="hidden" id="bimage" value="{{item.image.url}}"/>
+            {% for i in item.image.all %}
+          {% if forloop.first %}
+            <input type="hidden" id="bimage" value="{% get_media_prefix %}{{i.image}}"/>
+            {% endif %}
+           {% endfor %}
             <input type="hidden" id="bcondition" value="{{item.condition}}"/>
             <input type="hidden" id="buse_state" value="{{item.use_state}}"/>
             <input type="hidden" id="bprice" value="{{item.price}}"/>

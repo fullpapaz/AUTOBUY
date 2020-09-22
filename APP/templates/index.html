@@ -447,6 +447,14 @@ function search () {
   var queryString = "?second_check=" +paid  + "&keyword=" + value;
   window.location.href="search" + queryString;
 }
+function date () {
+  var value=document.getElementById("date").value;
+  var value2=document.URL;
+  var value3=value2.replace("?report=true&arrange=1","");
+  var value4=value3.replace("?report=true&arrange=2","");
+  var queryString = "&arrange=" +value;
+  window.location.href=value4 +"?report="+"true"+queryString;
+}
 </script>
    <div class="box-fill box">
     <div class="row">
@@ -675,11 +683,14 @@ function search () {
           <span>
            Order By:
           </span>
-          <select class="form-control text-color-primary" id="search" name="filter">
-           <option value="0">
+          <select id="date" onchange="this.options[this.selectedIndex].value && (date());" class="form-control text-color-primary" id="search" name="filter">
+            <option value="sort">
+             Default
+            </option>
+           <option value="1">
             Date publish DESC
            </option>
-           <option value="1">
+           <option value="2">
             Date publish ASC
            </option>
           </select>
@@ -689,6 +700,106 @@ function search () {
        <!-- /. filters -->
        <div class="widget-content properties-grid">
         <div class="row">
+         {% if search %}
+          {% for car in search %}
+         <div class="col-md-4 col-sm-6">
+          <div class="thumbnail thumbnail-property features">
+           <div class="property-image">
+             {% for item in car.image.all %}
+            {% if forloop.first %}
+            <img alt="car" src="{% get_media_prefix %}{{item.image}}"/>
+            {% endif %}
+            {% endfor %}
+            <div class="image-count">
+             <i class="icon-image">
+             </i>
+             <span>
+              {{car.image.all.count}}
+             </span>
+            </div>
+            <div class="budget budget-used">
+             <div class="budget-mask">
+              <span>
+              {{car.condition}}
+              </span>
+             </div>
+            </div>
+            <a class="property-image-hover" href="{{car.get_absolute_url}}">
+             <span class="property-im-m property-im-m-lt">
+             </span>
+             <span class="property-im-m property-im-m-lb">
+             </span>
+             <span class="property-im-m property-im-m-rt">
+             </span>
+             <span class="property-im-m property-im-m-rb">
+             </span>
+            </a>
+           </div>
+           <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function {{car.slug}}bookmark () {
+          var value=document.getElementById("btitle").value;
+          var value_2=document.getElementById("bcategory").value;
+          var value_3=document.getElementById("bpower").value;
+          var value_4=document.getElementById("bspeed").value;
+          var value_5=document.getElementById("bmodel").value;
+          var value_6=document.getElementById("bmodel_year").value;
+          var value_7=document.getElementById("btransmission").value;
+          var value_8=document.getElementById("bfuel_type").value;
+          var value_9=document.getElementById("bimage").value;
+          var value_10=document.getElementById("bcondition").value;
+          var value_11=document.getElementById("buse_state").value;
+          var value_12=document.getElementById("bprice").value;
+
+          var paid="three";
+          var queryString = "?third_check=" +paid  + "&title=" + value + "&category=" + value_2 + "&power=" + value_3 + "&speed=" + value_4 + "&model=" + value_5 + "&model_year=" + value_6 + "&transmission=" + value_7 + "&fuel_type=" + value_8 + "&image=" + value_9 + "&condition=" + value_10 + "&use_state=" + value_11 + "&price=" + value_12;
+          window.location.href="index.html" + queryString;
+        }
+        </script>
+           <div class="caption">
+             <input type="hidden" id="btitle" value="{{car.title}}"/>
+             <input type="hidden" id="bcategory" value="{{car.category}}"/>
+             <input type="hidden" id="bpower" value="{{car.power}}"/>
+             <input type="hidden" id="bspeed" value="{{car.speed}}"/>
+             <input type="hidden" id="bmodel" value="{{car.model}}"/>
+             <input type="hidden" id="bmodel_year" value="{{car.model_year}}"/>
+             <input type="hidden" id="btransmission" value="{{car.transmission}}"/>
+             <input type="hidden" id="bfuel_type" value="{{car.fuel_type}}"/>
+             {% for i in car.image.all %}
+           {% if forloop.first %}
+             <input type="hidden" id="bimage" value="{% get_media_prefix %}{{i.image}}"/>
+             {% endif %}
+            {% endfor %}
+             <input type="hidden" id="bcondition" value="{{car.condition}}"/>
+             <input type="hidden" id="buse_state" value="{{car.use_state}}"/>
+             <input type="hidden" id="bprice" value="{{car.price}}"/>
+            <div class="anchor">
+             <a class="" onclick="{{car.slug}}bookmark()">
+              <i class="fa fa-bookmark">
+              </i>
+             </a>
+            </div>
+            <h3 class="property-title">
+             <a href="listing.html">
+            {{car.title}}
+             </a>
+            </h3>
+            <p class="property-description">
+             {{car.model}}. g. {{car.speed}}km, {{car.power}}kW/90KS
+            </p>
+            <span class="property-field">
+             {{car.speed}} km
+            </span>
+            <div class="property-ratings">
+             <i class="icon-star-ratings-{{car.rating}}">
+             </i>
+            </div>
+           </div>
+          </div>
+         </div>
+         {% endfor %}
+         {% else %}
           {% for car in cars %}
          <div class="col-md-4 col-sm-6">
           <div class="thumbnail thumbnail-property features">
@@ -754,7 +865,11 @@ function search () {
              <input type="hidden" id="bmodel_year" value="{{car.model_year}}"/>
              <input type="hidden" id="btransmission" value="{{car.transmission}}"/>
              <input type="hidden" id="bfuel_type" value="{{car.fuel_type}}"/>
-             <input type="hidden" id="bimage" value="{{car.image.url}}"/>
+             {% for i in car.image.all %}
+           {% if forloop.first %}
+             <input type="hidden" id="bimage" value="{% get_media_prefix %}{{i.image}}"/>
+             {% endif %}
+            {% endfor %}
              <input type="hidden" id="bcondition" value="{{car.condition}}"/>
              <input type="hidden" id="buse_state" value="{{car.use_state}}"/>
              <input type="hidden" id="bprice" value="{{car.price}}"/>
@@ -783,6 +898,7 @@ function search () {
           </div>
          </div>
          {% endfor %}
+         {% endif %}
         </div>
         <nav aria-label="Page navigation" class="text-center">
          <ul class="pagination">
@@ -1046,6 +1162,7 @@ function search () {
        </div>
        {{message_login}}
       </form>
+      <a href="resetpassword_reset">?forgot password</a>
      </div>
     </div>
     <!-- /.modal-content -->
@@ -1099,6 +1216,7 @@ function search () {
          Register
         </button>
         {{message_register}}
+        {{message_confirm}}
        </div>
       </form>
      </div>

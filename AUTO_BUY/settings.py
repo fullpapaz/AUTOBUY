@@ -40,6 +40,14 @@ INSTALLED_APPS = [
     'APP',
 ]
 
+EMAIL_HOST = 'mail.advancescholar.com'
+EMAIL_PORT = 26
+EMAIL_HOST_USER = 'housing-send@advancescholar.com'
+EMAIL_HOST_PASSWORD = 'housing@24hubs.com'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'AutoBuy Team <housing-send@advancescholar.com>'
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

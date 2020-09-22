@@ -90,6 +90,7 @@ class UserProfile(models.Model):
     premium=models.BooleanField(default=False)
     premium_expire=models.DateField(blank=True, null=True)
     premium_feature_count=models.IntegerField(blank=True, null=True,default="0")
+    email_confirmed = models.BooleanField(default=False)
     USER_TYPE_CHOICES = (
         ('Dealer', 'Dealer'),
         ('Buyer', 'Buyer'),

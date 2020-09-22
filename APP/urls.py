@@ -17,8 +17,11 @@ urlpatterns = [
     path("dealer/<slug>", views.DealerDetailView.as_view(), name="dealer"),
     path("submit-listing", views.submit_listing, name="submit_listing"),
     path("contact", views.contact, name="contact"),
+    path('activate/<uidb64>/<token>/', views.ActivateAccount.as_view(), name='activate'),
     path("featured", views.featured, name="featured"),
     path("profile", views.profile, name="profile"),
+    path("bookmark", views.bookmark, name="bookmark"),
+    path("change-password.html", views.password, name="password"),
     path("logout.html", views.logout, name="logout"),
 
 

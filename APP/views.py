@@ -8,11 +8,39 @@ import smtplib
 from email.mime.text import MIMEText
 import datetime
 from email.mime.multipart import MIMEMultipart
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_text
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.utils.http import urlsafe_base64_decode
+from . tokens import account_activation_token
+from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+class ActivateAccount(View):
+
+    def get(self, request, uidb64, token, *args, **kwargs):
+        try:
+            uid = uidb64
+            user = User.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+
+        if user is not None and account_activation_token.check_token(user, token):
+            user.is_active = True
+            user.profile.email_confirmed = True
+            user.save()
+            login(request, user)
+            context={"message":'Your account has been confirmed.'}
+            return render(request,'confirmation.html',context)
+        else:
+            context={"message":'The confirmation link was invalid, possibly because it has already been used.'}
+            return render(request,'confirmation.html',context)
 
 class IndexListView(ListView):
     model = Car
     template_name = "index.html"
+
     def post(self,request,*args, **kwargs):
         email = self.request.POST.get('email')
         password = self.request.POST.get('password')
@@ -36,6 +64,7 @@ class IndexListView(ListView):
             i.premium_expire=""
             i.premium_feature_count=0
             i.save()
+        search = Car.objects.none()
         if self.request.GET.get('sub')=="true":
             email=self.request.GET.get('email')
             name=self.request.GET.get('name')
@@ -100,6 +129,35 @@ class IndexListView(ListView):
                         slug=name.replace(" ","")
                         profile = UserProfile.objects.create(user=user,name=name,website=email,phone=phone,user_type=user_type,slug=slug)
                         profile.save()
+                        user.is_active = False
+                        self.request.session['user'] = str(user.username)
+                        current_site = get_current_site(self.request)
+                        subject = 'Activate Your AutoBuy Account'
+                        message = render_to_string('account_activation_email.html', {
+                        'user': user,
+                        'domain': current_site.domain,
+                        'uid': user.pk,
+                        'token': account_activation_token.make_token(user),
+                        })
+                        fromaddr = "housing-send@advancescholar.com"
+                        toaddr = email
+                        msg = MIMEMultipart()
+                        msg['From'] = fromaddr
+                        msg['To'] = toaddr
+                        msg['Subject'] = subject
+
+
+                        body = message
+                        msg.attach(MIMEText(body, 'plain'))
+
+                        server = smtplib.SMTP('mail.advancescholar.com',  26)
+                        server.ehlo()
+                        server.starttls()
+                        server.ehlo()
+                        server.login("housing-send@advancescholar.com", "housing@24hubs.com")
+                        text = msg.as_string()
+                        server.sendmail(fromaddr, toaddr, text)
+                        context["message_confirm"]="Please Confirm your email to complete registration."
                         context["message_register"] ="user created"
         elif self.request.GET.get('third_check')=="three":
             if self.request.user.is_authenticated:
@@ -124,10 +182,28 @@ class IndexListView(ListView):
                     book=Bookmark.objects.create(title=title,power=power,speed=speed,category=category,price=price,model_year=model_year,image=image_url,
                     transmission=transmission,fuel_type=fuel_type,condition=condition,use_state=use_state,creator=self.request.user)
                     book.save()
-        paginator= Paginator(Car.objects.all(),10)
-        page_number = self.request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        context['page_obj'] = page_obj
+
+        elif self.request.GET.get("report")=="true":
+            arrange=self.request.GET.get("arrange")
+            if arrange=="1":
+                search=Car.objects.all().order_by("-id")
+                context["search"]=search
+            elif arrange=="2":
+                search=Car.objects.all().order_by("id")
+                context["search"]=search
+            else:
+                pass
+
+        if search:
+            paginator= Paginator(search,10)
+            page_number = self.request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context['page_obj'] = page_obj
+        else:
+            paginator= Paginator(Car.objects.all(),10)
+            page_number = self.request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context['page_obj'] = page_obj
         context['cars'] = Car.objects.all()
         context['featured'] = Car.objects.filter(featured=True)[:3]
         context['articles'] = Article.objects.all().order_by('-id')[:2]
@@ -372,7 +448,7 @@ class CategoryListView(ListView):
             context['page_obj'] = page_obj
         context['featured'] = Car.objects.filter(featured=True)[:3]
         return context
-
+@login_required
 def submit_listing(request):
     context={"car":Car.objects.filter(user=request.user),'featured':Car.objects.filter(featured=True)[:3]}
     if request.POST.get("create")=="true":
@@ -645,9 +721,28 @@ def featured(request):
     context={"search":Car.objects.filter(featured=True),'featured':Car.objects.filter(featured=True)[:3]}
     return render(request,"features.html",context)
 
-
+def password(request):
+    context={"compare":Comparison.objects.filter(creator=request.user),"profile":UserProfile.objects.get(user=request.user)}
+    if request.method=="POST":
+        current=request.POST.get("current")
+        password=request.POST.get("password")
+        confirm=request.POST.get('confirm')
+        print(current)
+        if auth.authenticate(username=request.user, password=current):
+            if password==confirm:
+                data=User.objects.get(username=request.user)
+                print(data)
+                data.set_password(password)
+                data.save()
+                return redirect("index.html")
+    elif request.method=="GET":
+        if request.GET.get('clear')=="True":
+            clear=Comparison.objects.filter(creator=request.user)
+            clear.delete()
+    return render(request,"change-password.html",context)
+@login_required
 def profile(request):
-    context={'featured':Car.objects.filter(featured=True)[:3]}
+    context={'featured':Car.objects.filter(featured=True)[:3],"bookmarks":Bookmark.objects.filter(creator=request.user)}
     if request.method=="POST":
         name=request.POST.get("name")
         email=request.POST.get("email")
@@ -666,8 +761,12 @@ def profile(request):
         if image:
             data.image=image
         data.save()
-    return render(request,"profile.html")
-
+    return render(request,"profile.html",context)
+@login_required
+def bookmark(request):
+    context={'featured':Car.objects.filter(featured=True)[:3],"bookmarks":Bookmark.objects.filter(creator=request.user)}
+    return render(request,"bookmarks.html",context)
+@login_required
 def logout(request):
     auth.logout(request)
     return redirect("index.html")

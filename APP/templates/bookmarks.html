@@ -5,7 +5,7 @@
  <head>
   <meta charset="utf-8"/>
   <title>
-   Homepage shop
+   Component Example Page
   </title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
   <link href="{% static 'assets/img/favicon.ico' %}" rel="icon" type="image/x-icon"/>
@@ -373,161 +373,147 @@
   window.location.href="search" + queryString;
   }
   </script>
-  <div class="widget-top-title-2 container container-palette">
+  <!-- /.header-->
+  <div class="widget-top-title-2 section container container-palette">
    <div class="color-secondary">
     <div class="bg-mask-map">
      <div class="container">
       <h1>
-       Listing
+       Profile
       </h1>
      </div>
     </div>
    </div>
   </div>
   <!-- /.widget geo map-->
-  <main class="container container-overflow-low-xs section">
-   <div class="box-fill box">
+  <main class="container section">
+   <div class="bg-parallax-e">
     <div class="row">
-     <div class="col-sm-12">
-      <div class="widget widget-recentproperties">
-       <div class="widget-content properties-grid">
-        <div class="row">
-          {% for item in search %}
-         <div class="col-md-3 col-sm-6">
-          <div class="thumbnail thumbnail-property features">
-           <div class="property-image">
-             {% for i in item.image.all %}
-            {% if forloop.first %}
-            <img alt="car" src="{% get_media_prefix %}{{i.image}}"/>
-            {% endif %}
-            {% endfor %}
-            <div class="image-count">
-             <i class="icon-image">
-             </i>
-             <span>
-              {{item.image.all.count}}
-             </span>
-            </div>
-            <div class="budget budget-used">
-             <div class="budget-mask">
+     <div class="col-sm-3">
+      <div class="widget">
+       <div class="widget-header vert-line-r-l vert-line-primary">
+        <h2>
+         Menu
+        </h2>
+       </div>
+       <div class="widget-body box-default">
+        <ul class="categories list-menu">
+         <li>
+          <a class="dropdown-item " href="profile">
+           Profile
+          </a>
+         </li>
+         <li>
+          <a class="dropdown-item active" href="bookmark">
+          My Bookmarks
+          </a>
+         </li>
+         <li>
+          <a class="dropdown-item " href="logout.html">
+           Logout
+          </a>
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+     <div class="col-sm-9">
+      <div class="widget">
+       <div class="widget-body box-default">
+        <div class="bd-example">
+         <div class="panel-group panel-content property_content_position" id="accordionThree">
+           {% for item in bookmarks %}
+          <div class="col-md-3 col-sm-6">
+           <div class="thumbnail thumbnail-property features">
+            <div class="property-image">
+             <img alt="car" src="{% get_media_prefix %}{{item.image}}"/>
+             <div class="image-count">
+              <i class="icon-image">
+              </i>
               <span>
-               {{item.use_state}}
+               {{item.image.all.count}}
               </span>
              </div>
-            </div>
-            <a class="property-image-hover" href="listing.html">
-             <span class="property-im-m property-im-m-lt">
-             </span>
-             <span class="property-im-m property-im-m-lb">
-             </span>
-             <span class="property-im-m property-im-m-rt">
-             </span>
-             <span class="property-im-m property-im-m-rb">
-             </span>
-            </a>
-           </div>
-           <script>
-        /* When the user clicks on the button,
-        toggle between hiding and showing the dropdown content */
-        function {{item.slug}}bookmark () {
-          var value=document.getElementById("btitle").value;
-          var value_2=document.getElementById("bcategory").value;
-          var value_3=document.getElementById("bpower").value;
-          var value_4=document.getElementById("bspeed").value;
-          var value_5=document.getElementById("bmodel").value;
-          var value_6=document.getElementById("bmodel_year").value;
-          var value_7=document.getElementById("btransmission").value;
-          var value_8=document.getElementById("bfuel_type").value;
-          var value_9=document.getElementById("bimage").value;
-          var value_10=document.getElementById("bcondition").value;
-          var value_11=document.getElementById("buse_state").value;
-          var value_12=document.getElementById("bprice").value;
-
-          var paid="three";
-          var queryString = "?third_check=" +paid  + "&title=" + value + "&category=" + value_2 + "&power=" + value_3 + "&speed=" + value_4 + "&model=" + value_5 + "&model_year=" + value_6 + "&transmission=" + value_7 + "&fuel_type=" + value_8 + "&image=" + value_9 + "&condition=" + value_10 + "&use_state=" + value_11 + "&price=" + value_12;
-          window.location.href="search" + queryString;
-        }
-        </script>
-           <div class="caption">
-             <input type="hidden" id="btitle" value="{{item.title}}"/>
-             <input type="hidden" id="bcategory" value="{{item.category}}"/>
-             <input type="hidden" id="bpower" value="{{item.power}}"/>
-             <input type="hidden" id="bspeed" value="{{item.speed}}"/>
-             <input type="hidden" id="bmodel" value="{{item.model}}"/>
-             <input type="hidden" id="bmodel_year" value="{{item.model_year}}"/>
-             <input type="hidden" id="btransmission" value="{{item.transmission}}"/>
-             <input type="hidden" id="bfuel_type" value="{{item.fuel_type}}"/>
-             {% for i in item.image.all %}
-           {% if forloop.first %}
-             <input type="hidden" id="bimage" value="{% get_media_prefix %}{{i.image}}"/>
-             {% endif %}
-            {% endfor %}
-             <input type="hidden" id="bcondition" value="{{item.condition}}"/>
-             <input type="hidden" id="buse_state" value="{{item.use_state}}"/>
-             <input type="hidden" id="bprice" value="{{item.price}}"/>
-            <div class="anchor">
-              <a class="" onclick="{{item.slug}}bookmark()">
-               <i class="fa fa-bookmark">
-               </i>
-              </a>
-            </div>
-            <h3 class="property-title">
-             <a href="listing.html">
-              {{item.title}}
+             <div class="budget budget-used">
+              <div class="budget-mask">
+               <span>
+                {{item.use_state}}
+               </span>
+              </div>
+             </div>
+             <a class="property-image-hover" href="{{item.get_absolute_url}}">
+              <span class="property-im-m property-im-m-lt">
+              </span>
+              <span class="property-im-m property-im-m-lb">
+              </span>
+              <span class="property-im-m property-im-m-rt">
+              </span>
+              <span class="property-im-m property-im-m-rb">
+              </span>
              </a>
-            </h3>
-            <p class="property-description">
-             {{item.model_year}}. g. {{item.speed}} km, {{item.power}}kW/90KS
-            </p>
-            <span class="property-field">
-             {{item.speed}} km
-            </span>
-            <div class="property-ratings">
-             <i class="icon-star-ratings-1">
-             </i>
+            </div>
+            <script>
+         /* When the user clicks on the button,
+         toggle between hiding and showing the dropdown content */
+         function {{item.slug}}bookmark () {
+           var value=document.getElementById("btitle").value;
+           var value_2=document.getElementById("bcategory").value;
+           var value_3=document.getElementById("bpower").value;
+           var value_4=document.getElementById("bspeed").value;
+           var value_5=document.getElementById("bmodel").value;
+           var value_6=document.getElementById("bmodel_year").value;
+           var value_7=document.getElementById("btransmission").value;
+           var value_8=document.getElementById("bfuel_type").value;
+           var value_9=document.getElementById("bimage").value;
+           var value_10=document.getElementById("bcondition").value;
+           var value_11=document.getElementById("buse_state").value;
+           var value_12=document.getElementById("bprice").value;
+
+           var paid="three";
+           var queryString = "?third_check=" +paid  + "&title=" + value + "&category=" + value_2 + "&power=" + value_3 + "&speed=" + value_4 + "&model=" + value_5 + "&model_year=" + value_6 + "&transmission=" + value_7 + "&fuel_type=" + value_8 + "&image=" + value_9 + "&condition=" + value_10 + "&use_state=" + value_11 + "&price=" + value_12;
+           window.location.href="search" + queryString;
+         }
+         </script>
+            <div class="caption">
+              <input type="hidden" id="btitle" value="{{item.title}}"/>
+              <input type="hidden" id="bcategory" value="{{item.category}}"/>
+              <input type="hidden" id="bpower" value="{{item.power}}"/>
+              <input type="hidden" id="bspeed" value="{{item.speed}}"/>
+              <input type="hidden" id="bmodel" value="{{item.model}}"/>
+              <input type="hidden" id="bmodel_year" value="{{item.model_year}}"/>
+              <input type="hidden" id="btransmission" value="{{item.transmission}}"/>
+              <input type="hidden" id="bfuel_type" value="{{item.fuel_type}}"/>
+              {% for i in item.image.all %}
+            {% if forloop.first %}
+              <input type="hidden" id="bimage" value="{% get_media_prefix %}{{i.image}}"/>
+              {% endif %}
+             {% endfor %}
+              <input type="hidden" id="bcondition" value="{{item.condition}}"/>
+              <input type="hidden" id="buse_state" value="{{item.use_state}}"/>
+              <input type="hidden" id="bprice" value="{{item.price}}"/>
+             <h3 class="property-title">
+              <a href="{{item.get_absolute_url}}">
+               {{item.title}}
+              </a>
+             </h3>
+             <p class="property-description">
+              {{item.model_year}}. g. {{item.speed}} km, {{item.power}}kW/90KS
+             </p>
+             <span class="property-field">
+              {{item.speed}} km
+             </span>
+             <div class="property-ratings">
+              <i class="icon-star-ratings-1">
+              </i>
+             </div>
             </div>
            </div>
           </div>
+          {% endfor %}
+           </div>
          </div>
-         {% endfor %}
         </div>
-        <nav aria-label="Page navigation" class="text-center">
-         <ul class="pagination">
-             {% if page_obj.has_next %}
-          <li>
-           <a aria-label="Previous" href="?page={{ page_obj.previous_page_number }}">
-            <span aria-hidden="true">
-             «
-            </span>
-           </a>
-          </li>
-          {% endif %}
-          <li>
-           <a class="active" href="?page=1">
-            {{ page_obj.number }}
-           </a>
-          </li>
-          {% if page_obj.has_next %}
-          <li>
-           <a href="?page={{ page_obj.next_page_number }}">
-            2
-           </a>
-          </li>
-          {% endif %}
-          </li>
-          {% if page_obj.has_next %}
-          <li>
-           <a aria-label="Next" href="?page={{ page_obj.next_page_number }}">
-            <span aria-hidden="true">
-             »
-            </span>
-           </a>
-          </li>
-          {% endif %}
-         </ul>
-        </nav>
        </div>
-       <!-- /. recent properties -->
       </div>
      </div>
     </div>
