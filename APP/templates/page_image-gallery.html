@@ -337,38 +337,38 @@
   }
 
   function showOutput2 () {
-  var value=document.getElementById("auto").value;
+
 
   var paid="true";
-  var queryString = "?search=" +paid  + "&category=" + value;
+  var queryString = "?search=" +paid  + "&category=" + "auto";
   window.location.href="cars" + queryString;
   }
   function showOutput3 () {
-  var value=document.getElementById("truck").value;
+
 
   var paid="true";
-  var queryString = "?search=" +paid  + "&category=" + value;
+  var queryString = "?search=" +paid  + "&category=" + "truck";
   window.location.href="cars" + queryString;
   }
   function showOutput4 () {
-  var value=document.getElementById("tractor").value;
+
 
   var paid="true";
-  var queryString = "?search=" +paid  + "&category=" + value;
+  var queryString = "?search=" +paid  + "&category=" + "tractor";
   window.location.href="cars" + queryString;
   }
   function showOutput5 () {
-  var value=document.getElementById("moped").value;
+
 
   var paid="true";
-  var queryString = "?search=" +paid  + "&category=" + value;
+  var queryString = "?search=" +paid  + "&category=" + "moped";
   window.location.href="cars" + queryString;
   }
   function showOutput6 () {
-  var value=document.getElementById("bus").value;
+
 
   var paid="true";
-  var queryString = "?search=" +paid  + "&category=" + value;
+  var queryString = "?search=" +paid  + "&category=" + "bus";
   window.location.href="cars" + queryString;
   }
   function search () {
@@ -409,6 +409,19 @@
       <p>
        {{object.body_2}}
       </p>
+      Share
+      <li>
+       <a class="facebook" href="http://www.facebook.com/sharer.php?u=https://afriproperty.com.ng/{{object.get_absolute_url}}" target="{{object.get_absolute_url}}">
+        <i class="fa fa-facebook fa-left">
+        </i>
+       </a>
+      </li>
+      <li>
+       <a class="twitter"  href="https://twitter.com/share?url=https://afriproperty.com.ng/{{object.get_absolute_url}}" target="{{object.get_absolute_url}}">
+        <i class="fa fa-twitter fa-left">
+        </i>
+       </a>
+      </li>
      </div>
     </div>
     <div class="col-sm-3 content-right-s">
