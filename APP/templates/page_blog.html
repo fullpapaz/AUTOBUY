@@ -411,12 +411,12 @@
            </div>
            <div class="property-card-tasm">
             <div class="pull-left item-t">
-             <a class="img-circle-cover" href="page_profile.html">
+             <a class="img-circle-cover" href="">
               <img alt="" class="img-circle" src="{{article.author_image.url}}"/>
              </a>
              <span class="name">
               by
-              <a class="text-color-primary" href="page_profile.html">
+              <a class="text-color-primary" href="">
                {{article.author}}
               </a>
              </span>
@@ -483,11 +483,11 @@
         <div class="agent-box media">
          <div class="media-left">
            {% if item.image %}
-           <a class="agent-box-image image-hoveffect-zoom" href="{{dealer.get_absolute_url}}">
+           <a class="agent-box-image image-hoveffect-zoom" href="{{item.get_absolute_url}}">
             <img alt="" src="{{item.image.url}}"/>
            </a>
            {% else %}
-           <a class="agent-box-image image-hoveffect-zoom" href="{{dealer.get_absolute_url}}">
+           <a class="agent-box-image image-hoveffect-zoom" href="{{item.get_absolute_url}}">
             <img alt="" src="{% static 'assets/img/placeholders/125x125.png' %}"/>
            </a>
            {% endif %}
